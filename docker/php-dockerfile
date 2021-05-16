@@ -1,0 +1,24 @@
+FROM php:7.4.14-fpm-buster
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  ghostscript \
+  git \
+  unzip \
+  curl \
+  libmagickwand-dev \
+  libicu-dev \
+  libgmp-dev \
+  libzip-dev \
+  jpegoptim \
+  optipng \
+  pngquant \
+  gifsicle \
+ && pecl install imagick redis\
+ && docker-php-ext-enable imagick redis\
+ && docker-php-ext-install mysqli pdo pdo_mysql pcntl exif intl gd gmp bcmath zip \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/*
+COPY --from=composer:2.0.8 /usr/bin/composer /usr/bin/composer
+RUN docker-php-ext-install opcache
+RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
+RUN docker-php-ext-install -j$(nproc) gd
