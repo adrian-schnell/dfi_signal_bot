@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Service;
+namespace app\Http\Service;
 
 use App\Models\TelegramUser;
+use App\Models\DfiMasternode;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
@@ -30,7 +31,9 @@ class MNMonitorService
 
         foreach ($masternodes as $masternode) {
             DfiMasternode::create([
-                
+                'telegramUserId' => $user->id,
+                'name'           => $masternode['name'],
+                'owner_address'  => $masternode['ownerAddress'],
             ]);
         }
     }
