@@ -30,13 +30,8 @@ class TelegramUserService
 
     protected function storeTelegramUser(UserInterface $user): TelegramUser
     {
-        try {
-            $language = $user->getInfo()['user']['language_code'];
-            $status   = $user->getInfo()['status'];
-        } catch (Throwable $e) {
-            $language = 'en';
-            $status   = 'member';
-        }
+        $language = $this->extractLanguage($user);
+        $status   = $this->extractStatus($user);
 
         return TelegramUser::create([
             'telegramId' => $user->getId(),
@@ -46,5 +41,23 @@ class TelegramUserService
             'language'   => $language,
             'status'     => $status,
         ]);
+    }
+
+    public function extractLanguage(UserInterface $user): string
+    {
+        try {
+            return $user->getInfo()['user']['language_code'];
+        } catch (Throwable $e) {
+            return 'en';
+        }
+    }
+
+    public function extractStatus(UserInterface $user): string
+    {
+        try {
+            return $user->getInfo()['status'];
+        } catch (Throwable $e) {
+            return 'member';
+        }
     }
 }

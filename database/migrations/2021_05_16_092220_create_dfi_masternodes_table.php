@@ -12,7 +12,9 @@ class CreateDfiMasternodesTable extends Migration
         Schema::create('dfi_masternodes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->foreignIdFor(TelegramUser::class, 'telegramUserId');
-
+            $table->string('masternode_id')->nullable()->unique();
+            $table->string('owner_address')->nullable()->unique();
+            $table->string('operator_address')->nullable()->unique();
             $table->timestamps();
         });
     }

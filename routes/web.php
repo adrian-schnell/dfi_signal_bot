@@ -20,3 +20,4 @@ Route::get('/', function () {
 });
 
 Route::match(['get', 'post'], 'botman', [BotController::class, 'handle']);
+Route::match(['get', 'post'], 'botman_clear', [BotController::class, 'clearUpdateQueue']);

@@ -31,4 +31,9 @@ class TelegramUser extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function masternodes()
+    {
+        return $this->hasMany(DfiMasternode::class, 'telegramUserId');
+    }
 }

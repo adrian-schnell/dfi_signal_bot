@@ -9,20 +9,26 @@ use BotMan\BotMan\Messages\Outgoing\Question;
 
 class OnboardConversation extends Conversation
 {
-	/**
-	 * @inheritDoc
-	 */
-	public function run()
-	{
-	    $question = Question::create(__('onboardConversation.question'))
+    const VALUE_IMPORT = 'import';
+    const VALUE_MANUALLY = 'manually';
+
+    /**
+     * @inheritDoc
+     */
+    public function run()
+    {
+        $question = Question::create(__('onboardConversation.question'))
             ->addButtons([
-                Button::create(__('onboardConversation.buttons.import'))->value('import'),
-                Button::create(__('onboardConversation.buttons.manually'))->value('manually'),
+                Button::create(__('onboardConversation.buttons.import'))->value(self::VALUE_IMPORT),
+                Button::create(__('onboardConversation.buttons.manually'))->value(self::VALUE_MANUALLY),
             ]);
 
+        $this->ask($question, function (Answer $answer) {
+		   if ($answer->getValue() === self::VALUE_IMPORT) {
 
-		$this->ask($question, function (Answer $answer) {
-		   $this->say('Lets start ' . $answer->getValue());
+           } elseif ($answer->getValue() === self::VALUE_MANUALLY) {
+
+           }
         });
-	}
+    }
 }
