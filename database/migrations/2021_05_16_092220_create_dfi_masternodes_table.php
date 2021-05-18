@@ -16,6 +16,8 @@ class CreateDfiMasternodesTable extends Migration
             $table->string('masternode_id')->nullable()->unique();
             $table->string('owner_address')->nullable()->unique();
             $table->string('operator_address')->nullable()->unique();
+            $table->boolean('alarm_on')->default(false);
+            $table->boolean('synced_masternode_monitor')->default(false);
             $table->timestamps();
         });
     }

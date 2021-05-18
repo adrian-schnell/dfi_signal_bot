@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Conversations\HelpConversation;
+use App\Http\Conversations\LinkMasternodeConversation;
+use App\Http\Conversations\ListMasternodesConversation;
 use App\Http\Conversations\OnboardConversation;
+use App\Http\Conversations\ResetMasternodesConversation;
 use App\Http\Conversations\SyncMasternodeMonitorConversation;
 use App\Http\Middleware\TelegramBot\SetLanguage;
 use BotMan\BotMan\BotMan;
@@ -15,15 +18,6 @@ use Throwable;
 class BotController extends Controller
 {
     protected BotMan $botMan;
-
-    public function clearUpdateQueue()
-    {
-        $botMan = app('botman');
-        $botMan->fallback(function (BotMan $botman) {
-            $botman->reply('alles ok');
-        });
-        $botMan->listen();
-    }
 
     public function handle(TelegramUserService $telegramUserService)
     {
@@ -37,25 +31,28 @@ class BotController extends Controller
                 $botman->startConversation(new HelpConversation());
             } else {
                 $telegramUserService->getTelegramUser($botman->getUser());
-
-                $botman->typesAndWaits(2);
                 $botman->startConversation(new OnboardConversation());
             }
-        });
-        $botMan->hears('/sync', function (BotMan $botman) use ($telegramUserService) {
-            ray('sync');
-            $telegramUser = $telegramUserService->getTelegramUser($botman->getUser());
-            ray('tel user', $telegramUser);
-            $botman->startConversation(new SyncMasternodeMonitorConversation($telegramUser));
-        });
+        })->skipsConversation();
+        $botMan->hears('/sync', function (BotMan $botman) {
+            $botman->startConversation(new SyncMasternodeMonitorConversation());
+        })->skipsConversation();
+        $botMan->hears('/link {ownerAddress}', function (BotMan $botman, string $ownerAddress) {
+            $botman->startConversation(new LinkMasternodeConversation($ownerAddress, $botman->getUser()));
+        })->skipsConversation();
 
-//        $botMan->hears('{message}', function ($botman, $message) {
-//            if ($message == 'hi') {
-//                $this->askName($botman);
-//            } else {
-//                $botman->reply("write 'hi' for testing...");
-//            }
-//        });
+
+        $botMan->hears('/list', function (BotMan $botman) use ($telegramUserService) {
+            $telegramUser = $telegramUserService->getTelegramUser($botman->getUser());
+            $masternodes = $telegramUser->masternodes;
+            $botman->startConversation(new ListMasternodesConversation($masternodes));
+        })->skipsConversation();
+
+        $botMan->hears('/reset', function (BotMan $botman) use ($telegramUserService) {
+            $telegramUser = $telegramUserService->getTelegramUser($botman->getUser());
+            $botman->startConversation(new ResetMasternodesConversation($telegramUser));
+        })->skipsConversation();
+
 
         $botMan->fallback(function (BotMan $botman) {
             $botman->startConversation(new HelpConversation());

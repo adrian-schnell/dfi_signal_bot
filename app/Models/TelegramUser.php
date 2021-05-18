@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @mixin \Eloquent
@@ -32,8 +33,13 @@ class TelegramUser extends Model
         'updated_at',
     ];
 
-    public function masternodes()
+    public function masternodes(): HasMany
     {
         return $this->hasMany(DfiMasternode::class, 'telegramUserId');
+    }
+
+    public function masternodesSynced(): HasMany
+    {
+        return $this->hasMany(DfiMasternode::class, 'telegramUserId')->synced();
     }
 }
