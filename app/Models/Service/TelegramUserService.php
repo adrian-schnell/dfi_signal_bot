@@ -3,13 +3,12 @@
 namespace App\Models\Service;
 
 use App\Models\TelegramUser;
-use BotMan\BotMan\Interfaces\UserInterface;
+use BotMan\Drivers\Telegram\Extensions\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Throwable;
 
 class TelegramUserService
 {
-    public function getTelegramUser(UserInterface $user): TelegramUser
+    public function getTelegramUser(User $user): TelegramUser
     {
         try {
             return TelegramUser::where('telegramId', $user->getId())->firstOrFail();
@@ -18,46 +17,25 @@ class TelegramUserService
         }
     }
 
-    public function isNewUser(UserInterface $user): bool
+    public function isNewUser(User $user): bool
     {
         return !$this->isExistingUser($user);
     }
 
-    public function isExistingUser(UserInterface $user): bool
+    public function isExistingUser(User $user): bool
     {
         return TelegramUser::where('telegramId', $user->getId())->count() === 1;
     }
 
-    protected function storeTelegramUser(UserInterface $user): TelegramUser
+    protected function storeTelegramUser(User $user): TelegramUser
     {
-        $language = $this->extractLanguage($user);
-        $status   = $this->extractStatus($user);
-
         return TelegramUser::create([
             'telegramId' => $user->getId(),
             'username'   => $user->getUsername(),
             'firstName'  => $user->getFirstName(),
             'lastName'   => $user->getLastName(),
-            'language'   => $language,
-            'status'     => $status,
+            'language'   => $user->getLanguageCode(),
+            'status'     => $user->getStatus(),
         ]);
-    }
-
-    public function extractLanguage(UserInterface $user): string
-    {
-        try {
-            return $user->getInfo()['user']['language_code'];
-        } catch (Throwable $e) {
-            return 'en';
-        }
-    }
-
-    public function extractStatus(UserInterface $user): string
-    {
-        try {
-            return $user->getInfo()['status'];
-        } catch (Throwable $e) {
-            return 'member';
-        }
     }
 }

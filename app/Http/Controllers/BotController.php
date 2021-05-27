@@ -37,8 +37,11 @@ class BotController extends Controller
         $botMan->hears('/sync', function (BotMan $botman) {
             $botman->startConversation(new SyncMasternodeMonitorConversation());
         })->skipsConversation();
-        $botMan->hears('/link {ownerAddress}', function (BotMan $botman, string $ownerAddress) {
-            $botman->startConversation(new LinkMasternodeConversation($ownerAddress, $botman->getUser()));
+        $botMan->hears('/link_mn {ownerAddress}', function (BotMan $botman, string $ownerAddress) {
+            $botman->startConversation(new LinkMasternodeConversation($botman->getUser(), $ownerAddress));
+        })->skipsConversation();
+        $botMan->hears('/unlink_mn {ownerAddress}', function (BotMan $botman, string $ownerAddress) {
+            $botman->startConversation(new LinkMasternodeConversation($botman->getUser(), $ownerAddress));
         })->skipsConversation();
 
 

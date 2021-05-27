@@ -2,7 +2,6 @@
 
 namespace App\Http\Conversations;
 
-use App\Http\Service\MasternodeMonitorService;
 use App\Models\Service\MasternodeService;
 use App\Models\Service\TelegramUserService;
 use App\Models\TelegramUser;
@@ -16,12 +15,12 @@ use Str;
 class LinkMasternodeConversation extends Conversation
 {
     const VALUE_YES = 'yes';
-    const VALUE_NO = 'no';
-    private ?TelegramUser $user = null;
-    private string $ownerAddress;
-    private string $name;
+    const VALUE_NO  = 'no';
+    protected ?TelegramUser $user = null;
+    protected string $ownerAddress = '';
+    protected ?string $name = null;
 
-    public function __construct(string $ownerAddress, UserInterface $user)
+    public function __construct(UserInterface $user, string $ownerAddress = '')
     {
         $this->user = app(TelegramUserService::class)->getTelegramUser($user);
         $this->ownerAddress = $ownerAddress;
@@ -34,30 +33,35 @@ class LinkMasternodeConversation extends Conversation
     {
         if (strlen($this->ownerAddress) !== 34) {
             $this->askOwnerAddress();
+        } else {
+            $this->askName();
         }
-
-        $this->ask(__('linkMasternodeConversation.ask_name'), function (Answer $answer) {
-            if ($answer->getText() === '') {
-                $this->name = Str::random(10);
-            } else {
-                $this->name = $answer->getText();
-            }
-            $this->askAlarm();
-        }, array_merge([
-            'parse_mode' => 'Markdown',
-        ]));
     }
 
     protected function askOwnerAddress(): void
     {
         $this->ask(__('linkMasternodeConversation.ask_owner_address'), function (Answer $answer) {
             if (strlen($answer->getText()) !== 34) {
-                ray('owner != 34');
-                $this->repeat(__('linkMasternodeConversation.error.invalid_owner_address'));
+                return $this->repeat(__('linkMasternodeConversation.error.invalid_owner_address'));
             }
-            ray('owner == 34');
 
             $this->ownerAddress = $answer->getText();
+            $this->askName();
+        }, array_merge([
+            'parse_mode' => 'Markdown',
+        ]));
+    }
+
+    protected function askName(): void
+    {
+        $this->ask(__('linkMasternodeConversation.ask_name'), function (Answer $answer) {
+            if ($answer->getText() === 'random') {
+                $this->name = Str::random(10);
+            } else {
+                $this->name = $answer->getText();
+            }
+
+            $this->askAlarm();
         }, array_merge([
             'parse_mode' => 'Markdown',
         ]));

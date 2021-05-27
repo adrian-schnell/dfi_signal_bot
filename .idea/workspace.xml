@@ -2,37 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4e622143-91c9-4c64-8e9f-f97f198133c5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/Http/Conversations/EditMasternodeConversation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Conversations/EnableMasternodeAlarmConversation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Conversations/LinkMasternodeConversation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Conversations/ListMasternodesConversation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Conversations/ResetMasternodesConversation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Service/MasternodeMonitorService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Models/Service/MasternodeService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/en/linkMasternodeConversation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/en/listMasternodeConversation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/en/resetMasternodeConversation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/en/syncMasternodeMonitorConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BotController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BotController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Conversations/HelpConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Conversations/HelpConversation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Conversations/OnboardConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Conversations/OnboardConversation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Conversations/SyncMasternodeMonitorConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Conversations/SyncMasternodeMonitorConversation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Service/MNMonitorService.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/DfiMasternode.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/DfiMasternode.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/TelegramUser.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/TelegramUser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2021_05_16_092220_create_dfi_masternodes_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_05_16_092220_create_dfi_masternodes_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/helpConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/helpConversation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/syncMasternodeMonitor.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/enableMasternodeAlarmConversation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Conversations/LinkMasternodeConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Conversations/LinkMasternodeConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Service/TelegramUserService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Service/TelegramUserService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/linkMasternodeConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/linkMasternodeConversation.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" doNotAsk="true">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
@@ -202,8 +184,9 @@
     <property name="node.js.detected.package.stylelint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.stylelint" value="" />
+    <property name="nodejs_interpreter_path" value="$USER_HOME$/.nvm/versions/node/v12.14.0/bin/node" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.PHP" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -227,7 +210,11 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1621258600336</updated>
-      <workItem from="1621258603398" duration="11039000" />
+      <workItem from="1621258603398" duration="11886000" />
+      <workItem from="1621616390984" duration="31000" />
+      <workItem from="1621616442044" duration="592000" />
+      <workItem from="1621623201614" duration="598000" />
+      <workItem from="1622064640076" duration="6231000" />
     </task>
     <servers />
   </component>
@@ -244,5 +231,10 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
