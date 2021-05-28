@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Conversations\HelpConversation;
 use App\Http\Conversations\LinkMasternodeConversation;
+use App\Http\Conversations\UnlinkMasternodeConversation;
 use App\Http\Conversations\ListMasternodesConversation;
 use App\Http\Conversations\OnboardConversation;
 use App\Http\Conversations\ResetMasternodesConversation;
 use App\Http\Conversations\SyncMasternodeMonitorConversation;
-use App\Http\Middleware\TelegramBot\SetLanguage;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Exceptions\Base\BotManException;
 use BotMan\BotMan\Messages\Incoming\Answer;
@@ -41,7 +41,7 @@ class BotController extends Controller
             $botman->startConversation(new LinkMasternodeConversation($botman->getUser(), $ownerAddress));
         })->skipsConversation();
         $botMan->hears('/unlink_mn {ownerAddress}', function (BotMan $botman, string $ownerAddress) {
-            $botman->startConversation(new LinkMasternodeConversation($botman->getUser(), $ownerAddress));
+            $botman->startConversation(new UnlinkMasternodeConversation($botman->getUser(), $ownerAddress));
         })->skipsConversation();
 
 

@@ -35,11 +35,11 @@ class TelegramUser extends Model
 
     public function masternodes(): HasMany
     {
-        return $this->hasMany(DfiMasternode::class, 'telegramUserId');
+        return $this->hasMany(UserMasternode::class, 'telegramUserId');
     }
 
     public function masternodesSynced(): HasMany
     {
-        return $this->hasMany(DfiMasternode::class, 'telegramUserId')->synced();
+        return $this->hasMany(UserMasternode::class, 'telegramUserId')->synced();
     }
 }

@@ -3,7 +3,7 @@
 namespace app\Http\Service;
 
 use App\Models\TelegramUser;
-use App\Models\DfiMasternode;
+use App\Models\UserMasternode;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 
@@ -26,10 +26,10 @@ class MasternodeMonitorService
         if (count($masternodes) === 0) {
             return [];
         }
-        DfiMasternode::where('telegramUserId', $user->id)->synced()->delete();
+        UserMasternode::where('telegramUserId', $user->id)->synced()->delete();
         $masternodeArray = [];
         foreach ($masternodes as $masternode) {
-            $masternodeArray[] = DfiMasternode::create(
+            $masternodeArray[] = UserMasternode::create(
                 [
                     'telegramUserId'            => $user->id,
                     'name'                      => $masternode['name'],
@@ -43,7 +43,7 @@ class MasternodeMonitorService
 
     public function resetMasternodes(TelegramUser $user): void
     {
-        $user->masternodes->each(function (DfiMasternode $masternode) {
+        $user->masternodes->each(function (UserMasternode $masternode) {
             $masternode->delete();
         });
     }

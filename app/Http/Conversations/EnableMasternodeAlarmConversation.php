@@ -3,7 +3,7 @@
     namespace App\Http\Conversations;
 
     use App\Http\Service\MasternodeMonitorService;
-    use App\Models\DfiMasternode;
+    use App\Models\UserMasternode;
     use App\Models\TelegramUser;
     use BotMan\BotMan\Messages\Conversations\Conversation;
     use BotMan\BotMan\Messages\Incoming\Answer;

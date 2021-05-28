@@ -3,7 +3,7 @@
 namespace App\Http\Conversations;
 
 use App\Http\Service\MasternodeMonitorService;
-use App\Models\DfiMasternode;
+use App\Models\UserMasternode;
 use App\Models\TelegramUser;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
@@ -25,7 +25,7 @@ class ListMasternodesConversation extends Conversation
      */
     public function run()
     {
-        $this->masternodes->each(function (DfiMasternode $masternode) {
+        $this->masternodes->each(function (UserMasternode $masternode) {
             $question = Question::create($this->generateQuestionString($masternode));
             $this->ask($question, function(){}, array_merge([
                 'parse_mode' => 'Markdown',
@@ -33,7 +33,7 @@ class ListMasternodesConversation extends Conversation
         });
     }
 
-    protected function generateQuestionString(DfiMasternode $masternode): string
+    protected function generateQuestionString(UserMasternode $masternode): string
     {
         $questionString = (string)__('listMasternodeConversation.name', ['name' => $masternode->name]);
         if ($masternode->owner_address) {

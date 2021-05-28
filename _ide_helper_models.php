@@ -18,13 +18,13 @@ namespace App\Models{
  * @property int $telegramUserId
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|DfiMasternode newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|DfiMasternode newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|DfiMasternode query()
- * @method static \Illuminate\Database\Eloquent\Builder|DfiMasternode whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|DfiMasternode whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|DfiMasternode whereTelegramUserId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|DfiMasternode whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserMasternode newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserMasternode newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserMasternode query()
+ * @method static \Illuminate\Database\Eloquent\Builder|UserMasternode whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserMasternode whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserMasternode whereTelegramUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|UserMasternode whereUpdatedAt($value)
  */
 	class DfiMasternode extends \Eloquent {}
 }

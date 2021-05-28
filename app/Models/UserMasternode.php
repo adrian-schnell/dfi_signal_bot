@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool alarm_on
  * @property bool synced_masternode_monitor
  */
-class DfiMasternode extends Model
+class UserMasternode extends Model
 {
     protected $fillable = [
         'name',
