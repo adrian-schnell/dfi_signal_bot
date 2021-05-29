@@ -2,6 +2,7 @@
 
 namespace app\Http\Service;
 
+use App\Models\Masternode;
 use App\Models\TelegramUser;
 use App\Models\UserMasternode;
 use GuzzleHttp\Client;
@@ -29,14 +30,17 @@ class MasternodeMonitorService
         UserMasternode::where('telegramUserId', $user->id)->synced()->delete();
         $masternodeArray = [];
         foreach ($masternodes as $masternode) {
-            $masternodeArray[] = UserMasternode::create(
-                [
-                    'telegramUserId'            => $user->id,
-                    'name'                      => $masternode['name'],
-                    'owner_address'             => $masternode['ownerAddress'],
-                    'synced_masternode_monitor' => true,
-                ]
-            );
+            $mn = Masternode::where('owner_address', $masternode['ownerAddress'])->first();
+            if ($mn) {
+                $masternodeArray[] = UserMasternode::create(
+                    [
+                        'telegramUserId'            => $user->id,
+                        'name'                      => $masternode['name'],
+                        'masternode_id'             => $mn->id,
+                        'synced_masternode_monitor' => true,
+                    ]
+                );
+            }
         }
         return $masternodeArray;
     }

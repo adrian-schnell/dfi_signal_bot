@@ -3,15 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @mixin \Eloquent
  * @property TelegramUser user
  * @property int telegramUserId
  * @property string name
- * @property string masternode_id
- * @property string owner_address
- * @property string operator_address
+ * @property integer masternode_id
+ * @property Masternode masternode
  * @property bool alarm_on
  * @property bool synced_masternode_monitor
  */
@@ -21,8 +21,6 @@ class UserMasternode extends Model
         'name',
         'masternode_id',
         'telegramUserId',
-        'owner_address',
-        'operator_address',
         'alarm_on',
         'synced_masternode_monitor',
     ];
@@ -34,9 +32,24 @@ class UserMasternode extends Model
         'synced_masternode_monitor',
     ];
 
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(TelegramUser::class, 'telegramUserId');
+    }
+
+    public function masternode(): BelongsTo
+    {
+        return $this->belongsTo(Masternode::class);
+    }
+
+    public function getOwnerAddressAttribute(): string
+    {
+        return $this->masternode->owner_address;
+    }
+
+    public function getOperatorAddressAttribute(): string
+    {
+        return $this->masternode->operator_address;
     }
 
     public function scopeSynced($query)

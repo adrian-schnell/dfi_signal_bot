@@ -8,9 +8,8 @@ class EnablesMasternodesMigration extends Migration
 {
 	public function up()
 	{
-	    Schema::rename('dfi_masternodes', 'user_masternodes');
-		Schema::create('enabled_masternodes', function (Blueprint $table) {
-			$table->id();
+		Schema::create('masternodes', function (Blueprint $table) {
+			$table->bigIncrements('id');
 			$table->string('masternode_id')->unique();
 			$table->string('owner_address')->unique();
 			$table->string('operator_address')->unique();
@@ -24,7 +23,6 @@ class EnablesMasternodesMigration extends Migration
 
 	public function down()
 	{
-        Schema::rename('user_masternodes', 'dfi_masternodes');
-        Schema::dropIfExists('enabled_masternodes');
+        Schema::dropIfExists('masternodes');
 	}
 }

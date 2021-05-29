@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\EnabledMasternode;
+use App\Models\Masternode;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Console\Command;
@@ -36,7 +36,7 @@ class UpdateEnabledMasternodes extends Command
                     'target_multiplier' => $data['targetMultiplier'],
                 ];
             }
-            EnabledMasternode::upsert($preparedData, ['id', 'owner_address', 'operator_address']);
+            Masternode::upsert($preparedData, ['id', 'owner_address', 'operator_address']);
         });
     }
 }

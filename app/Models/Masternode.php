@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property integer minted_blocks
  * @property integer target_multiplier
  */
-class EnabledMasternode extends Model
+class Masternode extends Model
 {
     protected $fillable = [
         'masternode_id',
