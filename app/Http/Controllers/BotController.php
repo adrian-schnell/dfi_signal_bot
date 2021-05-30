@@ -19,7 +19,7 @@ class BotController extends Controller
 {
     protected BotMan $botMan;
 
-    public function handle(TelegramUserService $telegramUserService)
+    public function handle(TelegramUserService $telegramUserService): void
     {
         $botMan = app('botman');
 

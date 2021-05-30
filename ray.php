@@ -67,13 +67,13 @@ return [
      * Absolute base path for your sites or projects in Homestead,
      * Vagrant, Docker, or another remote development server.
      */
-    'remote_path' => env('RAY_REMOTE_PATH', null),
+    'remote_path'           => env('RAY_REMOTE_PATH', '/var/www'),
 
     /*
      * Absolute base path for your sites or projects on your local
      * computer where your IDE or code editor is running on.
      */
-    'local_path' => env('RAY_LOCAL_PATH', null),
+    'local_path'            => env('RAY_LOCAL_PATH', '/Users/adrian/Code/DFI-Signal'),
 
     /*
      * When this setting is enabled, the package will not try to format values sent to Ray.

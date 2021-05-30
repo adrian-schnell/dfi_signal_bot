@@ -5,9 +5,9 @@ return [
 
 *You can control me by sending these commands:*',
     'masternode' => 'Masternode
-/link <owner_address> - link a masternode to your telegram user
-/unlink <owner_address> - unlink masternode
+/link_mn <owner_address> - link a masternode
+/unlink_mn <owner_address> - unlink masternode
 /list - lists your masternodes
-/sync <sync_code> - sync with your masternode monitor profile
+/sync - sync with your masternode monitor profile
 /reset - reset all you linked masternodes',
 ];

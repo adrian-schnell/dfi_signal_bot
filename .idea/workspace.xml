@@ -2,17 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4e622143-91c9-4c64-8e9f-f97f198133c5" name="Default Changelist" comment="rework relations">
-      <change afterPath="$PROJECT_DIR$/app/Console/Commands/MintedBlockSignal.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Exceptions/DefichainApiException.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Service/DefichainApiService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/api_defichain.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/MintedBlock.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/Repository/MintedBlockRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/SignalService/SignalService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/SignalService/SignalServiceProvider.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2021_05_31_001457_create_minted_blocks_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/lang/en/signals.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/DFIAlarm.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/commandlinetools/Laravel_17_05_21__15_36.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/commandlinetools/Laravel_17_05_21__15_36.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/laravel-idea-personal.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/laravel-idea-personal.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Commands/UpdateEnabledMasternodes.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/UpdateEnabledMasternodes.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Conversations/LinkMasternodeConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Conversations/LinkMasternodeConversation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Conversations/SyncMasternodeMonitorConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Conversations/SyncMasternodeMonitorConversation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Service/MasternodeService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Service/MasternodeService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BotController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BotController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Service/DefichainApiService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Service/DefichainApiService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/UserMasternode.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/UserMasternode.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker/php-dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/docker/php-dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ray.php" beforeDir="false" afterPath="$PROJECT_DIR$/ray.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/helpConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/helpConversation.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -184,7 +192,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/lang/en" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.stylelint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -199,6 +207,9 @@
       <recent name="$PROJECT_DIR$/resources/lang/en" />
       <recent name="$PROJECT_DIR$/app/Http/Conversations" />
       <recent name="$PROJECT_DIR$/app/Models/Service" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/SignalService" />
     </key>
   </component>
   <component name="RunManager">
@@ -221,6 +232,8 @@
       <workItem from="1621623201614" duration="598000" />
       <workItem from="1622064640076" duration="7954000" />
       <workItem from="1622208896925" duration="10594000" />
+      <workItem from="1622396463175" duration="169000" />
+      <workItem from="1622396654425" duration="6188000" />
     </task>
     <task id="LOCAL-00001" summary="fixes">
       <created>1622159054848</created>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @mixin \Eloquent
@@ -40,6 +41,11 @@ class UserMasternode extends Model
     public function masternode(): BelongsTo
     {
         return $this->belongsTo(Masternode::class);
+    }
+
+    public function mintedBlocks(): HasMany
+    {
+        return $this->hasMany(MintedBlock::class);
     }
 
     public function getOwnerAddressAttribute(): string

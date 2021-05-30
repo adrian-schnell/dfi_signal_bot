@@ -3,6 +3,9 @@
 namespace app\Http\Service;
 
 use App\Exceptions\DefichainApiException;
+use App\Models\Repository\MintedBlockRepository;
+use App\Models\TelegramUser;
+use App\Models\UserMasternode;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
@@ -51,10 +54,25 @@ class DefichainApiService
         }
     }
 
-    public function mintedBlocksForOwnerAddress(string $ownerAddress)
+    public function getTransactionDetails(string $txid): array
     {
-        $rawResponse = $this->transactionClient->get(sprintf('address/%s/txs',
-            $ownerAddress))->getBody()->getContents();
+        try {
+            $rawResponse = $this->transactionClient->get(sprintf('tx/%s', $txid))->getBody()->getContents();
+        } catch (GuzzleException $e) {
+            return [];
+        }
+
+        return json_decode($rawResponse, true);
+    }
+
+    public function mintedBlocksForOwnerAddress(string $ownerAddress): array
+    {
+        try {
+            $rawResponse = $this->transactionClient->get(sprintf('address/%s/txs',
+                $ownerAddress))->getBody()->getContents();
+        } catch (GuzzleException $e) {
+            return [];
+        }
 
         $txs = json_decode($rawResponse, true);
         $mintedBlockTxs = [];
@@ -66,5 +84,17 @@ class DefichainApiService
         }
 
         return $mintedBlockTxs;
+    }
+
+    public function storeMintedBlockForTelegramUser(TelegramUser $user): void
+    {
+        $masternodes = $user->masternodes;
+
+        $masternodes->each(function (UserMasternode $masternode) {
+            $ownerAddress = $masternode->masternode->owner_address;
+            $mintedBlocks = $this->mintedBlocksForOwnerAddress($ownerAddress);
+            app(MintedBlockRepository::class)
+                ->storeMintedBlocks($this,$masternode, $mintedBlocks);
+        });
     }
 }
