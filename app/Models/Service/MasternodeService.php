@@ -2,38 +2,64 @@
 
 namespace App\Models\Service;
 
+use App\Models\Masternode;
 use App\Models\UserMasternode;
 use App\Models\TelegramUser;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 
 class MasternodeService
 {
-    public function createMasternodeForUser(TelegramUser $user, string $ownerAddress, string $name, bool $alarmEnabled): bool
+    public function countMasternodeForUserInput(string $input): int
     {
+        return Masternode::where('owner_address', $input)
+            ->orWhere('operator_address', $input)
+            ->orWhere('masternode_id', $input)
+            ->count();
+    }
+
+    public function createMasternodeForUser(
+        TelegramUser $user,
+        string $address,
+        string $name,
+        bool $alarmEnabled
+    ): bool {
         try {
+            $mn = Masternode::where('owner_address', $address)
+                ->orWhere('operator_address', $address)
+                ->orWhere('masternode_id', $address)
+                ->firstOrFail();
             UserMasternode::create([
                 'telegramUserId' => $user->id,
                 'name'           => $name,
-                'owner_address'  => $ownerAddress,
+                'masternode_id'  => $mn->id,
                 'alarm_on'       => $alarmEnabled,
             ]);
             return true;
-        } catch (QueryException $e) {
+        } catch (QueryException | ModelNotFoundException $e) {
             return false;
         }
     }
 
-    public function userHasAddress(TelegramUser $user, string $ownerAddress): bool
+    public function userHasAddress(TelegramUser $user, string $address): bool
     {
-        return UserMasternode::where('owner_address', $ownerAddress)
-                ->where('telegramUserId', $user->id)
-                ->count() === 1;
+        return UserMasternode::where('telegramUserId', $user->id)
+                ->with('masternode')
+                ->whereHas('masternode', function ($query) use ($address) {
+                    $query->where('owner_address', $address)
+                        ->orWhere('operator_address', $address)
+                        ->orWhere('masternode_id', $address);
+                })->count() === 1;
     }
 
-    public function deleteMasternode(TelegramUser $user, string $ownerAddress): bool
+    public function deleteMasternode(TelegramUser $user, string $address): bool
     {
-        return UserMasternode::where('owner_address', $ownerAddress)
-            ->where('telegramUserId', $user->id)
-            ->delete();
+        return UserMasternode::where('telegramUserId', $user->id)
+            ->with('masternode')
+            ->whereHas('masternode', function ($query) use ($address) {
+                $query->where('owner_address', $address)
+                    ->orWhere('operator_address', $address)
+                    ->orWhere('masternode_id', $address);
+            })->delete();
     }
 }

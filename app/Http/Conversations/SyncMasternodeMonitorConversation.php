@@ -4,7 +4,6 @@ namespace App\Http\Conversations;
 
 use App\Http\Service\MasternodeMonitorService;
 use App\Models\Service\TelegramUserService;
-use App\Models\TelegramUser;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 

@@ -31,7 +31,7 @@ class LinkMasternodeConversation extends Conversation
      */
     public function run()
     {
-        if (strlen($this->ownerAddress) !== 34) {
+        if (app(MasternodeService::class)->countMasternodeForUserInput($this->ownerAddress) === 0) {
             $this->askOwnerAddress();
         } else {
             $this->askName();
@@ -41,7 +41,7 @@ class LinkMasternodeConversation extends Conversation
     protected function askOwnerAddress(): void
     {
         $this->ask(__('linkMasternodeConversation.ask_owner_address'), function (Answer $answer) {
-            if (strlen($answer->getText()) !== 34) {
+            if (app(MasternodeService::class)->countMasternodeForUserInput($answer->getText()) === 0) {
                 return $this->repeat(__('linkMasternodeConversation.error.invalid_owner_address'));
             }
 
