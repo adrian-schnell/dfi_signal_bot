@@ -46,7 +46,7 @@ class ListMasternodesConversation extends Conversation
         }
         if ($masternode->masternode_id) {
             $questionString .= '
-' . __('listMasternodeConversation.masternode_id', ['masternode_id' => $masternode->masternode_id]);
+' . __('listMasternodeConversation.masternode_id', ['masternode_id' => $masternode->masternode->masternode_id]);
         }
         $questionString .= '
 ' . __('listMasternodeConversation.alarm_on', ['icon' => $masternode->alarm_on ? '✅' : '❌']);

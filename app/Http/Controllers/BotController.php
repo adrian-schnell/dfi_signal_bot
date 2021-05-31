@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Conversations\HelpConversation;
 use App\Http\Conversations\LinkMasternodeConversation;
+use App\Http\Conversations\MasternodeStatsConversation;
 use App\Http\Conversations\UnlinkMasternodeConversation;
 use App\Http\Conversations\ListMasternodesConversation;
 use App\Http\Conversations\OnboardConversation;
@@ -49,6 +50,12 @@ class BotController extends Controller
             $telegramUser = $telegramUserService->getTelegramUser($botman->getUser());
             $masternodes = $telegramUser->masternodes;
             $botman->startConversation(new ListMasternodesConversation($masternodes));
+        })->skipsConversation();
+
+        $botMan->hears('/stats', function (BotMan $botman) use ($telegramUserService) {
+            $telegramUser = $telegramUserService->getTelegramUser($botman->getUser());
+            $masternodes = $telegramUser->masternodes;
+            $botman->startConversation(new MasternodeStatsConversation($masternodes));
         })->skipsConversation();
 
         $botMan->hears('/reset', function (BotMan $botman) use ($telegramUserService) {
