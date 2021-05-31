@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Http\Service;
+namespace App\Http\Service;
 
 use App\Exceptions\DefichainApiException;
 use App\Models\Repository\MintedBlockRepository;
@@ -54,10 +54,20 @@ class DefichainApiService
         }
     }
 
+    public function getBlockDetails(string $blockNumber): array
+    {
+        try {
+            $rawResponse = $this->transactionClient->get(sprintf(config('api_defichain.transaction.block'), $blockNumber))->getBody()->getContents();
+        } catch (GuzzleException $e) {
+            return [];
+        }
+        return json_decode($rawResponse, true);
+    }
+
     public function getTransactionDetails(string $txid): array
     {
         try {
-            $rawResponse = $this->transactionClient->get(sprintf('tx/%s', $txid))->getBody()->getContents();
+            $rawResponse = $this->transactionClient->get(sprintf(config('api_defichain.transaction.tx'), $txid))->getBody()->getContents();
         } catch (GuzzleException $e) {
             return [];
         }
@@ -68,7 +78,7 @@ class DefichainApiService
     public function mintedBlocksForOwnerAddress(string $ownerAddress): array
     {
         try {
-            $rawResponse = $this->transactionClient->get(sprintf('address/%s/txs',
+            $rawResponse = $this->transactionClient->get(sprintf(config('api_defichain.transaction.address'),
                 $ownerAddress))->getBody()->getContents();
         } catch (GuzzleException $e) {
             return [];

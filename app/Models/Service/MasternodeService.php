@@ -2,9 +2,11 @@
 
 namespace App\Models\Service;
 
+use App\Http\Service\DefichainApiService;
 use App\Models\Masternode;
 use App\Models\UserMasternode;
 use App\Models\TelegramUser;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
 
@@ -61,5 +63,25 @@ class MasternodeService
                     ->orWhere('operator_address', $address)
                     ->orWhere('masternode_id', $address);
             })->delete();
+    }
+
+    public function getBlockTime(UserMasternode $userMasternode): Carbon
+    {
+        $creationHeight = $userMasternode->masternode->creation_height;
+        $creationBlockDetails = app(DefichainApiService::class)->getBlockDetails($creationHeight);
+
+        return Carbon::parse($creationBlockDetails['time']);
+    }
+
+    public function calculateMasternodeAge(UserMasternode $userMasternode, string $ageIn = 'days'): float
+    {
+        switch ($ageIn) {
+            case 'days':
+                return now()->diffInDays($this->getBlockTime($userMasternode));
+            case 'hours':
+                return now()->diffInHours($this->getBlockTime($userMasternode));
+            default:
+                return 0;
+        }
     }
 }

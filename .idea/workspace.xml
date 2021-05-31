@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4e622143-91c9-4c64-8e9f-f97f198133c5" name="Default Changelist" comment="rework relations">
-      <change afterPath="$PROJECT_DIR$/app/Http/Conversations/MasternodeStatsConversation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/en/MasternodeStatConversation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/DFISignal.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/DFISignal.iml" afterDir="false" />
+    <list default="true" id="4e622143-91c9-4c64-8e9f-f97f198133c5" name="Default Changelist" comment="add stat conversation">
+      <change afterPath="$PROJECT_DIR$/app/Coinpaprika/CoinpaprikaApi.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Coinpaprika/CoinpaprikaServiceProvider.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/coinpaprika.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BotController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BotController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Conversations/ListMasternodesConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Conversations/ListMasternodesConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Conversations/HelpConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Conversations/HelpConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Conversations/MasternodeStatsConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Conversations/MasternodeStatsConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Service/DefichainApiService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Service/DefichainApiService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Service/MasternodeService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Service/MasternodeService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/api_defichain.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/api_defichain.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/MasternodeStatConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/MasternodeStatConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/helpConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/helpConversation.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +26,11 @@
     <execution />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/stats_conversation" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitSEFilterConfiguration">
@@ -29,6 +40,20 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="recentNewPullRequestHead">
+      <RepoCoordinatesHolder>
+        <option name="owner" value="adrian-schnell" />
+        <option name="repository" value="dfi_signal_bot" />
+      </RepoCoordinatesHolder>
+    </option>
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="bc059de2-b85c-4cae-b1ca-b2565b671333" />
+        <option name="url" value="git@github.com:adrian-schnell/dfi_signal_bot.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -181,7 +206,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/lang/en" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Coinpaprika" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.stylelint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -193,6 +218,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/Coinpaprika" />
       <recent name="$PROJECT_DIR$/resources/lang/en" />
       <recent name="$PROJECT_DIR$/app/Http/Conversations" />
       <recent name="$PROJECT_DIR$/app/Models/Service" />
@@ -223,6 +249,7 @@
       <workItem from="1622208896925" duration="10594000" />
       <workItem from="1622396463175" duration="169000" />
       <workItem from="1622396654425" duration="7474000" />
+      <workItem from="1622441127287" duration="5934000" />
     </task>
     <task id="LOCAL-00001" summary="fixes">
       <created>1622159054848</created>
@@ -267,7 +294,8 @@
     <MESSAGE value="fixes" />
     <MESSAGE value="add command: update masternodes&#10;&#10;rename DFIMasternodes to UserMasternode" />
     <MESSAGE value="rework relations" />
-    <option name="LAST_COMMIT_MESSAGE" value="rework relations" />
+    <MESSAGE value="add stat conversation" />
+    <option name="LAST_COMMIT_MESSAGE" value="add stat conversation" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -178,6 +178,7 @@ return [
 		App\Providers\RouteServiceProvider::class,
 
 		App\SignalService\SignalServiceProvider::class,
+        App\Coinpaprika\CoinpaprikaServiceProvider::class
 	],
 
 	/*
