@@ -10,6 +10,7 @@ use App\Http\Conversations\ListMasternodesConversation;
 use App\Http\Conversations\OnboardConversation;
 use App\Http\Conversations\ResetMasternodesConversation;
 use App\Http\Conversations\SyncMasternodeMonitorConversation;
+use App\Http\Middleware\TelegramBot\SetLanguage;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Exceptions\Base\BotManException;
 use BotMan\BotMan\Messages\Incoming\Answer;
@@ -71,7 +72,7 @@ class BotController extends Controller
             ray($throwable);
             $bot->reply('An error occured. Try again later...');
         });
-//        $botMan->middleware->received(new SetLanguage());
+        $botMan->middleware->received(new SetLanguage());
 
         $botMan->listen();
     }

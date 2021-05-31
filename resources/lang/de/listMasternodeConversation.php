@@ -6,13 +6,13 @@ return [
     'operator'      => '*Operator Address*: :operator',
     'masternode_id' => '*Masternode ID*: :masternode_id',
     'alarm_on'      => '*DFI Signal*: :icon',
-    'synced'        => '*Synced (MN Monitor)*: :icon',
+    'synced'        => '*Synchronisiert (MN Monitor)*: :icon',
 
     'buttons' => [
-        'alarm_off' => 'DFI signal off',
-        'alarm_on'  => 'DFI signal on',
-        'unlink'    => 'unlink',
+        'alarm_off' => 'DFI Signal aus',
+        'alarm_on'  => 'DFI Signal an',
+        'unlink'    => 'trennen',
     ],
 
-    'result' => 'Your masternodes are now enabled for alarms.',
+    'result' => 'DFI Signal ist aktiv für deine Masternode',
 ];
