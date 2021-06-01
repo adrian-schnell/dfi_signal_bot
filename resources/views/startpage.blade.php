@@ -15,8 +15,8 @@
                 <div class="row">
                     <div class="col-md intro__content-col">
                         <h1>DFI Signal</h1>
-                        <p class="lead"> get informed by signals on Telegram </p> <a href="https://t.me/DFI_Signal_bot" class="btn btn-primary btn-lg btn-custom" target="_blank">
-                            setup dfi signal
+                        <p class="lead"> get informed by signals on Telegram </p> <a href="{{ sprintf('%s%s', config('telegram.base_uri'), config('telegram.names.bot')) }}" class="btn btn-primary btn-lg btn-custom" target="_blank">
+                            setup DFI Signal
                         </a> </div>
                     <div class="col-md">
                         <div class="phone">
