@@ -43,7 +43,8 @@ class MintedBlockRepository
             if (!$initMode && $userMasternode->alarm_on) {
                 app(SignalService::class)->tellMintedBlock(
                     $userMasternode->user->telegramId,
-                    $newMintedBlock
+                    $newMintedBlock,
+                    $userMasternode->user->language
                 );
             }
         }

@@ -14,5 +14,5 @@ return [
         'unlink'    => 'unlink',
     ],
 
-    'result' => 'Your masternodes are now enabled for alarms.',
+    'result' => 'Your masternodes are now enabled for DFI Signals.',
 ];

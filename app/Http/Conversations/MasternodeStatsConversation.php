@@ -72,12 +72,13 @@ class MasternodeStatsConversation extends Conversation
 ' . (string)__('MasternodeStatConversation.average_block',
                     ['average' => $averageBlock]);
 
+            $latestMintedBlock = $masternode->mintedBlocks()->orderBy('block_time', 'DESC')->first();
             $questionString .= '
 
 ' . (string)__('MasternodeStatConversation.last_block',
                     [
-                        'blockHeight' => $masternode->mintedBlocks()->latest()->first()->mintBlockHeight,
-                        'hours'       => now()->diffInHours($masternode->mintedBlocks()->latest()->first()->block_time),
+                        'blockHeight' => $latestMintedBlock->mintBlockHeight,
+                        'hours'       => now()->diffInHours($latestMintedBlock->block_time),
                     ]);
             $questionString .= '
 ' . (string)__('MasternodeStatConversation.tx_link',

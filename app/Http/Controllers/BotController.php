@@ -10,7 +10,8 @@ use App\Http\Conversations\ListMasternodesConversation;
 use App\Http\Conversations\OnboardConversation;
 use App\Http\Conversations\ResetMasternodesConversation;
 use App\Http\Conversations\SyncMasternodeMonitorConversation;
-use App\Http\Middleware\TelegramBot\SetLanguage;
+use App\Http\Middleware\TelegramBot\SetLanguageReceived;
+use App\Models\TelegramUser;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Exceptions\Base\BotManException;
 use BotMan\BotMan\Messages\Incoming\Answer;
@@ -28,10 +29,8 @@ class BotController extends Controller
         $botMan->hears('/start', function (Botman $botman) use ($telegramUserService) {
             $botman->startConversation(new OnboardConversation());
             if ($telegramUserService->isExistingUser($botman->getUser())) {
-                ray('exists');
                 $botman->startConversation(new HelpConversation());
             } else {
-                ray('new user');
                 $telegramUserService->getTelegramUser($botman->getUser());
                 $botman->startConversation(new OnboardConversation());
             }
@@ -71,7 +70,7 @@ class BotController extends Controller
         $botMan->exception(BotManException::class, function (Throwable $throwable, $bot) {
             $bot->reply('An error occured. Try again later...');
         });
-        $botMan->middleware->received(new SetLanguage());
+        $botMan->middleware->received(new SetLanguageReceived());
 
         $botMan->listen();
     }

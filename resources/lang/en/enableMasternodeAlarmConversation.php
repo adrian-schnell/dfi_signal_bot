@@ -7,5 +7,5 @@ return [
         'no' => 'no, not now',
     ],
 
-    'result' => 'Your masternodes are now enabled for alarms.',
+    'result' => 'Your masternodes are now enabled for DFI Signals.',
 ];

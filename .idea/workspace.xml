@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4e622143-91c9-4c64-8e9f-f97f198133c5" name="Default Changelist" comment="add default page">
-      <change afterPath="$PROJECT_DIR$/app/Enum/QueueNames.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/HorizonBasicAuthMiddleware.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/Jobs/StoreMintedBlocksJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
+    <list default="true" id="4e622143-91c9-4c64-8e9f-f97f198133c5" name="Default Changelist" comment="horizon login">
+      <change afterPath="$PROJECT_DIR$/config/masternode/random_names.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Commands/MintedBlockSignal.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Commands/MintedBlockSignal.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BotController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BotController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Conversations/EditMasternodeConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Conversations/EditMasternodeConversation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Conversations/SyncMasternodeMonitorConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Conversations/SyncMasternodeMonitorConversation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Providers/HorizonServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/HorizonServiceProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/horizon.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/horizon.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/de/resetMasternodeConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/de/resetMasternodeConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Conversations/HelpConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Conversations/HelpConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Conversations/LinkMasternodeConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Conversations/LinkMasternodeConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Conversations/MasternodeStatsConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Conversations/MasternodeStatsConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Conversations/OnboardConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Conversations/OnboardConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/TelegramBot/SetLanguage.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/TelegramBot/SetLanguageReceived.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Repository/MintedBlockRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Repository/MintedBlockRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Service/MasternodeService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Service/MasternodeService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Service/TelegramUserService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Service/TelegramUserService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/SignalService/SignalService.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/SignalService/SignalService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/de/linkMasternodeConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/de/linkMasternodeConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/de/unlinkMasternodeConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/de/unlinkMasternodeConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/enableMasternodeAlarmConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/enableMasternodeAlarmConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/helpConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/helpConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/linkMasternodeConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/linkMasternodeConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/listMasternodeConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/listMasternodeConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/en/unlinkMasternodeConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/unlinkMasternodeConversation.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,7 +214,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/lang/de" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/Http/Middleware/TelegramBot" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.stylelint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -218,11 +226,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/Http/Middleware/TelegramBot" />
       <recent name="$PROJECT_DIR$/resources/lang/de" />
       <recent name="$PROJECT_DIR$/app/Coinpaprika" />
       <recent name="$PROJECT_DIR$/resources/lang/en" />
       <recent name="$PROJECT_DIR$/app/Http/Conversations" />
-      <recent name="$PROJECT_DIR$/app/Models/Service" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/SignalService" />
@@ -250,7 +258,7 @@
       <workItem from="1622208896925" duration="10594000" />
       <workItem from="1622396463175" duration="169000" />
       <workItem from="1622396654425" duration="7474000" />
-      <workItem from="1622441127287" duration="10744000" />
+      <workItem from="1622441127287" duration="16071000" />
     </task>
     <task id="LOCAL-00001" summary="fixes">
       <created>1622159054848</created>
@@ -294,7 +302,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622505834798</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="horizon login">
+      <created>1622582988147</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1622582988147</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -320,7 +335,8 @@
     <MESSAGE value="add stats" />
     <MESSAGE value="german translations added" />
     <MESSAGE value="add default page" />
-    <option name="LAST_COMMIT_MESSAGE" value="add default page" />
+    <MESSAGE value="horizon login" />
+    <option name="LAST_COMMIT_MESSAGE" value="horizon login" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

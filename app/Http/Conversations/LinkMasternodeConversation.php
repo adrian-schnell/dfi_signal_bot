@@ -5,6 +5,7 @@ namespace App\Http\Conversations;
 use App\Models\Service\MasternodeService;
 use App\Models\Service\TelegramUserService;
 use App\Models\TelegramUser;
+use Arr;
 use BotMan\BotMan\Interfaces\UserInterface;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
@@ -32,8 +33,12 @@ class LinkMasternodeConversation extends Conversation
     public function run()
     {
         if (app(MasternodeService::class)->countMasternodeForUserInput($this->ownerAddress) === 0) {
+            ray('start owner');
+
             $this->askOwnerAddress();
         } else {
+            ray('start2');
+
             $this->askName();
         }
     }
@@ -56,7 +61,7 @@ class LinkMasternodeConversation extends Conversation
     {
         $this->ask(__('linkMasternodeConversation.ask_name'), function (Answer $answer) {
             if ($answer->getText() === 'random') {
-                $this->name = Str::random(10);
+                $this->name = Arr::first(Arr::shuffle(config('masternode.random_names')));
             } else {
                 $this->name = $answer->getText();
             }

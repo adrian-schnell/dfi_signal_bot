@@ -3,12 +3,13 @@
 namespace App\Models\Service;
 
 use App\Models\TelegramUser;
+use BotMan\BotMan\Interfaces\UserInterface;
 use BotMan\Drivers\Telegram\Extensions\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class TelegramUserService
 {
-    public function getTelegramUser(User $user): TelegramUser
+    public function getTelegramUser(UserInterface $user): TelegramUser
     {
         try {
             return TelegramUser::where('telegramId', $user->getId())->firstOrFail();

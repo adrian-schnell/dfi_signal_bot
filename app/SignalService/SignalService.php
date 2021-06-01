@@ -15,8 +15,10 @@ class SignalService
         $this->bot = $bot;
     }
 
-    public function tellMintedBlock(string $telegramId, MintedBlock $mintedBlock): void
+    public function tellMintedBlock(string $telegramId, MintedBlock $mintedBlock, string $language = 'en'): void
     {
+        app()->setLocale($language);
+
         $this->tellMessage(
             $telegramId,
             __('signals.minted_block', [

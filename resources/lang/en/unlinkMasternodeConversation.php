@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'ask_owner_address' => '*The entered address seems to be invalid. Which of your stored masternodes should be unlinked?*',
+    'ask_owner_address' => '*Which of your stored masternodes should be unlinked?*',
 
     'ask_deletion' => 'Are you sure, you want to unlink this masternode?',
 

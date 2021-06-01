@@ -27,7 +27,7 @@ class OnboardConversation extends Conversation
 		   if ($answer->getValue() === self::VALUE_IMPORT) {
 		       $this->getBot()->startConversation(new SyncMasternodeMonitorConversation());
            } elseif ($answer->getValue() === self::VALUE_MANUALLY) {
-
+               $this->getBot()->startConversation(new LinkMasternodeConversation($this->getBot()->getUser()));
            }
         });
     }

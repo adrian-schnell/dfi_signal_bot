@@ -65,7 +65,14 @@ class MasternodeService
             })->delete();
     }
 
-    public function getBlockTime(UserMasternode $userMasternode): Carbon
+    public function getBlockTime(string $blocknumber): Carbon
+    {
+        $creationBlockDetails = app(DefichainApiService::class)->getBlockDetails($blocknumber);
+
+        return Carbon::parse($creationBlockDetails['time']);
+    }
+
+    public function getCreationDateOfMasternode(UserMasternode $userMasternode): Carbon
     {
         $creationHeight = $userMasternode->masternode->creation_height;
         $creationBlockDetails = app(DefichainApiService::class)->getBlockDetails($creationHeight);
@@ -77,9 +84,9 @@ class MasternodeService
     {
         switch ($ageIn) {
             case 'days':
-                return now()->diffInDays($this->getBlockTime($userMasternode));
+                return now()->diffInDays($this->getCreationDateOfMasternode($userMasternode));
             case 'hours':
-                return now()->diffInHours($this->getBlockTime($userMasternode));
+                return now()->diffInHours($this->getCreationDateOfMasternode($userMasternode));
             default:
                 return 0;
         }
