@@ -1,21 +1,56 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DefiChain $DFI - Masternode Alarm</title>
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-</head>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+    }
+
+    .bgimg {
+        background: pink;
+        height: 100%;
+        background-position: center;
+        background-size: cover;
+        position: relative;
+        color: white;
+        font-family: "Courier New", Courier, monospace;
+        font-size: 25px;
+    }
+
+    .topleft {
+        position: absolute;
+        top: 0;
+        left: 16px;
+    }
+
+    .bottomleft {
+        position: absolute;
+        bottom: 0;
+        left: 16px;
+    }
+
+    .middle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    hr {
+        margin: auto;
+        width: 40%;
+    }
+</style>
 <body>
+
+<div class="bgimg">
+    <div class="middle">
+        <h1>DFI Signal</h1>
+        <hr>
+        <p>coming soon</p>
+    </div>
+</div>
+
 </body>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css">
-<script>
-    var botmanWidget = {
-        aboutText: 'DFI Masternode Alarm',
-        introMessage: 'Hi! Start with setup',
-        // chatServer: 'dfi_bot',
-        // frameEndpoint: 'dfi_bot',
-    };
-</script>
-<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 </html>

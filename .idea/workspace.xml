@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4e622143-91c9-4c64-8e9f-f97f198133c5" name="Default Changelist" comment="add stats">
-      <change afterPath="$PROJECT_DIR$/resources/lang/de/MasternodeStatConversation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/de/enableMasternodeAlarmConversation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/de/linkMasternodeConversation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/de/listMasternodeConversation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/de/resetMasternodeConversation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/de/signals.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/de/syncMasternodeMonitorConversation.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resources/lang/de/unlinkMasternodeConversation.php" afterDir="false" />
+    <list default="true" id="4e622143-91c9-4c64-8e9f-f97f198133c5" name="Default Changelist" comment="german translations added">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BotController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BotController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/de/helpConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/de/helpConversation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/lang/en/listMasternodeConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/en/listMasternodeConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -249,7 +239,7 @@
       <workItem from="1622208896925" duration="10594000" />
       <workItem from="1622396463175" duration="169000" />
       <workItem from="1622396654425" duration="7474000" />
-      <workItem from="1622441127287" duration="6670000" />
+      <workItem from="1622441127287" duration="7049000" />
     </task>
     <task id="LOCAL-00001" summary="fixes">
       <created>1622159054848</created>
@@ -279,7 +269,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622504733339</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="german translations added">
+      <created>1622505566407</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1622505566407</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -303,7 +300,8 @@
     <MESSAGE value="rework relations" />
     <MESSAGE value="add stat conversation" />
     <MESSAGE value="add stats" />
-    <option name="LAST_COMMIT_MESSAGE" value="add stats" />
+    <MESSAGE value="german translations added" />
+    <option name="LAST_COMMIT_MESSAGE" value="german translations added" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
