@@ -1,0 +1,59 @@
+@mixin fluid-font-size(
+    $min-font-size,
+    $mid-font-size,
+    $max-font-size,
+    $min-vw: map-get($breakpoints, xs),
+    $mid-vw: map-get($breakpoints, sm),
+    $max-vw: map-get($breakpoints, xl)
+) {
+    font-size: $min-font-size;
+
+    @media screen and (min-width: $min-vw) {
+        font-size: calc(
+            #{$min-font-size} + #{strip-unit($mid-font-size - $min-font-size)} *
+                ((100vw - #{$min-vw}) / #{strip-unit($mid-vw - $min-vw)})
+        ) !important;
+    }
+
+    @media screen and (min-width: $mid-vw) {
+        font-size: calc(
+            #{$mid-font-size} + #{strip-unit($max-font-size - $mid-font-size)} *
+                ((100vw - #{$mid-vw}) / #{strip-unit($max-vw - $mid-vw)})
+        ) !important;
+    }
+
+    @media screen and (min-width: $max-vw) {
+        font-size: strip-unit($max-font-size) / 1600 * 100 * 1vw !important;
+    }
+}
+
+@mixin fluid-line-height(
+    $min-line-height,
+    $mid-line-height,
+    $max-line-height,
+    $min-vw: map-get($breakpoints, xs),
+    $mid-vw: map-get($breakpoints, sm),
+    $max-vw: map-get($breakpoints, xl)
+) {
+    line-height: $min-line-height;
+
+    @media screen and (min-width: $min-vw) {
+        line-hight: calc(
+            #{$min-line-height} + #{strip-unit(
+                    $mid-line-height - $min-line-height
+                )} * ((100vw - #{$min-vw}) / #{strip-unit($mid-vw - $min-vw)})
+        );
+    }
+
+    @media screen and (min-width: $mid-vw) {
+        line-height: calc(
+            #{$mid-line-height} + #{strip-unit(
+                    $max-line-height - $mid-line-height
+                )} * ((100vw - #{$mid-vw}) / #{strip-unit($max-vw - $mid-vw)})
+        );
+    }
+
+    @media screen and (min-width: $max-vw) {
+        line-height: strip-unit($max-line-height) / 1600 * 100 * 1vw;
+    }
+}

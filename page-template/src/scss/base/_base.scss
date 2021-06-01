@@ -1,0 +1,221 @@
+body {
+    @include fluid-font-size(16px, 17px, 18px);
+    line-height: 1.7;
+    //@include fluid-line-height(20px, 24px, 26px);
+}
+
+// page headline
+h1 {
+    @include fluid-font-size(48px, 54px, 60px);
+    line-height: 1.016;
+    margin-bottom: 0.5em;
+}
+// regular content headlines
+h2 {
+    @include fluid-font-size(30px, 34px, 37px);
+    line-height: 1.016;
+    margin-bottom: 0.5em;
+}
+// not in use right now
+h3 {
+    @include fluid-font-size(24px, 28px, 32px);
+    line-height: 1.016;
+    margin-bottom: 0.5em;
+}
+
+.overline {
+    display: block;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.13em;
+    line-height: 1;
+    margin-bottom: 12px;
+    &--pink {
+        color: $pink;
+    }
+    &--blue {
+        color: $blue;
+    }
+}
+
+// larger text below page headline
+.lead {
+    @include fluid-font-size(21px, 22px, 24px);
+    line-height: 1.666;
+    margin-bottom: 4em;
+}
+
+small {
+    color: $grey--small;
+}
+
+.code,
+pre {
+    display: block;
+    background: #212738;
+    padding: 10px 16px;
+    color: $pink;
+    font-family: $font-family-monospace;
+    @include fluid-font-size(16px, 18px, 20px);
+    border-radius: 6px;
+    @include media(sm) {
+        padding: 20px 20px;
+    }
+}
+
+//custom button
+.btn-custom {
+    color: $white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    @include fluid-font-size(15px, 15px, 16px);
+    padding: 12px 16px;
+    @include media(sm) {
+        padding: 16px 32px;
+    }
+    &:hover,
+    &:active,
+    &:visited,
+    &:focus {
+        color: $white;
+    }
+}
+
+// divider
+.divider,
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    //border-top: 1px solid #cccccc;
+    padding: 0;
+    color: $blue;
+    background: $blue;
+    opacity: 1;
+    margin: 10vw 0;
+    @include media(sm) {
+        margin: 5vw 0;
+    }
+}
+
+/**
+ * Custom sections
+ */
+.header {
+    &__navbar {
+        background-color: $cloud !important;
+    }
+    &__logo {
+        display: block;
+        width: 33vw;
+        max-width: 190px;
+        height: auto;
+        @include media(sm) {
+            width: 20vw;
+        }
+    }
+}
+.intro {
+    background-color: $cloud;
+    position: relative;
+    overflow: hidden;
+    padding-top: 10vw;
+    @include media(lg) {
+        padding-top: 5vw;
+    }
+    & > * {
+        z-index: 2;
+        position: relative;
+    }
+    &__content-col {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .btn {
+            @include media(md) {
+                align-self: start;
+            }
+        }
+    }
+    &__bg {
+        z-index: 1;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        transform: translate3d(-14%, 30%, 0);
+    }
+    &__icon {
+        width: 58vw;
+        height: 58vw;
+        opacity: 0.1;
+        transform: rotate(-25deg);
+    }
+    .lead {
+        @include media(md, down) {
+            margin-bottom: 32px;
+        }
+    }
+}
+
+.phone {
+    display: flex;
+    margin-top: 72px;
+    @include media(sm) {
+        margin-top: 0;
+    }
+    &__wrapper {
+        position: relative;
+    }
+    &__phone {
+        display: block;
+        width: 100%;
+        max-width: 540px;
+        height: auto;
+    }
+    &__screen {
+        position: absolute;
+        display: block;
+        width: 82.03%;
+        height: 86.73%;
+        top: 13.3%;
+        left: 9.8888%;
+        object-fit: contain;
+        object-position: top left;
+    }
+}
+
+// about section with texts regarding app
+.about {
+    padding: 10vw 0;
+    @include media(sm) {
+        padding: 5vw 0;
+    }
+    .overline,
+    p + .code {
+        margin-top: 56px;
+        @include media(sm) {
+            margin-top: 78px;
+        }
+    }
+}
+
+//footer
+.footer {
+    background: $cloud;
+    padding: 10vw 0;
+    @include media(sm) {
+        padding: 5vw 0;
+    }
+    &__icon {
+        padding: 4vw 0;
+        display: flex;
+        justify-content: center;
+        img {
+            flex: 0 0 32vw;
+            width: 32vw;
+            height: auto;
+            display: block;
+        }
+    }
+}
