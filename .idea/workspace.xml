@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="4e622143-91c9-4c64-8e9f-f97f198133c5" name="Default Changelist" comment="german translations added">
+    <list default="true" id="4e622143-91c9-4c64-8e9f-f97f198133c5" name="Default Changelist" comment="add default page">
+      <change afterPath="$PROJECT_DIR$/app/Enum/QueueNames.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Http/Middleware/HorizonBasicAuthMiddleware.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Jobs/StoreMintedBlocksJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env.example" beforeDir="false" afterPath="$PROJECT_DIR$/.env.example" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BotController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BotController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Conversations/EditMasternodeConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Conversations/EditMasternodeConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Conversations/SyncMasternodeMonitorConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Conversations/SyncMasternodeMonitorConversation.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/HorizonServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/HorizonServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/horizon.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/horizon.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/lang/de/resetMasternodeConversation.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/lang/de/resetMasternodeConversation.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -239,7 +250,7 @@
       <workItem from="1622208896925" duration="10594000" />
       <workItem from="1622396463175" duration="169000" />
       <workItem from="1622396654425" duration="7474000" />
-      <workItem from="1622441127287" duration="7049000" />
+      <workItem from="1622441127287" duration="10744000" />
     </task>
     <task id="LOCAL-00001" summary="fixes">
       <created>1622159054848</created>
@@ -276,7 +287,14 @@
       <option name="project" value="LOCAL" />
       <updated>1622505566407</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="add default page">
+      <created>1622505834798</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1622505834798</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -301,7 +319,8 @@
     <MESSAGE value="add stat conversation" />
     <MESSAGE value="add stats" />
     <MESSAGE value="german translations added" />
-    <option name="LAST_COMMIT_MESSAGE" value="german translations added" />
+    <MESSAGE value="add default page" />
+    <option name="LAST_COMMIT_MESSAGE" value="add default page" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

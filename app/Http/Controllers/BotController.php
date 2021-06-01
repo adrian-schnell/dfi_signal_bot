@@ -26,12 +26,12 @@ class BotController extends Controller
         $botMan = app('botman');
 
         $botMan->hears('/start', function (Botman $botman) use ($telegramUserService) {
-            $telegramUserService->getTelegramUser($botman->getUser());
-
             $botman->startConversation(new OnboardConversation());
             if ($telegramUserService->isExistingUser($botman->getUser())) {
+                ray('exists');
                 $botman->startConversation(new HelpConversation());
             } else {
+                ray('new user');
                 $telegramUserService->getTelegramUser($botman->getUser());
                 $botman->startConversation(new OnboardConversation());
             }
@@ -69,7 +69,6 @@ class BotController extends Controller
             $botman->startConversation(new HelpConversation());
         });
         $botMan->exception(BotManException::class, function (Throwable $throwable, $bot) {
-            ray($throwable);
             $bot->reply('An error occured. Try again later...');
         });
         $botMan->middleware->received(new SetLanguage());

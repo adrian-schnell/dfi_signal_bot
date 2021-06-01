@@ -2,7 +2,10 @@
 
 namespace App\Http\Conversations;
 
+use App\Enum\QueueNames;
+use App\Http\Service\DefichainApiService;
 use App\Http\Service\MasternodeMonitorService;
+use App\Jobs\StoreMintedBlocksJob;
 use App\Models\Service\TelegramUserService;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
@@ -36,6 +39,8 @@ class SyncMasternodeMonitorConversation extends Conversation
             $this->say(trans_choice('syncMasternodeMonitorConversation.result.masternodes_synced', count($masternodes),
                 ['number' => count($masternodes)]));
             $this->getBot()->startConversation(new EnableMasternodeAlarmConversation($masternodes));
+
+            dispatch(new StoreMintedBlocksJob($user))->onQueue(QueueNames::MINTED_BLOCK_QUEUE);
         });
     }
 }

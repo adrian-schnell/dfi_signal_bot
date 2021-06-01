@@ -1,5 +1,6 @@
 <?php
 
+use App\Enum\QueueNames;
 use Illuminate\Support\Str;
 
 return [
@@ -28,7 +29,7 @@ return [
     |
     */
 
-    'path' => 'horizon',
+    'path' => 'queues',
 
     /*
     |--------------------------------------------------------------------------
@@ -55,8 +56,8 @@ return [
     */
 
     'prefix' => env(
-        'HORIZON_PREFIX',
-        Str::slug(env('APP_NAME', 'laravel'), '_').'_horizon:'
+        'DFI_SIGNAL',
+        Str::slug(env('APP_NAME', 'laravel'), '_') . '_horizon:'
     ),
 
     /*
@@ -70,7 +71,7 @@ return [
     |
     */
 
-    'middleware' => ['web'],
+    'middleware' => ['web', 'horizonBasicAuth'],
 
     /*
     |--------------------------------------------------------------------------
@@ -87,6 +88,11 @@ return [
         'redis:default' => 60,
     ],
 
+    'basic_auth' => [
+        'username' => env('HORIZON_BASIC_AUTH_USERNAME'),
+        'password' => env('HORIZON_BASIC_AUTH_PASSWORD'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Job Trimming Times
@@ -99,12 +105,12 @@ return [
     */
 
     'trim' => [
-        'recent' => 60,
-        'pending' => 60,
-        'completed' => 60,
+        'recent'        => 60,
+        'pending'       => 60,
+        'completed'     => 60,
         'recent_failed' => 10080,
-        'failed' => 10080,
-        'monitored' => 10080,
+        'failed'        => 10080,
+        'monitored'     => 10080,
     ],
 
     /*
@@ -120,7 +126,7 @@ return [
 
     'metrics' => [
         'trim_snapshots' => [
-            'job' => 24,
+            'job'   => 24,
             'queue' => 24,
         ],
     ],
@@ -151,7 +157,7 @@ return [
     |
     */
 
-    'memory_limit' => 64,
+    'memory_limit' => 128,
 
     /*
     |--------------------------------------------------------------------------
@@ -166,29 +172,23 @@ return [
 
     'defaults' => [
         'supervisor-1' => [
-            'connection' => 'redis',
-            'queue' => ['default'],
-            'balance' => 'auto',
-            'maxProcesses' => 1,
-            'memory' => 128,
-            'tries' => 1,
-            'nice' => 0,
+            'connection'   => 'redis',
+            'queue'        => [
+                QueueNames::MINTED_BLOCK_QUEUE,
+            ],
+            'balance'      => 'auto',
+            'minProcesses'    => env('HORIZON_MIN_PROCESSES', 1),
+            'maxProcesses'    => env('HORIZON_MAX_PROCESSES', 20),
+            'balanceMaxShift' => env('HORIZON_MAX_BALANCE_SHIFT', 2),
+            'balanceCooldown' => env('HORIZON_BALANCE_COOLDOWN', 2),
+            'memory'          => 128,
+            'tries'           => 1,
         ],
     ],
 
     'environments' => [
-        'production' => [
-            'supervisor-1' => [
-                'maxProcesses' => 10,
-                'balanceMaxShift' => 1,
-                'balanceCooldown' => 3,
-            ],
-        ],
+        'production' => [],
 
-        'local' => [
-            'supervisor-1' => [
-                'maxProcesses' => 3,
-            ],
-        ],
+        'local' => [],
     ],
 ];

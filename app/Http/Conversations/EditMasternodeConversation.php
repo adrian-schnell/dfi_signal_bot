@@ -42,7 +42,6 @@ class EditMasternodeConversation extends Conversation
             $question = Question::create($this->generateQuestionString($masternode))
                 ->addButtons($buttons);
             $this->ask($question, function (Answer $answer) use ($masternode) {
-                ray($answer, $answer->getMessage());
                 if (!$answer->isInteractiveMessageReply()) {
                     return;
                 }
