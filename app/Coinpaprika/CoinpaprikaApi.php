@@ -4,6 +4,7 @@ namespace App\Coinpaprika;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
 
 class CoinpaprikaApi
 {
@@ -18,9 +19,13 @@ class CoinpaprikaApi
 
     public function getDfiRates(): array
     {
-        return json_decode(
-            $this->client->get(config('coinpaprika.ticker'))->getBody()->getContents(),
-            true
-        )['quotes'];
+        try {
+            return json_decode(
+                       $this->client->get(config('coinpaprika.ticker'))->getBody()->getContents(),
+                       true
+                   )['quotes'];
+        } catch (GuzzleException $e) {
+            return [];
+        }
     }
 }

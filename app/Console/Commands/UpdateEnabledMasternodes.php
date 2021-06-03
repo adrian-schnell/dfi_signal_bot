@@ -9,7 +9,7 @@ use Illuminate\Console\Command;
 
 class UpdateEnabledMasternodes extends Command
 {
-    protected $signature = 'masternode:list-update';
+    protected $signature = 'update:masternode-list';
     protected $description = 'Updates the masternode information from mydeficha.in';
 
     public function handle(Client $client): void

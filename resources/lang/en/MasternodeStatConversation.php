@@ -13,9 +13,6 @@ return [
     'rewards' => [
     'dfi'            => '*Rewards*:
 :dfi DFI',
-    'btc' => '≈ :btc ₿',
-    'eth' => '≈ :eth Ξ',
-    'usd' => '≈ :usd $',
-    'eur' => '≈ :eur €',
+    'other_coins' => '≈ :value :ticker',
     ],
 ];

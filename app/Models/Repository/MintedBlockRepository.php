@@ -7,6 +7,7 @@ use App\Models\MintedBlock;
 use App\Models\TelegramUser;
 use App\Models\UserMasternode;
 use App\SignalService\SignalService;
+use Carbon\Carbon;
 
 class MintedBlockRepository
 {
@@ -37,7 +38,7 @@ class MintedBlockRepository
                 'value'              => $mintedBlock['value'] / 100000000,
                 'address'            => $mintedBlock['address'],
                 'block_hash'         => $txInfo['blockHash'],
-                'block_time'         => $txInfo['blockTime'],
+                'block_time'         => Carbon::parse($txInfo['blockTime'])->addHours(2),
             ]);
 
             if (!$initMode && $userMasternode->alarm_on) {

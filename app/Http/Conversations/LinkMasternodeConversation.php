@@ -2,6 +2,8 @@
 
 namespace App\Http\Conversations;
 
+use App\Enum\QueueNames;
+use App\Jobs\StoreMintedBlocksJob;
 use App\Models\Service\MasternodeService;
 use App\Models\Service\TelegramUserService;
 use App\Models\TelegramUser;
@@ -89,6 +91,7 @@ class LinkMasternodeConversation extends Conversation
                 $this->name,
                 $answer->getValue() === self::VALUE_YES
             );
+            dispatch(new StoreMintedBlocksJob($this->user))->onQueue(QueueNames::MINTED_BLOCK_QUEUE);
 
             if ($masternodeCreated) {
                 $this->say(__('linkMasternodeConversation.final'));

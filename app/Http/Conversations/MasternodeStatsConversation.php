@@ -3,6 +3,7 @@
 namespace App\Http\Conversations;
 
 use App\Coinpaprika\CoinpaprikaApi;
+use App\Models\DFIPrice;
 use App\Models\Repository\MintedBlockRepository;
 use App\Models\Service\MasternodeService;
 use App\Models\UserMasternode;
@@ -73,16 +74,18 @@ class MasternodeStatsConversation extends Conversation
                     ['average' => $averageBlock]);
 
             $latestMintedBlock = $masternode->mintedBlocks()->orderBy('block_time', 'DESC')->first();
-            $questionString .= '
+            if (isset($latestMintedBlock)) {
+                $questionString .= '
 
 ' . (string)__('MasternodeStatConversation.last_block',
-                    [
-                        'blockHeight' => $latestMintedBlock->mintBlockHeight,
-                        'hours'       => now()->diffInHours($latestMintedBlock->block_time),
-                    ]);
-            $questionString .= '
+                        [
+                            'blockHeight' => $latestMintedBlock->mintBlockHeight,
+                            'hours'       => now()->diffInHours($latestMintedBlock->block_time),
+                        ]);
+                $questionString .= '
 ' . (string)__('MasternodeStatConversation.tx_link',
-                    ['txid' => $masternode->mintedBlocks()->latest()->first()->mint_txid]);
+                        ['txid' => $masternode->mintedBlocks()->latest()->first()->mint_txid]);
+            }
         }
 
         return $questionString;
@@ -90,27 +93,18 @@ class MasternodeStatsConversation extends Conversation
 
     protected function generateRewardMessage(UserMasternode $masternode): string
     {
-        $currencyRates = app(CoinpaprikaApi::class)->getDfiRates();
-        $btcRate = $currencyRates['BTC']['price'];
-        $ethRate = $currencyRates['ETH']['price'];
-        $usdRate = $currencyRates['USD']['price'];
-        $eurRate = $currencyRates['EUR']['price'];
-
         $dfiRewardSum = app(MintedBlockRepository::class)->calculateRewardsForMasternode($masternode);
         $questionString = (string)__('MasternodeStatConversation.rewards.dfi',
-                ['dfi' => $dfiRewardSum]);
-        $questionString .= '
-'.(string)__('MasternodeStatConversation.rewards.btc',
-            ['btc' => $dfiRewardSum * $btcRate]);
-        $questionString .= '
-'.(string)__('MasternodeStatConversation.rewards.eth',
-                ['eth' => $dfiRewardSum * $ethRate]);
-        $questionString .= '
-'.(string)__('MasternodeStatConversation.rewards.usd',
-                ['usd' => round($dfiRewardSum * $usdRate, 2)]);
-        $questionString .= '
-'.(string)__('MasternodeStatConversation.rewards.eur',
-                ['eur' => round($dfiRewardSum * $eurRate, 2)]);
+            ['dfi' => $dfiRewardSum]);
+        foreach (DFIPrice::all() as $coin) {
+            $priceValue = $dfiRewardSum * $coin->price;
+            $questionString .= '
+' . (string)__('MasternodeStatConversation.rewards.other_coins',
+                    [
+                        'value'  => $coin->is_rounded ? round($priceValue, 2) : $priceValue,
+                        'ticker' => $coin->symbol ?? $coin->ticker,
+                    ]);
+        }
 
         return $questionString;
     }
