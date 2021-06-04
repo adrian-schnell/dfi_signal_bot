@@ -2,7 +2,6 @@
 
 namespace App\Http\Conversations;
 
-use App\Coinpaprika\CoinpaprikaApi;
 use App\Models\DFIPrice;
 use App\Models\Repository\MintedBlockRepository;
 use App\Models\Service\MasternodeService;
@@ -10,6 +9,7 @@ use App\Models\UserMasternode;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use Illuminate\Support\Collection;
+use Throwable;
 
 class MasternodeStatsConversation extends Conversation
 {
@@ -58,8 +58,13 @@ class MasternodeStatsConversation extends Conversation
                 ['state' => $masternode->masternode->state]);
 
         $mintedBlockCount = $masternode->mintedBlocks->count();
-        if ($mintedBlockCount > 0) {
+        try {
             $ageInDays = app(MasternodeService::class)->calculateMasternodeAge($masternode, 'days');
+        } catch (Throwable $e) {
+            $ageInDays = -1;
+        }
+
+        if ($mintedBlockCount > 0 && $ageInDays >= 0) {
             $averageBlock = round($ageInDays / $mintedBlockCount, 2);
 
             $questionString .= '
@@ -93,11 +98,11 @@ class MasternodeStatsConversation extends Conversation
 
     protected function generateRewardMessage(UserMasternode $masternode): string
     {
-        $dfiRewardSum = app(MintedBlockRepository::class)->calculateRewardsForMasternode($masternode);
+        $dfiRewardSum   = app(MintedBlockRepository::class)->calculateRewardsForMasternode($masternode);
         $questionString = (string)__('MasternodeStatConversation.rewards.dfi',
             ['dfi' => $dfiRewardSum]);
         foreach (DFIPrice::all() as $coin) {
-            $priceValue = $dfiRewardSum * $coin->price;
+            $priceValue     = $dfiRewardSum * $coin->price;
             $questionString .= '
 ' . (string)__('MasternodeStatConversation.rewards.other_coins',
                     [

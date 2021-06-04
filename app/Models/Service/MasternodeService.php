@@ -72,6 +72,11 @@ class MasternodeService
         return Carbon::parse($creationBlockDetails['time']);
     }
 
+    /**
+     * @param \App\Models\UserMasternode $userMasternode
+     *
+     * @return \Carbon\Carbon
+     */
     public function getCreationDateOfMasternode(UserMasternode $userMasternode): Carbon
     {
         $creationHeight = $userMasternode->masternode->creation_height;
@@ -80,6 +85,12 @@ class MasternodeService
         return Carbon::parse($creationBlockDetails['time']);
     }
 
+    /**
+     * @param \App\Models\UserMasternode $userMasternode
+     * @param string                     $ageIn
+     *
+     * @return float
+     */
     public function calculateMasternodeAge(UserMasternode $userMasternode, string $ageIn = 'days'): float
     {
         switch ($ageIn) {

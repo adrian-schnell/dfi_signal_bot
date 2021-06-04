@@ -11,7 +11,6 @@ use App\Http\Conversations\OnboardConversation;
 use App\Http\Conversations\ResetMasternodesConversation;
 use App\Http\Conversations\SyncMasternodeMonitorConversation;
 use App\Http\Middleware\TelegramBot\SetLanguageReceived;
-use App\Models\TelegramUser;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Exceptions\Base\BotManException;
 use BotMan\BotMan\Messages\Incoming\Answer;
