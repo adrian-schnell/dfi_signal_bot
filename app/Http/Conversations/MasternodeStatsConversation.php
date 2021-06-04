@@ -2,6 +2,7 @@
 
 namespace App\Http\Conversations;
 
+use App\Exceptions\DefichainApiException;
 use App\Models\DFIPrice;
 use App\Models\Repository\MintedBlockRepository;
 use App\Models\Service\MasternodeService;
@@ -60,8 +61,9 @@ class MasternodeStatsConversation extends Conversation
         $mintedBlockCount = $masternode->mintedBlocks->count();
         try {
             $ageInDays = app(MasternodeService::class)->calculateMasternodeAge($masternode, 'days');
-        } catch (Throwable $e) {
+        } catch (DefichainApiException $e) {
             $ageInDays = -1;
+            $questionString .= __('errors.api_not_available');
         }
 
         if ($mintedBlockCount > 0 && $ageInDays >= 0) {

@@ -2,6 +2,7 @@
 
 namespace App\Models\Service;
 
+use App\Exceptions\DefichainApiException;
 use App\Http\Service\DefichainApiService;
 use App\Models\Masternode;
 use App\Models\UserMasternode;
@@ -9,6 +10,7 @@ use App\Models\TelegramUser;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\QueryException;
+use Throwable;
 
 class MasternodeService
 {
@@ -73,23 +75,22 @@ class MasternodeService
     }
 
     /**
-     * @param \App\Models\UserMasternode $userMasternode
-     *
-     * @return \Carbon\Carbon
+     * @throws \App\Exceptions\DefichainApiException
      */
     public function getCreationDateOfMasternode(UserMasternode $userMasternode): Carbon
     {
         $creationHeight = $userMasternode->masternode->creation_height;
         $creationBlockDetails = app(DefichainApiService::class)->getBlockDetails($creationHeight);
 
-        return Carbon::parse($creationBlockDetails['time']);
+        try {
+            return Carbon::parse($creationBlockDetails['time']);
+        } catch (Throwable $e) {
+            throw DefichainApiException::generic('fetching block details failed', $e);
+        }
     }
 
     /**
-     * @param \App\Models\UserMasternode $userMasternode
-     * @param string                     $ageIn
-     *
-     * @return float
+     * @throws \App\Exceptions\DefichainApiException
      */
     public function calculateMasternodeAge(UserMasternode $userMasternode, string $ageIn = 'days'): float
     {
