@@ -6,8 +6,9 @@ use Illuminate\Contracts\View\View;
 
 class PageController extends Controller
 {
-	public function index(): View
+	public function index()
 	{
+	    return 'coming soon';
         return view('startpage');
     }
 }

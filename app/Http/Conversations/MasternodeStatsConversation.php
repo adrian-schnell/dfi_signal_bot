@@ -63,7 +63,9 @@ class MasternodeStatsConversation extends Conversation
             $ageInDays = app(MasternodeService::class)->calculateMasternodeAge($masternode, 'days');
         } catch (DefichainApiException $e) {
             $ageInDays = -1;
-            $questionString .= __('errors.api_not_available');
+            $questionString .= '
+
+'.__('errors.api_not_available');
         }
 
         if ($mintedBlockCount > 0 && $ageInDays >= 0) {

@@ -39,6 +39,7 @@ class MasternodeService
                 'masternode_id'  => $mn->id,
                 'alarm_on'       => $alarmEnabled,
             ]);
+
             return true;
         } catch (QueryException | ModelNotFoundException $e) {
             return false;
@@ -79,10 +80,10 @@ class MasternodeService
      */
     public function getCreationDateOfMasternode(UserMasternode $userMasternode): Carbon
     {
-        $creationHeight = $userMasternode->masternode->creation_height;
-        $creationBlockDetails = app(DefichainApiService::class)->getBlockDetails($creationHeight);
-
         try {
+            $creationHeight       = $userMasternode->masternode->creation_height;
+            $creationBlockDetails = app(DefichainApiService::class)->getBlockDetails($creationHeight);
+
             return Carbon::parse($creationBlockDetails['time']);
         } catch (Throwable $e) {
             throw DefichainApiException::generic('fetching block details failed', $e);
