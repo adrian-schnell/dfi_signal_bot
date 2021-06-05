@@ -11,11 +11,9 @@ return [
     'state'              => '*Status*: :state',
 
     'rewards' => [
-    'dfi'            => '*Belohnungen*:
+        'dfi'         => '*Rewards*:
 :dfi DFI',
-    'btc' => '≈ :btc ₿',
-    'eth' => '≈ :eth Ξ',
-    'usd' => '≈ :usd $',
-    'eur' => '≈ :eur €',
+        'other_coins' => '≈ :value :ticker',
+        'legal'       => 'letztes Update DEX Preise: :date.'
     ],
 ];

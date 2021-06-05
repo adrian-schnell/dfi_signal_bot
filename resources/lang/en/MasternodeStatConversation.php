@@ -11,8 +11,9 @@ return [
     'state'              => '*Current State*: :state',
 
     'rewards' => [
-    'dfi'            => '*Rewards*:
+        'dfi'         => '*Rewards*:
 :dfi DFI',
-    'other_coins' => '≈ :value :ticker',
+        'other_coins' => '≈ :value :ticker',
+        'legal'       => 'DEX prices last update: :date.'
     ],
 ];

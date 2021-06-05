@@ -5,9 +5,10 @@ namespace App\Enum;
 class CoinSymbol
 {
     const MAPPING = [
-        'BTC' => '₿',
-        'ETH' => 'Ξ',
-        'EUR' => '€',
-        'USD' => '$',
+        'BTC'  => '₿',
+        'ETH'  => 'Ξ',
+        'EUR'  => '€',
+        'USD'  => '$',
+        'USDT' => '$',
     ];
 }

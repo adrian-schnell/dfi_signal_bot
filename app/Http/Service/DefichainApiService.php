@@ -24,7 +24,9 @@ class DefichainApiService
             'connect_timeout' => 3,
         ]);
         $this->transactionClient = new Client([
-            'base_uri' => config('api_defichain.transaction.base_uri'),
+            'base_uri'        => config('api_defichain.transaction.base_uri'),
+            'timeout'         => 3,
+            'connect_timeout' => 3,
         ]);
     }
 
@@ -32,8 +34,6 @@ class DefichainApiService
      * @throws DefichainApiException
      */
     public function getStats(): array
-
-
     {
         try {
             return json_decode(
@@ -44,8 +44,7 @@ class DefichainApiService
                 true
             );
         } catch (Throwable $e) {
-            throw DefichainApiException::generic(sprintf('API request to fetch stats failed with message: %s',
-                $e->getMessage()), $e);
+            throw DefichainApiException::generic($e->getMessage(), $e);
         }
     }
 
@@ -82,6 +81,21 @@ class DefichainApiService
             ])->getBody()->getContents();
         } catch (GuzzleException $e) {
             return [];
+        }
+
+        return json_decode($rawResponse, true);
+    }
+
+    public function getPoolPairs(): array
+    {
+        try {
+            $rawResponse = $this->generalClient->get(config('api_defichain.general.listpoolpairs'), [
+                'timeout'            => 3,
+                'connection_timeout' => 3,
+            ])->getBody()->getContents();
+        } catch (Throwable $e) {
+            throw DefichainApiException::generic(sprintf('Failed to load poolpairs with message: %s',
+                $e->getMessage()), $e);
         }
 
         return json_decode($rawResponse, true);
