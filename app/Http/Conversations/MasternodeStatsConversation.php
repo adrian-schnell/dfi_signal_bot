@@ -3,14 +3,13 @@
 namespace App\Http\Conversations;
 
 use App\Exceptions\DefichainApiException;
-use App\Models\DFIPrice;
+use App\Models\DEXPrice;
 use App\Models\Repository\MintedBlockRepository;
 use App\Models\Service\MasternodeService;
 use App\Models\UserMasternode;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use Illuminate\Support\Collection;
-use Throwable;
 
 class MasternodeStatsConversation extends Conversation
 {
@@ -62,10 +61,10 @@ class MasternodeStatsConversation extends Conversation
         try {
             $ageInDays = app(MasternodeService::class)->calculateMasternodeAge($masternode, 'days');
         } catch (DefichainApiException $e) {
-            $ageInDays = -1;
+            $ageInDays      = -1;
             $questionString .= '
 
-'.__('errors.api_not_available');
+' . __('errors.api_not_available');
         }
 
         if ($mintedBlockCount > 0 && $ageInDays >= 0) {
@@ -105,15 +104,23 @@ class MasternodeStatsConversation extends Conversation
         $dfiRewardSum   = app(MintedBlockRepository::class)->calculateRewardsForMasternode($masternode);
         $questionString = (string)__('MasternodeStatConversation.rewards.dfi',
             ['dfi' => $dfiRewardSum]);
-        foreach (DFIPrice::all() as $coin) {
-            $priceValue     = $dfiRewardSum * $coin->price;
+        $prices = DEXPrice::all();
+
+        foreach ($prices as $price) {
             $questionString .= '
 ' . (string)__('MasternodeStatConversation.rewards.other_coins',
                     [
-                        'value'  => $coin->is_rounded ? round($priceValue, 2) : $priceValue,
-                        'ticker' => $coin->symbol ?? $coin->ticker,
+                        'value'  => $dfiRewardSum * $price->price,
+                        'ticker' => $price->symbol,
                     ]);
         }
+
+        $questionString .= '
+
+' . (string)__('MasternodeStatConversation.rewards.legal',
+                [
+                    'date' => $prices->first()->updated_at->format('H:i:s - d.m.Y'),
+                ]);
 
         return $questionString;
     }
