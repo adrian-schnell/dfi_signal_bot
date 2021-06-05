@@ -19,7 +19,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
          $schedule->command('update:masternode-list')->hourly()->withoutOverlapping();
-         $schedule->command('update:dfi-prices')->everyThirtyMinutes()->withoutOverlapping();
+//         $schedule->command('update:dfi-prices')->everyThirtyMinutes()->withoutOverlapping();
          $schedule->command('signal:update-masternode-minted')->everyFiveMinutes()->withoutOverlapping();
     }
 
