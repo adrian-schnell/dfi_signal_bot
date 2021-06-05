@@ -22,6 +22,7 @@ class Kernel extends ConsoleKernel
     {
          $schedule->command('update:masternode-list')->hourly()->withoutOverlapping();
 //         $schedule->command('update:dfi-prices')->everyThirtyMinutes()->withoutOverlapping();
+         $schedule->command('update:dex-prices')->everyThirtyMinutes()->withoutOverlapping();
          $schedule->command('signal:update-masternode-minted')->everyFiveMinutes()->withoutOverlapping();
     }
 
