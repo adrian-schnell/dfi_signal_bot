@@ -2,7 +2,10 @@
     "name": "laravel/laravel",
     "type": "project",
     "description": "DFI Signal Telegram Bot",
-    "keywords": ["framework", "laravel"],
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
     "license": "MIT",
     "require": {
         "php": "^7.4|^8.0",
