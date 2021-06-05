@@ -22,6 +22,6 @@ class DexCoin
         6  => 'USDT',
         8  => 'DOGE',
         10 => 'LTC',
-        13 => 'BCH',
+        12 => 'BCH',
     ];
 }
