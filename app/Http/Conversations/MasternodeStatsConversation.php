@@ -104,7 +104,7 @@ class MasternodeStatsConversation extends Conversation
         $dfiRewardSum   = app(MintedBlockRepository::class)->calculateRewardsForMasternode($masternode);
         $questionString = (string)__('MasternodeStatConversation.rewards.dfi',
             ['dfi' => $dfiRewardSum]);
-        $prices = DEXPrice::all();
+        $prices = DEXPrice::orderBy('order')->get();
 
         foreach ($prices as $price) {
             $questionString .= '
