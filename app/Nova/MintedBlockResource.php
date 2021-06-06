@@ -3,12 +3,9 @@
 namespace App\Nova;
 
 use App\Models\MintedBlock;
-use App\Models\UserMasternode;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
-use Laravel\Nova\Fields\Date;
 use Laravel\Nova\Fields\DateTime;
-use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
 
@@ -36,44 +33,34 @@ class MintedBlockResource extends Resource
     public function fields(Request $request): array
     {
         return [
-            ID::make()->sortable(),
-
             Number::make('MintBlockHeight', 'mintBlockHeight')
                 ->sortable()
                 ->exceptOnForms(),
-
             Number::make('SpentBlockHeight', 'spentBlockHeight')
                 ->sortable()
                 ->exceptOnForms(),
-
             Text::make('Block Hash')
                 ->sortable()
                 ->hideFromIndex()
                 ->exceptOnForms(),
-
             Text::make('Spent Txid')
                 ->sortable()
                 ->hideFromIndex()
                 ->exceptOnForms(),
-
             Text::make('Mint Txid')
                 ->sortable()
                 ->hideFromIndex()
                 ->exceptOnForms(),
-
             Number::make('Value')
                 ->sortable()
                 ->exceptOnForms(),
-
             Text::make('Address')
                 ->sortable()
                 ->hideFromIndex()
                 ->exceptOnForms(),
-
             DateTime::make('Block Time')
                 ->sortable()
                 ->exceptOnForms(),
-
             BelongsTo::make('UserMasternode', 'userMasternode', UserMasternodeResource::class),
         ];
     }

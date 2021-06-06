@@ -40,31 +40,24 @@ class TelegramUserResource extends Resource
 	{
 		return [
 			ID::make()->sortable(),
-
 			Text::make('Telegram ID', 'telegramId')
 				->sortable()
 				->rules('required'),
-
 			Text::make('Vorname', 'firstName')
 				->sortable()
 				->rules('required'),
-
 			Text::make('Nachname', 'lastName')
 				->sortable()
 				->rules('required'),
-
 			Text::make('Username', 'username')
 				->sortable()
 				->rules('required'),
-
 			Text::make('Sprache', 'language')
 				->sortable()
 				->rules('required'),
-
 			Text::make('Status', ' status')
 				->sortable()
 				->rules('required'),
-
             HasMany::make('Masternodes', 'masternodes', UserMasternodeResource::class),
 		];
 	}

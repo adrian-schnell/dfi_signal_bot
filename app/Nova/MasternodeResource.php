@@ -33,22 +33,16 @@ class MasternodeResource extends Resource
 		return [
 			Text::make('Masternode Id')
 				->sortable(),
-
 			Text::make('Owner Address')
 				->sortable(),
-
 			Text::make('Operator Address')
 				->sortable(),
-
 			Number::make('Creation Height')
 				->sortable(),
-
 			Text::make('State')
 				->sortable(),
-
 			Number::make('Minted Blocks')
 				->sortable(),
-
 			Number::make('Target Multiplier')
 				->sortable(),
 		];
