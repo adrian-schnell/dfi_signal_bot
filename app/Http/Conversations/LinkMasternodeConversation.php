@@ -35,12 +35,8 @@ class LinkMasternodeConversation extends Conversation
     public function run()
     {
         if (app(MasternodeService::class)->countMasternodeForUserInput($this->ownerAddress) === 0) {
-            ray('start owner');
-
             $this->askOwnerAddress();
         } else {
-            ray('start2');
-
             $this->askName();
         }
     }

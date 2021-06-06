@@ -3,7 +3,6 @@
 namespace App\Http;
 
 use App\Http\Middleware\Authenticate;
-use App\Http\Middleware\HorizonBasicAuthMiddleware;
 use App\Http\Middleware\RedirectIfAuthenticated;
 use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
 use Illuminate\Auth\Middleware\Authorize;
@@ -60,6 +59,5 @@ class Kernel extends HttpKernel
         'signed'           => ValidateSignature::class,
         'throttle'         => ThrottleRequests::class,
         'verified'         => EnsureEmailIsVerified::class,
-        'horizonBasicAuth' => HorizonBasicAuthMiddleware::class,
     ];
 }
