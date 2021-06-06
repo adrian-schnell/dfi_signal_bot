@@ -92,7 +92,11 @@ class MasternodeStatsConversation extends Conversation
                         ]);
                 $questionString .= '
 ' . (string)__('MasternodeStatConversation.tx_link',
-                        ['txid' => $masternode->mintedBlocks()->latest()->first()->mint_txid]);
+                        [
+                            'txid'           => $masternode->mintedBlocks()->latest()->first()->mint_txid,
+                            'txid_truncated' => str_truncate_middle($masternode->mintedBlocks()->latest()->first()
+                                ->mint_txid, 30),
+                        ]);
             }
         }
 
@@ -104,7 +108,7 @@ class MasternodeStatsConversation extends Conversation
         $dfiRewardSum   = app(MintedBlockRepository::class)->calculateRewardsForMasternode($masternode);
         $questionString = (string)__('MasternodeStatConversation.rewards.dfi',
             ['dfi' => $dfiRewardSum]);
-        $prices = DEXPrice::orderBy('order')->get();
+        $prices         = DEXPrice::orderBy('order')->get();
 
         foreach ($prices as $price) {
             $questionString .= '
