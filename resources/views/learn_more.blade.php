@@ -29,7 +29,7 @@
                     you like to setup your masternode manually by entering the owner address (command
                     <code>/link_mn &ltOWNER_ADDRESS&gt;</code>) or if you'd like to sync
                     your masternodes from
-                    <a href="https://www.defichain-masternode-monitor.com" target="_blank">
+                    <a href="https://www.DeFichain-masternode-monitor.com" target="_blank">
                         Masternode Monitor
                     </a>(onetime only with command <code>/sync</code>).
                 </p>
@@ -69,15 +69,15 @@
                     <br>Used APIs are:
                 </p>
                 <ul>
-                    <li>https://api.deFiChain.io/v1/</li>
-                    <li>https://mainnet-api.deFiChain.io/api/DFI/mainnet/</li>
+                    <li>https://api.DeFiChain.io/v1/</li>
+                    <li>https://mainnet-api.DeFiChain.io/api/DFI/mainnet/</li>
                 </ul>
                 <p>
                     On top, it's optionally using the sync service provided by Masternode Monitor to read (onetime)
                     your linked masternodes:
                 </p>
                 <ul>
-                    <li>https://sync.defichain-masternode-monitor.com (optional for onetime sync)</li>
+                    <li>https://sync.DeFichain-masternode-monitor.com (optional for onetime sync)</li>
                 </ul>
                 <p>
                     This service is hosted by Hetzner in Germany and all communication is SSL-encrypted with a
