@@ -41,29 +41,32 @@
         <div class="about">
             <div class="container">
                 <h2>Masternodes</h2>
-                <p> Setup your DFI Signal and get informed on new minted blocks or if your masternodes follows the wrong
-                    fork. </p>
+                <p>
+                    Setup your DFI Signal and get informed on new minted blocks of your masternode or get
+                    <code>/stats</code> about your rewards.
+                </p>
                 <hr/>
                 <h2>Wallet (coming soon)</h2>
-                <p> You can setup your wallet addresses and get your daily, weekly or monthly wallet update </p>
+                <p> You can setup your wallet addresses and get your daily, weekly or monthly wallet update or a
+                    push on new incoming transactions.</p>
                 <hr/>
                 <h2>Commands</h2>
                 <p>These commands are available at the moment:</p>
 
-                <span class="overline overline--blue">list</span>
+                <span class="overline overline--blue">list masternodes</span>
                 <p class="code">&#47;list</p>
                 <p>
                     Lists your masternodes with a couple of statistics.
                 </p>
 
-                <span class="overline overline--blue">stats</span>
+                <span class="overline overline--blue">stats of your mn rewards</span>
                 <p class="code">&#47;stats</p>
                 <p>
                     Shows a couple of more detailed statistics of your
                     masternodes.
                 </p>
 
-                <span class="overline overline--blue">link</span>
+                <span class="overline overline--blue">link a masternode</span>
                 <p class="code">
                     &#47;link_mn &lt;OWNER_ADDRESS&gt;
                 </p>
@@ -73,13 +76,13 @@
                     for this masternode.
                 </p>
 
-                <span class="overline overline--blue">unlink</span>
+                <span class="overline overline--blue">unlink a masternode</span>
                 <p class="code">
                     &#47;unlink_mn &lt;OWNER_ADDRESS&gt;
                 </p>
                 <p>Removes the masternode from your account.</p>
 
-                <span class="overline overline--blue">sync</span>
+                <span class="overline overline--blue">sync with masternode monitor</span>
                 <p class="code">&#47;sync</p>
                 <p>
                     Use the sync with <a href="https://www.defichain-masternode-monitor.com/" target="_blank">Masternode
@@ -89,7 +92,7 @@
                     wish to get automatic signals for these masternodes.
                 </p>
 
-                <span class="overline overline--blue">reset</span>
+                <span class="overline overline--blue">reset all your data</span>
                 <p class="code">&#47;reset</p>
                 <p>
                     Removes all stored data from your account. This
