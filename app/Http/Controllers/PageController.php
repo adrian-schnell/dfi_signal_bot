@@ -10,4 +10,9 @@ class PageController extends Controller
 	{
         return view('startpage');
     }
+
+    public function learnMore(): View
+    {
+        return view('learn_more');
+    }
 }
