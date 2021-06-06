@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string  name
  * @property float   price_to_dfi
  * @property float   price_from_dfi
+ * @property integer order
  */
 class DEXPrice extends Model
 {
