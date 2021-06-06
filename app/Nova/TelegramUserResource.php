@@ -42,7 +42,7 @@ class TelegramUserResource extends Resource
 			ID::make()->sortable(),
 			Text::make('Telegram ID', 'telegramId')
 				->sortable()
-				->rules('required'),
+				->exceptOnForms(),
 			Text::make('Vorname', 'firstName')
 				->sortable()
 				->rules('required'),
@@ -55,7 +55,7 @@ class TelegramUserResource extends Resource
 			Text::make('Sprache', 'language')
 				->sortable()
 				->rules('required'),
-			Text::make('Status', ' status')
+			Text::make('Status', 'status')
 				->sortable()
 				->rules('required'),
             HasMany::make('Masternodes', 'masternodes', UserMasternodeResource::class),

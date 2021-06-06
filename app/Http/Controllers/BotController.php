@@ -26,7 +26,6 @@ class BotController extends Controller
         $botMan = app('botman');
 
         $botMan->hears('/start', function (Botman $botman) use ($telegramUserService) {
-            $botman->startConversation(new OnboardConversation());
             if ($telegramUserService->isExistingUser($botman->getUser())) {
                 $botman->startConversation(new HelpConversation());
             } else {
