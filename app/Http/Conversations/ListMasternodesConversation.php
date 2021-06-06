@@ -27,7 +27,8 @@ class ListMasternodesConversation extends Conversation
     {
         $this->masternodes->each(function (UserMasternode $masternode) {
             $question = Question::create($this->generateQuestionString($masternode));
-            $this->ask($question, function(){}, array_merge([
+            $this->ask($question, function () {
+            }, array_merge([
                 'parse_mode' => 'Markdown',
             ]));
         });
@@ -46,7 +47,10 @@ class ListMasternodesConversation extends Conversation
         }
         if ($masternode->masternode_id) {
             $questionString .= '
-' . __('listMasternodeConversation.masternode_id', ['masternode_id' => $masternode->masternode->masternode_id]);
+' . __('listMasternodeConversation.masternode_id', [
+                    'masternode_id'           => $masternode->masternode->masternode_id,
+                    'masternode_id_truncated' => str_truncate_middle($masternode->masternode->masternode_id),
+                ]);
         }
         $questionString .= '
 ' . __('listMasternodeConversation.alarm_on', ['icon' => $masternode->alarm_on ? '✅' : '❌']);
