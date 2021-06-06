@@ -40,7 +40,6 @@ class UpdateDexPrices extends Command
             });
         DEXPrice::upsert($dataPreparation, ['dex_id', 'name']);
         $this->info('Updated DEX prices');
-        ray($poolpairs, $dataPreparation);
 
         return 0;
     }
