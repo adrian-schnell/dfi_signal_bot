@@ -41,26 +41,20 @@ class MintedBlockResource extends Resource
                 ->exceptOnForms(),
             Text::make('Block Hash')
                 ->sortable()
-                ->hideFromIndex()
-                ->exceptOnForms(),
+                ->hideFromIndex(),
             Text::make('Spent Txid')
                 ->sortable()
-                ->hideFromIndex()
-                ->exceptOnForms(),
+                ->hideFromIndex(),
             Text::make('Mint Txid')
                 ->sortable()
-                ->hideFromIndex()
-                ->exceptOnForms(),
+                ->hideFromIndex(),
             Number::make('Value')
-                ->sortable()
-                ->exceptOnForms(),
+                ->sortable(),
             Text::make('Address')
                 ->sortable()
-                ->hideFromIndex()
-                ->exceptOnForms(),
+                ->hideFromIndex(),
             DateTime::make('Block Time')
-                ->sortable()
-                ->exceptOnForms(),
+                ->sortable(),
             BelongsTo::make('UserMasternode', 'userMasternode', UserMasternodeResource::class),
         ];
     }
