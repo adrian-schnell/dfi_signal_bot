@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Enum\QueueNames;
+use App\Http\Service\DefichainApiService;
 use App\Jobs\StoreMintedBlocksJob;
 use App\Models\TelegramUser;
 use Illuminate\Console\Command;
@@ -17,7 +18,7 @@ class MintedBlockSignal extends Command
     {
         $users = TelegramUser::all();
         $users->each(function (TelegramUser $user) {
-            dispatch(new StoreMintedBlocksJob($user))->onQueue(QueueNames::MINTED_BLOCK_QUEUE);
+            app(DefichainApiService::class)->storeMintedBlockForTelegramUser($user);
         });
     }
 }
