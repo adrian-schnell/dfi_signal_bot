@@ -13,7 +13,7 @@ return [
     ],
 
     'result'             => [
-        'no_masternodes'     => 'Mit diesem Sync Key sind keine Masternodes hinterlegt',
+        'no_masternodes'     => 'Mit diesem Sync Key sind keine Masternodes hinterlegt. Bitte versuche es erneut.',
         'masternodes_synced' => '{1}Eine Masternode synchronisiert|[2,*]Du hast :number Masternodes angelegt.',
     ]
 ];

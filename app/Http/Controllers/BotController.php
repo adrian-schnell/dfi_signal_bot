@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Conversations\HelpConversation;
 use App\Http\Conversations\LinkMasternodeConversation;
 use App\Http\Conversations\MasternodeStatsConversation;
+use App\Http\Conversations\SyncDisableConversation;
+use App\Http\Conversations\SyncKeyChangedConversation;
 use App\Http\Conversations\UnlinkMasternodeConversation;
 use App\Http\Conversations\ListMasternodesConversation;
 use App\Http\Conversations\OnboardConversation;
@@ -36,6 +38,14 @@ class BotController extends Controller
         $botMan->hears('/sync', function (BotMan $botman) {
             $botman->startConversation(new SyncMasternodeMonitorConversation());
         })->skipsConversation();
+        $botMan->hears('/sync_key_changed', function (BotMan $botman) {
+            $botman->startConversation(new SyncKeyChangedConversation());
+        });
+        $botMan->hears('/sync_disable', function (BotMan $botman) {
+            $botman->startConversation(new SyncDisableConversation());
+        });
+
+
         $botMan->hears('/link_mn {ownerAddress}', function (BotMan $botman, string $ownerAddress) {
             $botman->startConversation(new LinkMasternodeConversation($botman->getUser(), $ownerAddress));
         })->skipsConversation();
@@ -61,6 +71,9 @@ class BotController extends Controller
             $botman->startConversation(new ResetMasternodesConversation($telegramUser));
         })->skipsConversation();
 
+        $botMan->hears('/stop', function (BotMan $botman) {
+            $botman->reply('⏹ stopped');
+        })->stopsConversation();
 
         $botMan->fallback(function (BotMan $botman) {
             $botman->startConversation(new HelpConversation());

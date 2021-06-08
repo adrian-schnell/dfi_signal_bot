@@ -85,11 +85,30 @@
                 <span class="overline overline--blue">sync with masternode monitor</span>
                 <p class="code">&#47;sync</p>
                 <p>
-                    Use the sync with <a href="https://www.defichain-masternode-monitor.com/" target="_blank">Masternode
+                    Use the masternode sync with <a href="https://www.defichain-masternode-monitor.com/"
+                                          target="_blank">Masternode
                         Monitor</a>.
                     All your masternodes from the Masternode Monitor
                     are synced. While the setup you can decide if you
                     wish to get automatic signals for these masternodes.
+                </p>
+
+                <span class="overline overline--blue">change your masternode monitor sync key</span>
+                <p class="code">&#47;sync_key_changed</p>
+                <p>
+                    If you updated your sync key, you can use this command.
+                </p>
+
+                <span class="overline overline--blue">stop the masternode monitor sync</span>
+                <p class="code">&#47;sync_disable</p>
+                <p>
+                    Stop the masternode sync with the Masternode Monitor
+                </p>
+
+                <span class="overline overline--blue">interrupt current conversation</span>
+                <p class="code">&#47;stop</p>
+                <p>
+                    If you wish to stop a current conversation with the bot.
                 </p>
 
                 <span class="overline overline--blue">reset all your data</span>

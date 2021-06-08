@@ -36,7 +36,7 @@ class SyncMasternodeMonitorConversation extends Conversation
             if (count($masternodes) === 0) {
                 $this->say(__('syncMasternodeMonitorConversation.result.no_masternodes'));
 
-                return;
+                return $this->repeat(__('syncMasternodeMonitorConversation.question'));
             }
 
             $storeKeyQuestion = Question::create(__('syncMasternodeMonitorConversation.question_store_key'))
@@ -45,8 +45,11 @@ class SyncMasternodeMonitorConversation extends Conversation
                     Button::create(__('syncMasternodeMonitorConversation.buttons.no'))->value('no'),
                 ]);
             $this->ask($storeKeyQuestion,
-                function (Answer $answer) use ($user, $masternodes) {
-                    if ($answer->getValue() === 'yes' || in_array($answer->getText(), ['ja', 'yes', 'yep'])) {
+                function (Answer $answer) use ($user, $masternodes, $storeKeyQuestion) {
+                    if (!$answer->isInteractiveMessageReply()) {
+                        return $this->repeat($storeKeyQuestion);
+                    }
+                    if ($answer->getValue() === 'yes') {
                         $user->update([
                             'mn_monitor_sync_key' => $this->syncKey,
                         ]);
