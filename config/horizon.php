@@ -175,6 +175,7 @@ return [
             'connection'   => 'redis',
             'queue'        => [
                 QueueNames::MINTED_BLOCK_QUEUE,
+                QueueNames::MASTERNODE_MONITOR_QUEUE,
             ],
             'balance'      => 'auto',
             'minProcesses'    => env('HORIZON_MIN_PROCESSES', 1),

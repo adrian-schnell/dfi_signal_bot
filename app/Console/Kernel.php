@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\CreateBackendUserCommand;
+use App\Console\Commands\MasternodeMonitorSyncCommand;
 use App\Console\Commands\MintedBlockSignal;
 use App\Console\Commands\UpdateDexPrices;
 use App\Console\Commands\UpdateEnabledMasternodes;
@@ -16,6 +17,7 @@ class Kernel extends ConsoleKernel
 	    MintedBlockSignal::class,
 	    UpdateDexPrices::class,
 	    CreateBackendUserCommand::class,
+	    MasternodeMonitorSyncCommand::class,
     ];
 
     protected function schedule(Schedule $schedule): void
