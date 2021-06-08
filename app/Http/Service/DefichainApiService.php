@@ -147,7 +147,7 @@ class DefichainApiService
         $masternodes = $user->masternodes;
 
         $masternodes->each(function (UserMasternode $masternode) {
-            dispatch(new StoreMintedBlocksJob($this, $masternode))
+            dispatch(new StoreMintedBlocksJob($masternode))
                 ->onQueue(QueueNames::MINTED_BLOCK_QUEUE);
         });
     }
