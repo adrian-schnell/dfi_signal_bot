@@ -35,7 +35,7 @@ class TelegramUserService
             'username'   => $user->getUsername(),
             'firstName'  => $user->getFirstName(),
             'lastName'   => $user->getLastName(),
-            'language'   => $user->getLanguageCode(),
+            'language'   => $user->getLanguageCode() ?? 'en',
             'status'     => $user->getStatus(),
         ]);
     }
