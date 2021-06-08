@@ -29,19 +29,23 @@ class MasternodeMonitorService
             return [];
         }
         $masternodeArray = [];
+        UserMasternode::where('telegramUserId', $user->id)->synced()->delete();
         foreach ($masternodes as $masternode) {
-            $mn                = Masternode::where('owner_address', $masternode['ownerAddress'])->first();
-            $masternodeArray[] = UserMasternode::updateOrCreate([
-                'telegramUserId' => $user->id,
-                'masternode_id'  => $mn->id,
-            ],
-                [
-                    'telegramUserId'            => $user->id,
-                    'name'                      => $masternode['name'],
-                    'masternode_id'             => $mn->id,
-                    'synced_masternode_monitor' => true,
-                ]
-            );
+            $mn = Masternode::where('owner_address', $masternode['ownerAddress'])->first();
+            if (isset($mn)) {
+                $masternodeArray[] = UserMasternode::updateOrCreate([
+                    'telegramUserId' => $user->id,
+                    'masternode_id'  => $mn->id,
+                ],
+                    [
+                        'telegramUserId'            => $user->id,
+                        'name'                      => $masternode['name'],
+                        'masternode_id'             => $mn->id,
+                        'synced_masternode_monitor' => true,
+                        'alarm_on'                  => true,
+                    ]
+                );
+            }
         }
 
         return $masternodeArray;

@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\CreateBackendUserCommand;
+use App\Console\Commands\MasternodeMonitorSyncCommand;
 use App\Console\Commands\MintedBlockSignal;
 use App\Console\Commands\UpdateDexPrices;
 use App\Console\Commands\UpdateEnabledMasternodes;
@@ -16,11 +17,13 @@ class Kernel extends ConsoleKernel
 	    MintedBlockSignal::class,
 	    UpdateDexPrices::class,
 	    CreateBackendUserCommand::class,
+	    MasternodeMonitorSyncCommand::class,
     ];
 
     protected function schedule(Schedule $schedule): void
     {
          $schedule->command('update:masternode-list')->hourly()->withoutOverlapping();
+         $schedule->command('update:masternode-monitor-sync')->hourly()->withoutOverlapping();
          $schedule->command('update:dex-prices')->everyFiveMinutes()->withoutOverlapping();
          $schedule->command('signal:update-masternode-minted')->everyFiveMinutes()->withoutOverlapping();
     }

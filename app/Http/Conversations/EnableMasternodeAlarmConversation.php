@@ -31,16 +31,22 @@
                 ]);
             $masternodes = $this->masternodes;
             $this->ask($question, function (Answer $answer) use ($masternodes) {
+                $alarmOn = true;
                 if ($answer->getValue() === 'no') {
-                    return;
+                    $alarmOn = false;
                 }
 
                 foreach ($masternodes as $masternode) {
                     $masternode->update([
-                        'alarm_on' => true,
+                        'alarm_on' => $alarmOn,
                     ]);
                 }
-                $this->say(__('enableMasternodeAlarmConversation.result'));
+
+                if ($alarmOn) {
+                    $this->say(__('enableMasternodeAlarmConversation.result'));
+                } else {
+                    $this->say(__('enableMasternodeAlarmConversation.result_false'));
+                }
             });
         }
     }

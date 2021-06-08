@@ -28,7 +28,7 @@ class ResetMasternodesConversation extends Conversation
      */
     public function run()
     {
-        $question = Question::create('Do you really want do reset all data?')
+        $question = Question::create(__('resetMasternodeConversation.question'))
             ->addButtons([
                 Button::create(__('resetMasternodeConversation.buttons.yes'))->value(self::VALUE_YES),
                 Button::create(__('resetMasternodeConversation.buttons.no'))->value(self::VALUE_NO),
