@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Http\Service;
+namespace App\Http\Service;
 
 use App\Models\Masternode;
 use App\Models\TelegramUser;
@@ -15,7 +15,8 @@ class MasternodeMonitorService
         $client = new Client();
         try {
             $response = $client->get(sprintf(config('masternode_monitor.sync_mn'), $syncKey));
-            $content = json_decode($response->getBody()->getContents(), true);
+            $content  = json_decode($response->getBody()->getContents(), true);
+
             return $this->storeMasternodes($user, $content);
         } catch (ClientException $e) {
             return [];
@@ -27,21 +28,22 @@ class MasternodeMonitorService
         if (count($masternodes) === 0) {
             return [];
         }
-        UserMasternode::where('telegramUserId', $user->id)->synced()->delete();
         $masternodeArray = [];
         foreach ($masternodes as $masternode) {
-            $mn = Masternode::where('owner_address', $masternode['ownerAddress'])->first();
-            if ($mn) {
-                $masternodeArray[] = UserMasternode::create(
-                    [
-                        'telegramUserId'            => $user->id,
-                        'name'                      => $masternode['name'],
-                        'masternode_id'             => $mn->id,
-                        'synced_masternode_monitor' => true,
-                    ]
-                );
-            }
+            $mn                = Masternode::where('owner_address', $masternode['ownerAddress'])->first();
+            $masternodeArray[] = UserMasternode::updateOrCreate([
+                'telegramUserId' => $user->id,
+                'masternode_id'  => $mn->id,
+            ],
+                [
+                    'telegramUserId'            => $user->id,
+                    'name'                      => $masternode['name'],
+                    'masternode_id'             => $mn->id,
+                    'synced_masternode_monitor' => true,
+                ]
+            );
         }
+
         return $masternodeArray;
     }
 
