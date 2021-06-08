@@ -3,7 +3,9 @@
 namespace App\Jobs;
 
 use App\Http\Service\DefichainApiService;
+use App\Models\Repository\MintedBlockRepository;
 use App\Models\TelegramUser;
+use App\Models\UserMasternode;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -14,15 +16,26 @@ class StoreMintedBlocksJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private TelegramUser $user;
+    protected DefichainApiService $apiService;
+    protected UserMasternode $masternode;
+    protected array $mintedBlocks = [];
 
-    public function __construct(TelegramUser $user)
+    public function __construct(DefichainApiService $apiService, UserMasternode $masternode)
     {
-        $this->user = $user;
+        $this->apiService = $apiService;
+        $this->masternode = $masternode;
     }
 
     public function handle(): void
     {
-        app(DefichainApiService::class)->storeMintedBlockForTelegramUser($this->user);
+        $this->mintedBlocks = $this->apiService
+            ->mintedBlocksForOwnerAddress($this->masternode->masternode->owner_address);
+
+        app(MintedBlockRepository::class)
+            ->storeMintedBlocks(
+                $this->apiService,
+                $this->masternode,
+                $this->mintedBlocks
+            );
     }
 }

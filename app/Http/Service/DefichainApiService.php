@@ -2,7 +2,9 @@
 
 namespace App\Http\Service;
 
+use App\Enum\QueueNames;
 use App\Exceptions\DefichainApiException;
+use App\Jobs\StoreMintedBlocksJob;
 use App\Models\Repository\MintedBlockRepository;
 use App\Models\TelegramUser;
 use App\Models\UserMasternode;
@@ -145,10 +147,8 @@ class DefichainApiService
         $masternodes = $user->masternodes;
 
         $masternodes->each(function (UserMasternode $masternode) {
-            $ownerAddress = $masternode->masternode->owner_address;
-            $mintedBlocks = $this->mintedBlocksForOwnerAddress($ownerAddress);
-            app(MintedBlockRepository::class)
-                ->storeMintedBlocks($this, $masternode, $mintedBlocks);
+            dispatch(new StoreMintedBlocksJob($this, $masternode))
+                ->onQueue(QueueNames::MINTED_BLOCK_QUEUE);
         });
     }
 }
