@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string lastName
  * @property string username
  * @property string language
+ * @property string mn_monitor_sync_key
  * @property string status
  * @property Carbon created_at
  * @property Carbon updated_at
@@ -25,6 +26,7 @@ class TelegramUser extends Model
         'lastName',
         'username',
         'language',
+        'mn_monitor_sync_key',
         'status',
     ];
     protected $hidden = [

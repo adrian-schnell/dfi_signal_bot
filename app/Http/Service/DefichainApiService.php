@@ -5,7 +5,6 @@ namespace App\Http\Service;
 use App\Enum\QueueNames;
 use App\Exceptions\DefichainApiException;
 use App\Jobs\StoreMintedBlocksJob;
-use App\Models\Repository\MintedBlockRepository;
 use App\Models\TelegramUser;
 use App\Models\UserMasternode;
 use GuzzleHttp\Client;
