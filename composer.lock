@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e299c18e5f761155e2b828dcad7fae26",
+    "content-hash": "bd788578786adcda308faf5429f689cb",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -2045,6 +2045,70 @@
                 "source": "https://github.com/laravel/nova/tree/v3.26.1"
             },
             "time": "2021-06-02T06:53:07+00:00"
+        },
+        {
+            "name": "laravel/telescope",
+            "version": "v4.4.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/telescope.git",
+                "reference": "04c9883c9ad8453e58207eb010e37153d13d26f6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/telescope/zipball/04c9883c9ad8453e58207eb010e37153d13d26f6",
+                "reference": "04c9883c9ad8453e58207eb010e37153d13d26f6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "laravel/framework": "^8.29",
+                "php": "^7.3|^8.0",
+                "symfony/var-dumper": "^5.0"
+            },
+            "require-dev": {
+                "ext-gd": "*",
+                "orchestra/testbench": "^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Laravel\\Telescope\\TelescopeServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Telescope\\": "src/",
+                    "Laravel\\Telescope\\Database\\Factories\\": "database/factories/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                },
+                {
+                    "name": "Mohamed Said",
+                    "email": "mohamed@laravel.com"
+                }
+            ],
+            "description": "An elegant debug assistant for the Laravel framework.",
+            "keywords": [
+                "debugging",
+                "laravel",
+                "monitoring"
+            ],
+            "support": {
+                "issues": "https://github.com/laravel/telescope/issues",
+                "source": "https://github.com/laravel/telescope/tree/v4.4.10"
+            },
+            "time": "2021-06-01T17:35:45+00:00"
         },
         {
             "name": "laravel/tinker",
@@ -7202,6 +7266,64 @@
                 }
             ],
             "time": "2021-01-20T15:23:13+00:00"
+        },
+        {
+            "name": "vmitchell85/nova-links",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vmitchell85/nova-links.git",
+                "reference": "6a1aa19b9dbee8f5d7865040b80aeda934e44b90"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vmitchell85/nova-links/zipball/6a1aa19b9dbee8f5d7865040b80aeda934e44b90",
+                "reference": "6a1aa19b9dbee8f5d7865040b80aeda934e44b90",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/nova": "*",
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.6",
+                "phpunit/phpunit": "7.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "vmitchell85\\NovaLinks\\NovaLinksServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "vmitchell85\\NovaLinks\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vince Mitchell",
+                    "email": "vincent.mitchell@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Add custom links to your nova navigation",
+            "homepage": "https://github.com/vmitchell85/nova-links",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "support": {
+                "issues": "https://github.com/vmitchell85/nova-links/issues",
+                "source": "https://github.com/vmitchell85/nova-links/tree/1.0.2"
+            },
+            "time": "2021-01-26T00:23:39+00:00"
         },
         {
             "name": "voku/portable-ascii",
