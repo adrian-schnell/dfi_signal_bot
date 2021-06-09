@@ -44,10 +44,11 @@ class LinkMasternodeConversation extends Conversation
     protected function askOwnerAddress(): void
     {
         $this->ask(__('linkMasternodeConversation.ask_owner_address'), function (Answer $answer) {
-            if (app(MasternodeService::class)->countMasternodeForUserInput($answer->getText()) === 0) {
+            $masternodeService = app(MasternodeService::class);
+            if ($masternodeService->countMasternodeForUserInput($answer->getText()) === 0) {
                 return $this->repeat(__('linkMasternodeConversation.error.invalid_owner_address'));
             }
-            if (app(MasternodeService::class)->otherUserHasAddress($this->user, $answer->getText())) {
+            if ($masternodeService->otherUserHasAddress($this->user, $answer->getText())) {
                 return $this->repeat(__('linkMasternodeConversation.error.other_user_linked'));
             }
 
