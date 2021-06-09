@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Http\Service\DefichainApiService;
 use App\Http\Service\MasternodeMonitorService;
+use App\Http\Service\TelegramMessageService;
 use App\Models\TelegramUser;
 use App\Models\UserMasternode;
 use BotMan\Drivers\Telegram\TelegramDriver;
@@ -24,7 +25,7 @@ class MNMonitorSyncMasternodesForUser implements ShouldQueue
         $this->user = $user;
     }
 
-    public function handle()
+    public function handle(TelegramMessageService $telegramMessageService): void
     {
         $countBefore = UserMasternode::where('telegramUserId', $this->user->id)
             ->where('synced_masternode_monitor', true)->count();
@@ -42,46 +43,37 @@ class MNMonitorSyncMasternodesForUser implements ShouldQueue
             $this->user->update([
                 'mn_monitor_sync_key' => null,
             ]);
-            app('botman')->say(
-                __('resyncMasternodeMonitor.no_masternodes'),
-                $this->user->telegramId,
-                TelegramDriver::class,
-                [
-                    'parse_mode' => 'Markdown',
-                ]
-            );
+            $telegramMessageService->sendMessage(
+                    $this->user,
+                    __('resyncMasternodeMonitor.no_masternodes'),
+                    ['parse_mode' => 'Markdown']
+                );
         } elseif ($countAfter > $countBefore) { // masternode added
             $difference = $countAfter - $countBefore;
-            app('botman')->say(
-                trans_choice(
-                    'resyncMasternodeMonitor.new_masternodes_found',
-                    $difference,
-                    [
-                        'count' => $difference
-                    ]
-                ),
-                $this->user->telegramId,
-                TelegramDriver::class,
-                [
-                    'parse_mode' => 'Markdown',
-                ]
-            );
+            $telegramMessageService->sendMessage(
+                    $this->user,
+                    trans_choice(
+                        'resyncMasternodeMonitor.new_masternodes_found',
+                        $difference,
+                        [
+                            'count' => $difference
+                        ]
+                    ),
+                    ['parse_mode' => 'Markdown']
+                );
         } elseif ($countAfter < $countBefore) { // masternode removed
             $difference = $countAfter - $countBefore;
-            app('botman')->say(
-                trans_choice(
-                    'resyncMasternodeMonitor.masternodes_removed',
-                    $difference,
-                    [
-                        'count' => abs($difference)
-                    ]
-                ),
-                $this->user->telegramId,
-                TelegramDriver::class,
-                [
-                    'parse_mode' => 'Markdown',
-                ]
-            );
+            $telegramMessageService->sendMessage(
+                    $this->user,
+                    trans_choice(
+                        'resyncMasternodeMonitor.masternodes_removed',
+                        $difference,
+                        [
+                            'count' => abs($difference)
+                        ]
+                    ),
+                    ['parse_mode' => 'Markdown']
+                );
         }
     }
 }
