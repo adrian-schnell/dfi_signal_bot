@@ -37,7 +37,7 @@ class MintedBlockRepository
                 'mint_txid'          => $mintedBlock['mintTxid'],
                 'value'              => $mintedBlock['value'] / 100000000,
                 'address'            => $mintedBlock['address'],
-                'block_hash'         => $txInfo['blockHash'],
+                'block_hash'         => $txInfo['blockHash'] ?? null,
                 'block_time'         => Carbon::parse($txInfo['blockTime'])->addHours(2),
             ]);
 

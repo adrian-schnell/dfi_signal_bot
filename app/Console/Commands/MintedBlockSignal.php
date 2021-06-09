@@ -2,9 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Enum\QueueNames;
 use App\Http\Service\DefichainApiService;
-use App\Jobs\StoreMintedBlocksJob;
 use App\Models\TelegramUser;
 use Illuminate\Console\Command;
 
