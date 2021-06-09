@@ -177,6 +177,7 @@ return [
         App\Providers\NovaServiceProvider::class,
         App\Providers\HorizonServiceProvider::class,
 		App\Providers\RouteServiceProvider::class,
+        App\Providers\TelescopeServiceProvider::class,
 
 		App\SignalService\SignalServiceProvider::class,
         App\Coinpaprika\CoinpaprikaServiceProvider::class
