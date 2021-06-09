@@ -85,18 +85,4 @@ class BotController extends Controller
 
         $botMan->listen();
     }
-
-    /**
-     * @param $botman
-     */
-    public function askName($botman)
-    {
-        $botman->ask('Hello! What is your Name?', function (Answer $answer) use ($botman) {
-            $name = $answer->getText();
-            $this->say('Nice to meet you ' . $name);
-            $botman->userStorage()->save([
-                'name' => $name,
-            ]);
-        });
-    }
 }
