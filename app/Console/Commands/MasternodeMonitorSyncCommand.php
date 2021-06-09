@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Enum\QueueNames;
-use App\Http\Service\MasternodeMonitorService;
 use App\Jobs\MNMonitorSyncMasternodesForUser;
 use App\Models\TelegramUser;
 use Illuminate\Console\Command;

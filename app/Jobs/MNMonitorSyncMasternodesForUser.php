@@ -61,6 +61,11 @@ class MNMonitorSyncMasternodesForUser implements ShouldQueue
                     ),
                     ['parse_mode' => 'Markdown']
                 );
+            $telegramMessageService->sendMessage(
+                $this->user,
+                __('resyncMasternodeMonitor.list_feature'),
+                ['parse_mode' => 'Markdown']
+            );
         } elseif ($countAfter < $countBefore) { // masternode removed
             $difference = $countAfter - $countBefore;
             $telegramMessageService->sendMessage(
@@ -74,6 +79,11 @@ class MNMonitorSyncMasternodesForUser implements ShouldQueue
                     ),
                     ['parse_mode' => 'Markdown']
                 );
+            $telegramMessageService->sendMessage(
+                $this->user,
+                __('resyncMasternodeMonitor.list_feature'),
+                ['parse_mode' => 'Markdown']
+            );
         }
     }
 }
