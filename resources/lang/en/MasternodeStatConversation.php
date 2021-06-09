@@ -5,6 +5,7 @@ return [
     'block_minted_count' => '*Minted Blocks Count*: :count',
     'last_block'         => '*Last Block minted*: [:blockHeight](https://mainnet.defichain.io/#/DFI/mainnet/block/:blockHeight)
 *Time since last block*: :hours hours',
+    'target_multiplier'  => '*Target Multiplier*: :multiplier',
     'tx_link'            => '*Last Block Tx*: [:txid_truncated](https://mainnet.defichain.io/#/DFI/mainnet/tx/:txid)',
     'age'                => '*Age*: one day|*Age*: :age days',
     'average_block'      => '*Average Time*: :average days per block',
