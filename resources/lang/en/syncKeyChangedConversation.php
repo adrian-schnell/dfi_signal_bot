@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'intro'    => '*Your Masternode Monitor sync key changed?*',
-    'question' => 'Enter your sync key now:',
+    'intro'    => '*Your Masternode Monitor sync key changed?* Let\'s update it now.',
+    'question' => 'Enter your new sync key now:',
 
     'result'             => [
         'updated'     => 'Your sync key was updated ✅',

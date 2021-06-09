@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'intro'    => 'Gib deinen Sync Key von  <a href="https://www.defichain-masternode-monitor.com">Masternode Monitor</a> ein',
-    'question' => 'Gib deinen Sync Key jetzt ein:',
+    'intro'    => '*Hat sich dein Sync Key vom Masternode Monitor geändert?* - Lass ihn uns gleich aktualisieren.',
+    'question' => 'Gib deinen neuen Sync Key jetzt ein:',
 
     'result' => [
         'updated'            => 'SYNC KEY aktualisiert ✅',
