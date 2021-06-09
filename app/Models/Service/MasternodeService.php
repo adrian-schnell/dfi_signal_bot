@@ -57,6 +57,17 @@ class MasternodeService
                 })->count() === 1;
     }
 
+    public function otherUserHasAddress(TelegramUser $user, string $address): bool
+    {
+        return UserMasternode::where('telegramUserId', '!=',$user->id)
+                ->with('masternode')
+                ->whereHas('masternode', function ($query) use ($address) {
+                    $query->where('owner_address', $address)
+                        ->orWhere('operator_address', $address)
+                        ->orWhere('masternode_id', $address);
+                })->count() > 0;
+    }
+
     public function deleteMasternode(TelegramUser $user, string $address): bool
     {
         return UserMasternode::where('telegramUserId', $user->id)
