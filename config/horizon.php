@@ -176,6 +176,7 @@ return [
             'queue'        => [
                 QueueNames::MINTED_BLOCK_QUEUE,
                 QueueNames::MASTERNODE_MONITOR_QUEUE,
+                QueueNames::TELEGRAM_MESSAGE_OUTGOING,
             ],
             'balance'      => 'auto',
             'minProcesses'    => env('HORIZON_MIN_PROCESSES', 1),
