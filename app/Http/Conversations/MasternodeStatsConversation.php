@@ -91,6 +91,11 @@ class MasternodeStatsConversation extends Conversation
                             'hours'       => now()->diffInHours($latestMintedBlock->block_time),
                         ]);
                 $questionString .= '
+' . (string)__('MasternodeStatConversation.target_multiplier',
+                        [
+                            'multiplier' => $masternode->masternode->target_multiplier,
+                        ]);
+                $questionString .= '
 ' . (string)__('MasternodeStatConversation.tx_link',
                         [
                             'txid'           => $masternode->mintedBlocks()->latest()->first()->mint_txid,
