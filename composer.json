@@ -22,7 +22,8 @@
         "laravel/telescope": "^4.4",
         "laravel/tinker": "^2.5",
         "php-junior/nova-logs": "^1.0",
-        "spatie/laravel-ray": "^1.17"
+        "spatie/laravel-ray": "^1.17",
+        "vmitchell85/nova-links": "^1.0"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",

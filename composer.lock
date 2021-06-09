@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "75156d1aef358f14845ce4507a2e818b",
+    "content-hash": "bd788578786adcda308faf5429f689cb",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -7266,6 +7266,64 @@
                 }
             ],
             "time": "2021-01-20T15:23:13+00:00"
+        },
+        {
+            "name": "vmitchell85/nova-links",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vmitchell85/nova-links.git",
+                "reference": "6a1aa19b9dbee8f5d7865040b80aeda934e44b90"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vmitchell85/nova-links/zipball/6a1aa19b9dbee8f5d7865040b80aeda934e44b90",
+                "reference": "6a1aa19b9dbee8f5d7865040b80aeda934e44b90",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/nova": "*",
+                "php": ">=7.1.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^3.6",
+                "phpunit/phpunit": "7.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "vmitchell85\\NovaLinks\\NovaLinksServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "vmitchell85\\NovaLinks\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Vince Mitchell",
+                    "email": "vincent.mitchell@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Add custom links to your nova navigation",
+            "homepage": "https://github.com/vmitchell85/nova-links",
+            "keywords": [
+                "laravel",
+                "nova"
+            ],
+            "support": {
+                "issues": "https://github.com/vmitchell85/nova-links/issues",
+                "source": "https://github.com/vmitchell85/nova-links/tree/1.0.2"
+            },
+            "time": "2021-01-26T00:23:39+00:00"
         },
         {
             "name": "voku/portable-ascii",
