@@ -47,6 +47,9 @@ class LinkMasternodeConversation extends Conversation
             if (app(MasternodeService::class)->countMasternodeForUserInput($answer->getText()) === 0) {
                 return $this->repeat(__('linkMasternodeConversation.error.invalid_owner_address'));
             }
+            if (app(MasternodeService::class)->otherUserHasAddress($this->user, $answer->getText())) {
+                return $this->repeat(__('linkMasternodeConversation.error.other_user_linked'));
+            }
 
             $this->ownerAddress = $answer->getText();
             $this->askName();
