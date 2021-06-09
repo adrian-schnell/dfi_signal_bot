@@ -15,7 +15,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 
 class MNMonitorSyncMasternodesForUser implements ShouldQueue
 {
-	use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected TelegramUser $user;
 
@@ -24,9 +24,9 @@ class MNMonitorSyncMasternodesForUser implements ShouldQueue
         $this->user = $user;
     }
 
-	public function handle()
-	{
-	    $countBefore = UserMasternode::where('telegramUserId', $this->user->id)
+    public function handle()
+    {
+        $countBefore = UserMasternode::where('telegramUserId', $this->user->id)
             ->where('synced_masternode_monitor', true)->count();
 
         $syncedMasternodes = app(MasternodeMonitorService::class)
@@ -34,12 +34,23 @@ class MNMonitorSyncMasternodesForUser implements ShouldQueue
 
         $countAfter = count($syncedMasternodes);
 
+        app()->setLocale($this->user->language);
         if ($countAfter !== $countBefore) {
             app(DefichainApiService::class)->storeMintedBlockForTelegramUser($this->user);
-            app()->setLocale($this->user->language);
         }
-
-        if ($countAfter > $countBefore) { // masternode added
+        if ($countAfter === 0) { // no masternodes stored - disable sync
+            $this->user->update([
+                'mn_monitor_sync_key' => null,
+            ]);
+            app('botman')->say(
+                __('resyncMasternodeMonitor.no_masternodes'),
+                $this->user->telegramId,
+                TelegramDriver::class,
+                [
+                    'parse_mode' => 'Markdown',
+                ]
+            );
+        } elseif ($countAfter > $countBefore) { // masternode added
             $difference = $countAfter - $countBefore;
             app('botman')->say(
                 trans_choice(
