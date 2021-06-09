@@ -46,11 +46,11 @@ class BotController extends Controller
         });
 
 
-        $botMan->hears('/link_mn {ownerAddress}', function (BotMan $botman, string $ownerAddress) {
-            $botman->startConversation(new LinkMasternodeConversation($botman->getUser(), $ownerAddress));
+        $botMan->hears('/link_mn(.*|^)', function (BotMan $botman, string $ownerAddress) {
+            $botman->startConversation(new LinkMasternodeConversation($botman->getUser(), trim($ownerAddress)));
         })->skipsConversation();
-        $botMan->hears('/unlink_mn {ownerAddress}', function (BotMan $botman, string $ownerAddress) {
-            $botman->startConversation(new UnlinkMasternodeConversation($botman->getUser(), $ownerAddress));
+        $botMan->hears('/unlink_mn(.*|^)', function (BotMan $botman, string $ownerAddress) {
+            $botman->startConversation(new UnlinkMasternodeConversation($botman->getUser(), trim($ownerAddress)));
         })->skipsConversation();
 
 

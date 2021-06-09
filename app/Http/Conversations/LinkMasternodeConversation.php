@@ -2,8 +2,7 @@
 
 namespace App\Http\Conversations;
 
-use App\Enum\QueueNames;
-use App\Jobs\StoreMintedBlocksJob;
+use App\Http\Service\DefichainApiService;
 use App\Models\Service\MasternodeService;
 use App\Models\Service\TelegramUserService;
 use App\Models\TelegramUser;
@@ -20,10 +19,10 @@ class LinkMasternodeConversation extends Conversation
     const VALUE_YES = 'yes';
     const VALUE_NO  = 'no';
     protected ?TelegramUser $user = null;
-    protected string $ownerAddress = '';
+    protected ?string $ownerAddress = '';
     protected ?string $name = null;
 
-    public function __construct(UserInterface $user, string $ownerAddress = '')
+    public function __construct(UserInterface $user, ?string $ownerAddress = '')
     {
         $this->user = app(TelegramUserService::class)->getTelegramUser($user);
         $this->ownerAddress = $ownerAddress;
@@ -34,7 +33,8 @@ class LinkMasternodeConversation extends Conversation
      */
     public function run()
     {
-        if (app(MasternodeService::class)->countMasternodeForUserInput($this->ownerAddress) === 0) {
+        if (is_null($this->ownerAddress) || app(MasternodeService::class)->countMasternodeForUserInput
+        ($this->ownerAddress) === 0) {
             $this->askOwnerAddress();
         } else {
             $this->askName();
@@ -87,7 +87,7 @@ class LinkMasternodeConversation extends Conversation
                 $this->name,
                 $answer->getValue() === self::VALUE_YES
             );
-            dispatch(new StoreMintedBlocksJob($this->user))->onQueue(QueueNames::MINTED_BLOCK_QUEUE);
+            app(DefichainApiService::class)->storeMintedBlockForTelegramUser($this->user);
 
             if ($masternodeCreated) {
                 $this->say(__('linkMasternodeConversation.final'));
