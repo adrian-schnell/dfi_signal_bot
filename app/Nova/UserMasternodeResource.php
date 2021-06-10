@@ -3,6 +3,8 @@
 namespace App\Nova;
 
 use App\Models\UserMasternode;
+use App\Nova\Filters\UserMasternodeSignalFilter;
+use App\Nova\Filters\UserMasternodeSyncedFilter;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
 use Laravel\Nova\Fields\Boolean;
@@ -37,6 +39,14 @@ class UserMasternodeResource extends Resource
             Boolean::make('DFI Signal', 'alarm_on'),
             Boolean::make('MN Monitor Sync', 'synced_masternode_monitor'),
             HasMany::make('Minted Blocks', 'mintedBlocks', MintedBlockResource::class),
+        ];
+    }
+
+    public function filters(Request $request): array
+    {
+        return [
+            new UserMasternodeSyncedFilter(),
+            new UserMasternodeSignalFilter(),
         ];
     }
 }
