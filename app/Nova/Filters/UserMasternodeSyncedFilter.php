@@ -8,6 +8,8 @@ use Laravel\Nova\Filters\BooleanFilter;
 
 class UserMasternodeSyncedFilter extends BooleanFilter
 {
+    public $name = 'MN Synced';
+
     public function apply(Request $request, $query, $value): Builder
     {
         if ($value['synced']) {

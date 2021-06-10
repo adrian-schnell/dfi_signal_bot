@@ -8,6 +8,8 @@ use Laravel\Nova\Filters\BooleanFilter;
 
 class UserMasternodeSignalFilter extends BooleanFilter
 {
+    public $name = 'MN Alarm';
+
     public function apply(Request $request, $query, $value): Builder
     {
         if ($value['on']) {
