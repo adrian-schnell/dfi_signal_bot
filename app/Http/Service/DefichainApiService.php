@@ -123,8 +123,8 @@ class DefichainApiService
         try {
             $rawResponse = $this->transactionClient->get(sprintf(config('api_defichain.transaction.address'),
                 $ownerAddress), [
-                'timeout'            => 3,
-                'connection_timeout' => 3,
+                'timeout'            => 10,
+                'connection_timeout' => 10,
             ])->getBody()->getContents();
         } catch (GuzzleException $e) {
             Log::error('failed loading minted blocks', [
