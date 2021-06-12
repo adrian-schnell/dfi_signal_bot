@@ -16,8 +16,6 @@ class MintedBlockRepository
         UserMasternode $userMasternode,
         array $mintedBlocks
     ): void {
-        $initMode = $userMasternode->mintedBlocks->count() === 0;
-
         foreach ($mintedBlocks as $mintedBlock) {
             $txInfo         = $service->getTransactionDetails($mintedBlock['mintTxid']);
             $newMintedBlock = MintedBlock::updateOrCreate([
@@ -35,12 +33,17 @@ class MintedBlockRepository
                 'block_time'         => Carbon::parse($txInfo['blockTime'])->addHours(2),
             ]);
 
+            $initMode = $userMasternode->mintedBlocks->count() === 0;
             if (!$initMode && $userMasternode->alarm_on) {
                 app(SignalService::class)->tellMintedBlock(
                     $userMasternode->user,
                     $newMintedBlock,
                     $userMasternode->user->language
                 );
+            } else {
+                $newMintedBlock->update([
+                    'is_reported' => true,
+                ]);
             }
         }
     }
