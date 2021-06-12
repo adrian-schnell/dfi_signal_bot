@@ -26,7 +26,6 @@ class StoreMintedBlocksJob implements ShouldQueue
     public function handle(DefichainApiService $apiService): void
     {
         $this->mintedBlocks = $apiService->mintedBlocksForOwnerAddress($this->masternode->masternode->owner_address);
-        ray($this->masternode->id, $this->mintedBlocks)->red();
 
         app(MintedBlockRepository::class)
             ->storeMintedBlocks(

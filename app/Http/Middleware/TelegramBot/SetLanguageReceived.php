@@ -17,7 +17,7 @@ class SetLanguageReceived implements Received
      */
     public function received(IncomingMessage $message, $next, BotMan $bot)
     {
-        app()->setLocale($message->getPayload()['from']['language_code'] ?? 'en');
+        set_language($message->getPayload()['from']['language_code'] ?? '');
 
         return $next($message);
     }

@@ -27,8 +27,7 @@ class SignalService
         if ($mintedBlock->is_reported) {
             return;
         }
-
-        app()->setLocale($language);
+        set_language($language);
 
         $messageSent = $this->messageService->sendMessage(
             $user,
