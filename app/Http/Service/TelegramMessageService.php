@@ -6,6 +6,7 @@ use App\Models\TelegramUser;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Exceptions\Base\BotManException;
 use BotMan\Drivers\Telegram\TelegramDriver;
+use Log;
 
 class TelegramMessageService
 {
@@ -28,6 +29,13 @@ class TelegramMessageService
 
             return true;
         } catch (BotManException $e) {
+            Log::error('sending botman message failed', [
+                'message'          => $e->getMessage(),
+                'line'             => $e->getLine(),
+                'telegram_user_id' => $user->id,
+                'message_to_user'  => $message,
+            ]);
+
             return false;
         }
     }
