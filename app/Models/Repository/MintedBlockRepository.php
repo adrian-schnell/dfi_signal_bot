@@ -16,15 +16,15 @@ class MintedBlockRepository
         UserMasternode $userMasternode,
         array $mintedBlocks
     ): void {
-        $mintedUserBlocks = $userMasternode->mintedBlocks;
-        $initMode = $mintedUserBlocks->count() === 0;
+        $initMode = $userMasternode->mintedBlocks->count() === 0;
 
         foreach ($mintedBlocks as $mintedBlock) {
-            $filtered = $mintedUserBlocks->where('mintBlockHeight', $mintedBlock['mintHeight'])->all();
-            if ($filtered) {
-                continue;
-            }
-            $txInfo = $service->getTransactionDetails($mintedBlock['mintTxid']);
+//            $filtered = $mintedUserBlocks->where('mintBlockHeight', $mintedBlock['mintHeight'])->all();
+//            if ($filtered) {
+//                ray('continue filtered', $filtered);
+//                continue;
+//            }
+            $txInfo         = $service->getTransactionDetails($mintedBlock['mintTxid']);
             $newMintedBlock = MintedBlock::updateOrCreate([
                 'mintBlockHeight'  => $mintedBlock['mintHeight'],
                 'spentBlockHeight' => $mintedBlock['spentHeight'],
@@ -40,10 +40,11 @@ class MintedBlockRepository
                 'block_hash'         => $txInfo['blockHash'] ?? null,
                 'block_time'         => Carbon::parse($txInfo['blockTime'])->addHours(2),
             ]);
+            ray('new minted block', $newMintedBlock)->green();
 
             if (!$initMode && $userMasternode->alarm_on) {
                 app(SignalService::class)->tellMintedBlock(
-                    $userMasternode->user->telegramId,
+                    $userMasternode->user,
                     $newMintedBlock,
                     $userMasternode->user->language
                 );
@@ -58,6 +59,7 @@ class MintedBlockRepository
         $user->masternodes->each(function (UserMasternode $masternode) use (&$rewardsSum) {
             $rewardsSum += $this->calculateRewardsForMasternode($masternode);
         });
+
         return $rewardsSum;
     }
 

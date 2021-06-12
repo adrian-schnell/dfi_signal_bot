@@ -2,25 +2,36 @@
 
 namespace App\SignalService;
 
+use App\Http\Service\TelegramMessageService;
 use App\Models\MintedBlock;
+use App\Models\TelegramUser;
 use BotMan\BotMan\BotMan;
-use BotMan\Drivers\Telegram\TelegramDriver;
 
 class SignalService
 {
     protected Botman $bot;
+    /**
+     * @var \App\Http\Service\TelegramMessageService
+     */
+    protected TelegramMessageService $messageService;
 
-    public function __construct(BotMan $bot)
+    public function __construct(BotMan $bot, TelegramMessageService $messageService)
     {
         $this->bot = $bot;
+        $this->messageService = $messageService;
     }
 
-    public function tellMintedBlock(string $telegramId, MintedBlock $mintedBlock, string $language = 'en'): void
+    public function tellMintedBlock(TelegramUser $user, MintedBlock $mintedBlock, string $language = 'en'): void
     {
+        // don't report one block again
+        if ($mintedBlock->is_reported) {
+            return;
+        }
+
         app()->setLocale($language);
 
-        $this->tellMessage(
-            $telegramId,
+        $messageSent = $this->messageService->sendMessage(
+            $user,
             __('signals.minted_block', [
                 'time'            => $mintedBlock->block_time->format('d.m.Y H:i:s'),
                 'name'            => $mintedBlock->userMasternode->name,
@@ -31,15 +42,11 @@ class SignalService
                 'parse_mode' => 'Markdown'
             ]
         );
-    }
 
-    public function tellMessage(string $telegramId, string $message, array $additionalParam = []): void
-    {
-        $this->bot->say(
-            $message,
-            $telegramId,
-            TelegramDriver::class,
-            $additionalParam
-        );
+        if ($messageSent) { // update, so this block will not be reported again!
+            $mintedBlock->update([
+                'is_reported' => true,
+            ]);
+        }
     }
 }

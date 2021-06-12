@@ -9,18 +9,19 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @mixin Eloquent
- * @property integer user_masternode_id
+ * @property integer        user_masternode_id
  * @property UserMasternode userMasternode
- * @property integer mintBlockHeight
- * @property integer spentBlockHeight
- * @property string block_hash
- * @property string spent_txid
- * @property string mint_txid
- * @property float value
- * @property string address
- * @property Carbon created_at
- * @property Carbon updated_at
- * @property Carbon block_time
+ * @property integer        mintBlockHeight
+ * @property integer        spentBlockHeight
+ * @property string         block_hash
+ * @property string         spent_txid
+ * @property string         mint_txid
+ * @property float          value
+ * @property string         address
+ * @property Carbon         created_at
+ * @property Carbon         updated_at
+ * @property Carbon         block_time
+ * @property boolean        is_reported
  */
 class MintedBlock extends Model
 {
@@ -34,8 +35,8 @@ class MintedBlock extends Model
         'address',
         'block_time',
         'block_hash',
+        'is_reported',
     ];
-
     protected $dates = [
         'block_time',
     ];
