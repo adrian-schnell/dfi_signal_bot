@@ -46,6 +46,11 @@ class DefichainApiService
                 true
             );
         } catch (Throwable $e) {
+            Log::error('failed loading stats', [
+                'file'    => $e->getFile(),
+                'message' => $e->getMessage(),
+                'line'    => $e->getLine(),
+            ]);
             throw DefichainApiException::generic($e->getMessage(), $e);
         }
     }
@@ -58,6 +63,11 @@ class DefichainApiService
         try {
             return $this->getStats()['blockHeight'];
         } catch (DefichainApiException $e) {
+            Log::error('failed loading latest block', [
+                'file'    => $e->getFile(),
+                'message' => $e->getMessage(),
+                'line'    => $e->getLine(),
+            ]);
             throw DefichainApiException::generic(sprintf('API request to fetch latest block failed with message: %s',
                 $e->getMessage()), $e);
         }
@@ -68,6 +78,11 @@ class DefichainApiService
         try {
             return $this->getStats()['bestBlockHash'];
         } catch (DefichainApiException $e) {
+            Log::error('failed loading latest block', [
+                'file'    => $e->getFile(),
+                'message' => $e->getMessage(),
+                'line'    => $e->getLine(),
+            ]);
             throw DefichainApiException::generic(sprintf('API request to fetch latest block hash failed with message: %s',
                 $e->getMessage()), $e);
         }
@@ -82,6 +97,13 @@ class DefichainApiService
                 'connection_timeout' => 5,
             ])->getBody()->getContents();
         } catch (GuzzleException $e) {
+            Log::error('failed loading block details', [
+                'file'         => $e->getFile(),
+                'block_number' => $blockNumber,
+                'message'      => $e->getMessage(),
+                'line'         => $e->getLine(),
+            ]);
+
             return [];
         }
 
@@ -96,6 +118,11 @@ class DefichainApiService
                 'connection_timeout' => 5,
             ])->getBody()->getContents();
         } catch (Throwable $e) {
+            Log::error('failed loading pool pairs', [
+                'file'    => $e->getFile(),
+                'message' => $e->getMessage(),
+                'line'    => $e->getLine(),
+            ]);
             throw DefichainApiException::generic(sprintf('Failed to load poolpairs with message: %s',
                 $e->getMessage()), $e);
         }
@@ -112,6 +139,13 @@ class DefichainApiService
                 'connection_timeout' => 5,
             ])->getBody()->getContents();
         } catch (GuzzleException $e) {
+            Log::error('failed loading transaction details', [
+                'file'    => $e->getFile(),
+                'txid'    => $txid,
+                'message' => $e->getMessage(),
+                'line'    => $e->getLine(),
+            ]);
+
             return [];
         }
 
@@ -128,6 +162,7 @@ class DefichainApiService
             ])->getBody()->getContents();
         } catch (GuzzleException $e) {
             Log::error('failed loading minted blocks', [
+                'file'          => $e->getFile(),
                 'owner_address' => $ownerAddress,
                 'message'       => $e->getMessage(),
                 'line'          => $e->getLine(),
