@@ -22,13 +22,13 @@ class DefichainApiService
     {
         $this->generalClient     = new Client([
             'base_uri'        => config('api_defichain.general.base_uri'),
-            'timeout'         => 3,
-            'connect_timeout' => 3,
+            'timeout'         => 5,
+            'connect_timeout' => 5,
         ]);
         $this->transactionClient = new Client([
             'base_uri'        => config('api_defichain.transaction.base_uri'),
-            'timeout'         => 3,
-            'connect_timeout' => 3,
+            'timeout'         => 5,
+            'connect_timeout' => 5,
         ]);
     }
 
@@ -40,8 +40,8 @@ class DefichainApiService
         try {
             return json_decode(
                 $this->generalClient->get(config('api_defichain.general.stats'), [
-                    'timeout'            => 3,
-                    'connection_timeout' => 3,
+                    'timeout'            => 5,
+                    'connection_timeout' => 5,
                 ])->getBody()->getContents(),
                 true
             );
@@ -78,8 +78,8 @@ class DefichainApiService
         try {
             $rawResponse = $this->transactionClient->get(sprintf(config('api_defichain.transaction.block'),
                 $blockNumber), [
-                'timeout'            => 3,
-                'connection_timeout' => 3,
+                'timeout'            => 5,
+                'connection_timeout' => 5,
             ])->getBody()->getContents();
         } catch (GuzzleException $e) {
             return [];
@@ -92,8 +92,8 @@ class DefichainApiService
     {
         try {
             $rawResponse = $this->generalClient->get(config('api_defichain.general.listpoolpairs'), [
-                'timeout'            => 3,
-                'connection_timeout' => 3,
+                'timeout'            => 5,
+                'connection_timeout' => 5,
             ])->getBody()->getContents();
         } catch (Throwable $e) {
             throw DefichainApiException::generic(sprintf('Failed to load poolpairs with message: %s',
@@ -108,8 +108,8 @@ class DefichainApiService
         try {
             $rawResponse = $this->transactionClient->get(sprintf(config('api_defichain.transaction.tx'),
                 $txid), [
-                'timeout'            => 3,
-                'connection_timeout' => 3,
+                'timeout'            => 5,
+                'connection_timeout' => 5,
             ])->getBody()->getContents();
         } catch (GuzzleException $e) {
             return [];
