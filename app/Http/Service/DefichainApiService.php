@@ -10,6 +10,7 @@ use App\Models\UserMasternode;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
+use Log;
 use Throwable;
 
 class DefichainApiService
@@ -126,6 +127,12 @@ class DefichainApiService
                 'connection_timeout' => 3,
             ])->getBody()->getContents();
         } catch (GuzzleException $e) {
+            Log::error('failed loading minted blocks', [
+                'owner_address' => $ownerAddress,
+                'message'       => $e->getMessage(),
+                'line'          => $e->getLine(),
+            ]);
+
             return [];
         }
 

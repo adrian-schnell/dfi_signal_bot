@@ -21,9 +21,8 @@ class MintedBlockRepository
         foreach ($mintedBlocks as $mintedBlock) {
             $txInfo         = $service->getTransactionDetails($mintedBlock['mintTxid']);
             $newMintedBlock = MintedBlock::updateOrCreate([
-                'mintBlockHeight'  => $mintedBlock['mintHeight'],
-                'spentBlockHeight' => $mintedBlock['spentHeight'],
-                'spent_txid'       => $mintedBlock['spentTxid'],
+                'mintBlockHeight' => $mintedBlock['mintHeight'],
+                'mint_txid'       => $mintedBlock['mintTxid'],
             ], [
                 'user_masternode_id' => $userMasternode->id,
                 'mintBlockHeight'    => $mintedBlock['mintHeight'],
