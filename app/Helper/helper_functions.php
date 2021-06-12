@@ -25,3 +25,10 @@ if (!function_exists('str_truncate_middle')) {
             : $text;
     }
 }
+
+if (!function_exists('set_language')) {
+    function set_language(string $language = 'en'): void
+    {
+        app()->setLocale(in_array($language, ['en', 'de']) ? $language : 'en');
+    }
+}
