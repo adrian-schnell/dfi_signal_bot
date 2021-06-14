@@ -16,6 +16,7 @@ use Laravel\Nova\Actions\Actionable;
  * @property string language
  * @property string mn_monitor_sync_key
  * @property string status
+ * @property string user_sync_key
  * @property Carbon created_at
  * @property Carbon updated_at
  */
@@ -30,6 +31,7 @@ class TelegramUser extends Model
         'language',
         'mn_monitor_sync_key',
         'status',
+        'user_sync_key',
     ];
     protected $hidden = [
         'id',
@@ -45,5 +47,10 @@ class TelegramUser extends Model
     public function masternodesSynced(): HasMany
     {
         return $this->hasMany(UserMasternode::class, 'telegramUserId')->synced();
+    }
+
+    public function server(): HasMany
+    {
+        return $this->hasMany(Server::class);
     }
 }

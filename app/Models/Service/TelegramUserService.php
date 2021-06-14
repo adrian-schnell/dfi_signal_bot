@@ -6,6 +6,7 @@ use App\Models\TelegramUser;
 use BotMan\BotMan\Interfaces\UserInterface;
 use BotMan\Drivers\Telegram\Extensions\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Str;
 
 class TelegramUserService
 {
@@ -31,12 +32,18 @@ class TelegramUserService
     protected function storeTelegramUser(User $user): TelegramUser
     {
         return TelegramUser::create([
-            'telegramId' => $user->getId(),
-            'username'   => $user->getUsername(),
-            'firstName'  => $user->getFirstName(),
-            'lastName'   => $user->getLastName(),
-            'language'   => $user->getLanguageCode() ?? 'en',
-            'status'     => $user->getStatus(),
+            'telegramId'    => $user->getId(),
+            'username'      => $user->getUsername(),
+            'firstName'     => $user->getFirstName(),
+            'lastName'      => $user->getLastName(),
+            'language'      => $user->getLanguageCode() ?? 'en',
+            'status'        => $user->getStatus(),
+            'user_sync_key' => $this->generateUserSyncKey(),
         ]);
+    }
+
+    public function generateUserSyncKey(): string
+    {
+        return Str::uuid();
     }
 }
