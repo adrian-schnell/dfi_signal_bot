@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Api\v1_0\Service;
+
 use App\Api\v1_0\Requests\ServerStatsRequest;
 use App\Enum\ServerStatTypes;
 use App\Models\ServerStat;
@@ -8,7 +10,7 @@ class ServerStatService
 {
     public function store(ServerStatsRequest $request): void
     {
-        $data = [
+        $data = collect([
             [
                 'server_id' => $request->userServer()->id,
                 'type'      => ServerStatTypes::CPU,
@@ -34,10 +36,12 @@ class ServerStatService
                 'type'      => ServerStatTypes::RAM_USED,
                 'value'     => $request->ramUsed(),
             ],
-        ];
-        ServerStat::upsert($data, [
-            'server_id',
-            'type',
         ]);
+        $data->each(function (array $item) {
+            ServerStat::updateOrCreate([
+                'server_id' => $item['server_id'],
+                'type'      => $item['type'],
+            ], $item);
+        });
     }
 }

@@ -9,15 +9,10 @@ use BotMan\BotMan\BotMan;
 
 class SignalService
 {
-    protected Botman $bot;
-    /**
-     * @var \App\Http\Service\TelegramMessageService
-     */
     protected TelegramMessageService $messageService;
 
-    public function __construct(BotMan $bot, TelegramMessageService $messageService)
+    public function __construct(TelegramMessageService $messageService)
     {
-        $this->bot = $bot;
         $this->messageService = $messageService;
     }
 
