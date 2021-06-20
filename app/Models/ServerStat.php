@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @mixin \Eloquent
  * @property integer server_id
  * @property Server  server
- * @property string  name
+ * @property string  type
  * @property string  value
  * @property Carbon  updated_at
  * @property Carbon  created_at
@@ -25,7 +25,7 @@ class ServerStat extends Model
     ];
     protected $fillable = [
         'server_id',
-        'name',
+        'type',
         'value',
     ];
 

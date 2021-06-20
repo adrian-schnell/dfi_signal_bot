@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Kurozora\Cooldown\HasCooldowns;
 use Laravel\Nova\Actions\Actionable;
 
 /**
@@ -22,7 +23,8 @@ use Laravel\Nova\Actions\Actionable;
  */
 class TelegramUser extends Model
 {
-    use Actionable;
+    use Actionable, HasCooldowns;
+
     protected $fillable = [
         'telegramId',
         'firstName',

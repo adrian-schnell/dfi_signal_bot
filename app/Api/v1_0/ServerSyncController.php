@@ -2,17 +2,28 @@
 
 namespace App\Api\v1_0;
 
+use App\Api\v1_0\Requests\ServerStatsRequest;
 use \Illuminate\Http\JsonResponse;
+use ServerStatService;
 
 class ServerSyncController
 {
     public function ping(): JsonResponse
     {
-        return response()->json(['message' => 'pong'], 200);
+        return response()->json(['message' => 'pong'], JsonResponse::HTTP_OK);
     }
 
-    public function cpu(): JsonResponse
+    public function blockInfo()
     {
-        return response()->json([], 200);
+
+    }
+
+    public function serverStats(ServerStatsRequest $request, ServerStatService $service): JsonResponse
+    {
+        $service->store($request);
+
+        return response()->json([
+            'message' => 'ok',
+        ]);
     }
 }

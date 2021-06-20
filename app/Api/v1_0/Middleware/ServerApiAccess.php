@@ -11,8 +11,8 @@ class ServerApiAccess
 {
     public function handle(Request $request, Closure $next)
     {
-        $serverId = $request->header('server_id', null);
-        $apiKey   = $request->header('api-key', null);
+        $serverId = $request->header('x-server_id', null);
+        $apiKey   = $request->header('x-api-key', null);
         $server = Server::where('id', $serverId)
             ->whereHas('user', function ($query) use ($apiKey) {
                 $query->where('user_sync_key', $apiKey);
@@ -25,9 +25,9 @@ class ServerApiAccess
             ], JsonResponse::HTTP_UNAUTHORIZED);
         }
         $request->merge([
-            'server' => $server,
+            'signal_server' => $server,
         ]);
-ray($request);
+
         return $next($request);
     }
 }
