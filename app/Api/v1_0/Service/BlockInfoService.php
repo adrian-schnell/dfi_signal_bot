@@ -3,9 +3,9 @@
 namespace App\Api\v1_0\Service;
 
 use App\Api\v1_0\Requests\BlockInfoRequest;
-use App\Enum\Cooldown;
 use App\Enum\ServerStatTypes;
-use App\Http\Conversations\BlockSplitConversation;
+use App\Http\Conversations\LocalChainSplitConversation;
+use App\Http\Conversations\RemoteChainSplitConversation;
 use App\Http\Service\TelegramMessageService;
 use App\Models\ServerStat;
 
@@ -48,11 +48,17 @@ class BlockInfoService
         });
     }
 
-    public function sendSplitNotification(BlockInfoRequest $request): void
+    public function sendLocalSplitNotification(BlockInfoRequest $request): void
     {
-        $conversation = new BlockSplitConversation($request);
+        $conversation = new LocalChainSplitConversation($request);
 
         app(TelegramMessageService::class)->startConversation($request->userServer()->user, $conversation);
-        $request->userServer()->user->cooldown(Cooldown::SERVER_SPLIT_NOTIFICATION)->until(now()->addHours(2));
+    }
+
+    public function sendRemoteSplitNotification(BlockInfoRequest $request): void
+    {
+        $conversation = new RemoteChainSplitConversation($request);
+
+        app(TelegramMessageService::class)->startConversation($request->userServer()->user, $conversation);
     }
 }

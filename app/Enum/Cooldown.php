@@ -7,5 +7,10 @@ namespace App\Enum;
  */
 class Cooldown
 {
-    const SERVER_SPLIT_NOTIFICATION = 'server_split_notification';
+    const LOCAL_SPLIT_NOTIFICATION = 'local_chain_split_notification';
+    const REMOTE_SPLIT_NOTIFICATION = 'remote_chain_split_notification';
+    const COOLDOWN_HOURS = [
+        self::LOCAL_SPLIT_NOTIFICATION  => 2,
+        self::REMOTE_SPLIT_NOTIFICATION => 2,
+    ];
 }

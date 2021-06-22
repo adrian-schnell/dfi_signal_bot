@@ -20,9 +20,14 @@ class ServerSyncController
     {
         $service->store($request);
 
-        if ($request->splitFound() && $request->userServer()->user->cooldown(Cooldown::SERVER_SPLIT_NOTIFICATION)
-                ->passed()) {
-            $service->sendSplitNotification($request);
+        if ($request->splitFound() &&
+            $request->userServer()->user->cooldown(Cooldown::LOCAL_SPLIT_NOTIFICATION)->passed()) {
+            $service->sendLocalSplitNotification($request);
+        }
+
+        if ($request->blockHeightLocal() > $request->mainNetBlockHeight() &&
+            $request->userServer()->user->cooldown(Cooldown::REMOTE_SPLIT_NOTIFICATION)->passed()) {
+            $service->sendRemoteSplitNotification($request);
         }
 
         return response()->json([
