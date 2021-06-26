@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Kurozora\Cooldown\HasCooldowns;
 use Laravel\Nova\Actions\Actionable;
 
 /**
@@ -16,12 +17,14 @@ use Laravel\Nova\Actions\Actionable;
  * @property string language
  * @property string mn_monitor_sync_key
  * @property string status
+ * @property string user_sync_key
  * @property Carbon created_at
  * @property Carbon updated_at
  */
 class TelegramUser extends Model
 {
-    use Actionable;
+    use Actionable, HasCooldowns;
+
     protected $fillable = [
         'telegramId',
         'firstName',
@@ -30,6 +33,7 @@ class TelegramUser extends Model
         'language',
         'mn_monitor_sync_key',
         'status',
+        'user_sync_key',
     ];
     protected $hidden = [
         'id',
@@ -45,5 +49,10 @@ class TelegramUser extends Model
     public function masternodesSynced(): HasMany
     {
         return $this->hasMany(UserMasternode::class, 'telegramUserId')->synced();
+    }
+
+    public function server(): HasMany
+    {
+        return $this->hasMany(Server::class);
     }
 }

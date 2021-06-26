@@ -13,7 +13,7 @@ class SignalServiceProvider extends ServiceProvider
 		$this->app->singleton(SignalService::class, function (Application $app) {
             $botman = app('botman');
 
-            return new SignalService($botman, new TelegramMessageService($botman));
+            return new SignalService(new TelegramMessageService($botman));
         });
 	}
 }

@@ -39,9 +39,9 @@ class SendTelegramMessageJob implements ShouldQueue
         if ($this->type === self::MESSAGE_UPDATE) {
             $service->sendMessage($this->user, '⚙️⚙️⚙️ *Update Notice* ⚙️⚙️⚙️', ['parse_mode' => 'Markdown']);
         } elseif ($this->type === self::MESSAGE_MAINTENANCE) {
-            $service->sendMessage($this->user, '🛠🛠🛠 *Maintenance Mode* 🛠🛠🛠', ['parse_mode' => 'Markdown']);
+            $service->sendMessage($this->user, '🛠🛠🛠 *Maintenance* 🛠🛠🛠', ['parse_mode' => 'Markdown']);
         } elseif ($this->type === self::MESSAGE_INFO) {
-            $service->sendMessage($this->user, 'ℹ️ℹ️ℹ️ *General Info Message* ℹ️ℹ️ℹ️', ['parse_mode' => 'Markdown']);
+            $service->sendMessage($this->user, 'ℹ️ℹ️ℹ️ *Information* ℹ️ℹ️ℹ️', ['parse_mode' => 'Markdown']);
         }
 
         $service->sendMessage($this->user, $this->message, ['parse_mode' => 'Markdown']);

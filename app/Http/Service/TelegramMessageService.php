@@ -5,8 +5,10 @@ namespace App\Http\Service;
 use App\Models\TelegramUser;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Exceptions\Base\BotManException;
+use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\Drivers\Telegram\TelegramDriver;
 use Log;
+use Str;
 
 class TelegramMessageService
 {
@@ -21,7 +23,7 @@ class TelegramMessageService
     {
         try {
             $this->botman->say(
-                $message,
+                $this->escapeMessage($message),
                 $user->telegramId,
                 TelegramDriver::class,
                 $param
@@ -38,5 +40,15 @@ class TelegramMessageService
 
             return false;
         }
+    }
+
+    public function startConversation(TelegramUser $user, Conversation $conversation): void
+    {
+        $this->botman->startConversation($conversation, $user->telegramId, TelegramDriver::class);
+    }
+
+    protected function escapeMessage(string $message): string
+    {
+        return Str::replace('_', '\\_', $message);
     }
 }

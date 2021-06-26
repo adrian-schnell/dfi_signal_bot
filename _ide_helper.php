@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 8.45.1.
+ * Generated for Laravel 8.47.0.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -1090,6 +1090,32 @@
                         $instance->singletonIf($abstract, $concrete);
         }
                     /**
+         * Register a scoped binding in the container.
+         *
+         * @param string $abstract
+         * @param \Closure|string|null $concrete
+         * @return void 
+         * @static 
+         */ 
+        public static function scoped($abstract, $concrete = null)
+        {            //Method inherited from \Illuminate\Container\Container         
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        $instance->scoped($abstract, $concrete);
+        }
+                    /**
+         * Register a scoped binding if it hasn't already been registered.
+         *
+         * @param string $abstract
+         * @param \Closure|string|null $concrete
+         * @return void 
+         * @static 
+         */ 
+        public static function scopedIf($abstract, $concrete = null)
+        {            //Method inherited from \Illuminate\Container\Container         
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        $instance->scopedIf($abstract, $concrete);
+        }
+                    /**
          * "Extend" an abstract type in the container.
          *
          * @param string $abstract
@@ -1360,6 +1386,17 @@
         {            //Method inherited from \Illuminate\Container\Container         
                         /** @var \Illuminate\Foundation\Application $instance */
                         $instance->forgetInstances();
+        }
+                    /**
+         * Clear all of the scoped instances from the container.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function forgetScopedInstances()
+        {            //Method inherited from \Illuminate\Container\Container         
+                        /** @var \Illuminate\Foundation\Application $instance */
+                        $instance->forgetScopedInstances();
         }
                     /**
          * Get the globally available instance of the container.
@@ -2451,19 +2488,6 @@
                         return $instance->getCustomDirectives();
         }
                     /**
-         * Add a handler to be executed before echoing a given class.
-         *
-         * @param string|callable $class
-         * @param callable|null $handler
-         * @return void 
-         * @static 
-         */ 
-        public static function stringable($class, $handler = null)
-        {
-                        /** @var \Illuminate\View\Compilers\BladeCompiler $instance */
-                        $instance->stringable($class, $handler);
-        }
-                    /**
          * Register a new precompiler.
          *
          * @param callable $precompiler
@@ -2603,6 +2627,19 @@
                         return $instance->compileEndOnce();
         }
                     /**
+         * Add a handler to be executed before echoing a given class.
+         *
+         * @param string|callable $class
+         * @param callable|null $handler
+         * @return void 
+         * @static 
+         */ 
+        public static function stringable($class, $handler = null)
+        {
+                        /** @var \Illuminate\View\Compilers\BladeCompiler $instance */
+                        $instance->stringable($class, $handler);
+        }
+                    /**
          * Compile Blade echos into valid PHP.
          *
          * @param string $value
@@ -2613,6 +2650,18 @@
         {
                         /** @var \Illuminate\View\Compilers\BladeCompiler $instance */
                         return $instance->compileEchos($value);
+        }
+                    /**
+         * Apply the echo handler for the value if it exists.
+         *
+         * @param $value string
+         * @return string 
+         * @static 
+         */ 
+        public static function applyEchoHandler($value)
+        {
+                        /** @var \Illuminate\View\Compilers\BladeCompiler $instance */
+                        return $instance->applyEchoHandler($value);
         }
          
     }
@@ -4929,6 +4978,17 @@
                         return $instance->raw($value);
         }
                     /**
+         * Determine if the database connection has modified any database records.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function hasModifiedRecords()
+        {            //Method inherited from \Illuminate\Database\Connection         
+                        /** @var \Illuminate\Database\MySqlConnection $instance */
+                        return $instance->hasModifiedRecords();
+        }
+                    /**
          * Indicate if any records have been modified.
          *
          * @param bool $value
@@ -4941,6 +5001,18 @@
                         $instance->recordsHaveBeenModified($value);
         }
                     /**
+         * Set the record modification state.
+         *
+         * @param bool $value
+         * @return \Illuminate\Database\MySqlConnection 
+         * @static 
+         */ 
+        public static function setRecordModificationState($value)
+        {            //Method inherited from \Illuminate\Database\Connection         
+                        /** @var \Illuminate\Database\MySqlConnection $instance */
+                        return $instance->setRecordModificationState($value);
+        }
+                    /**
          * Reset the record modification state.
          *
          * @return void 
@@ -4950,6 +5022,18 @@
         {            //Method inherited from \Illuminate\Database\Connection         
                         /** @var \Illuminate\Database\MySqlConnection $instance */
                         $instance->forgetRecordModificationState();
+        }
+                    /**
+         * Indicate that the connection should use the write PDO connection for reads.
+         *
+         * @param bool $value
+         * @return \Illuminate\Database\MySqlConnection 
+         * @static 
+         */ 
+        public static function useWriteConnectionWhenReading($value = true)
+        {            //Method inherited from \Illuminate\Database\Connection         
+                        /** @var \Illuminate\Database\MySqlConnection $instance */
+                        return $instance->useWriteConnectionWhenReading($value);
         }
                     /**
          * Is Doctrine available?
@@ -15447,6 +15531,24 @@
         }
          
     }
+            /**
+     * 
+     *
+     */ 
+        class Stringable {
+                    /**
+         * 
+         *
+         * @see \Spatie\LaravelRay\RayServiceProvider::registerMacros()
+         * @param string $description
+         * @static 
+         */ 
+        public static function ray($description = '')
+        {
+                        return \Illuminate\Support\Stringable::ray($description);
+        }
+         
+    }
      
 }
 
@@ -16898,7 +17000,7 @@ namespace  {
              * @param array $columns
              * @param string $cursorName
              * @param string|null $cursor
-             * @return \Illuminate\Contracts\Pagination\Paginator 
+             * @return \Illuminate\Contracts\Pagination\CursorPaginator 
              * @throws \Illuminate\Pagination\CursorPaginationException
              * @static 
              */ 
