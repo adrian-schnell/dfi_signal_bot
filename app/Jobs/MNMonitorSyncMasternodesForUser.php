@@ -7,7 +7,6 @@ use App\Http\Service\MasternodeMonitorService;
 use App\Http\Service\TelegramMessageService;
 use App\Models\TelegramUser;
 use App\Models\UserMasternode;
-use BotMan\Drivers\Telegram\TelegramDriver;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
