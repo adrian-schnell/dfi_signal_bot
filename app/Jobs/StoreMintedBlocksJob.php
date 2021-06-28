@@ -17,7 +17,7 @@ class StoreMintedBlocksJob implements ShouldQueue
 
     protected UserMasternode $masternode;
     protected array $mintedBlocks = [];
-    protected bool $isInit;
+    protected bool $isInit = true;
 
     public function __construct(UserMasternode $masternode, bool $isInit)
     {
