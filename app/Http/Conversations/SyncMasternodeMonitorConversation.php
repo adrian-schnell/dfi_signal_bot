@@ -59,7 +59,7 @@ class SyncMasternodeMonitorConversation extends Conversation
                         count($masternodes),
                         ['number' => count($masternodes)]));
                     $this->getBot()->startConversation(new EnableMasternodeAlarmConversation($masternodes));
-                    app(DefichainApiService::class)->storeMintedBlockForTelegramUser($user);
+                    app(DefichainApiService::class)->storeMintedBlockForTelegramUser($user, true);
                 });
         });
     }

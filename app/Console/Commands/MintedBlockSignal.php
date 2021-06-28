@@ -16,7 +16,7 @@ class MintedBlockSignal extends Command
     {
         $users = TelegramUser::all();
         $users->each(function (TelegramUser $user) {
-            app(DefichainApiService::class)->storeMintedBlockForTelegramUser($user);
+            app(DefichainApiService::class)->storeMintedBlockForTelegramUser($user, false);
         });
     }
 }

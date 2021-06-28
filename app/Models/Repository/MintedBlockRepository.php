@@ -14,9 +14,10 @@ class MintedBlockRepository
     public function storeMintedBlocks(
         DefichainApiService $service,
         UserMasternode $userMasternode,
-        array $mintedBlocks
+        array $mintedBlocks,
+        bool $initMode = false
     ): void {
-        $initMode = $userMasternode->mintedBlocks->count() === 0;
+//        $initMode = $userMasternode->mintedBlocks->count() === 0;
 
         foreach ($mintedBlocks as $mintedBlock) {
             $txInfo         = $service->getTransactionDetails($mintedBlock['mintTxid']);
