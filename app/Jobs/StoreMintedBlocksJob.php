@@ -17,10 +17,12 @@ class StoreMintedBlocksJob implements ShouldQueue
 
     protected UserMasternode $masternode;
     protected array $mintedBlocks = [];
+    protected bool $isInit;
 
-    public function __construct(UserMasternode $masternode)
+    public function __construct(UserMasternode $masternode, bool $isInit)
     {
         $this->masternode = $masternode;
+        $this->isInit = $isInit;
     }
 
     public function handle(DefichainApiService $apiService): void
@@ -31,7 +33,8 @@ class StoreMintedBlocksJob implements ShouldQueue
             ->storeMintedBlocks(
                 $apiService,
                 $this->masternode,
-                $this->mintedBlocks
+                $this->mintedBlocks,
+                $this->isInit
             );
     }
 }

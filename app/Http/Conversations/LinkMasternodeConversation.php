@@ -91,7 +91,7 @@ class LinkMasternodeConversation extends Conversation
                 $this->name,
                 $answer->getValue() === self::VALUE_YES
             );
-            app(DefichainApiService::class)->storeMintedBlockForTelegramUser($this->user);
+            app(DefichainApiService::class)->storeMintedBlockForTelegramUser($this->user, true);
 
             if ($masternodeCreated) {
                 $this->say(__('linkMasternodeConversation.final'));

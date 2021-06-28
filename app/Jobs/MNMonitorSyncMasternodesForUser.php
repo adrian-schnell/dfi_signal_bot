@@ -7,7 +7,6 @@ use App\Http\Service\MasternodeMonitorService;
 use App\Http\Service\TelegramMessageService;
 use App\Models\TelegramUser;
 use App\Models\UserMasternode;
-use BotMan\Drivers\Telegram\TelegramDriver;
 use Illuminate\Bus\Queueable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
@@ -37,7 +36,7 @@ class MNMonitorSyncMasternodesForUser implements ShouldQueue
 
         set_language($this->user->language);
         if ($countAfter !== $countBefore) {
-            app(DefichainApiService::class)->storeMintedBlockForTelegramUser($this->user);
+            app(DefichainApiService::class)->storeMintedBlockForTelegramUser($this->user, true);
         }
         if ($countAfter === 0) { // no masternodes stored - disable sync
             $this->user->update([

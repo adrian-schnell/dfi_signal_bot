@@ -29,7 +29,8 @@ class MasternodeMonitorService
             return [];
         }
         $masternodeArray = [];
-        UserMasternode::where('telegramUserId', $user->id)->synced()->delete();
+//        UserMasternode::where('telegramUserId', $user->id)->synced()->delete();
+        $this->removeSyncedMasternodes($user, $masternodes);
         foreach ($masternodes as $masternode) {
             $mn = Masternode::where('owner_address', $masternode['ownerAddress'])->first();
             if (isset($mn)) {
@@ -49,6 +50,29 @@ class MasternodeMonitorService
         }
 
         return $masternodeArray;
+    }
+
+    public function removeSyncedMasternodes(TelegramUser $user, array $masternodes): int
+    {
+        $ownerAdresses = collect($masternodes)->pluck('ownerAddress')->toArray();
+        $mnToRemove = UserMasternode::where('telegramUserId', $user->id)
+            ->synced()
+            ->with('masternode')
+            ->whereDoesntHave('masternode', function ($query) use ($ownerAdresses) {
+                return $query->whereIn('owner_address', $ownerAdresses);
+            });
+
+        $telegramMessageService = app(TelegramMessageService::class);
+        $mnToRemove->pluck('name')->each(function (string $name) use ($user, $telegramMessageService) {
+            $telegramMessageService
+                ->sendMessage(
+                    $user,
+                    __('resyncMasternodeMonitor.removed_mn_named', ['name' => $name,]),
+                    ['parse_mode' => 'Markdown']
+                );
+        });
+
+        return $mnToRemove->delete();
     }
 
     public function resetMasternodes(TelegramUser $user): void
