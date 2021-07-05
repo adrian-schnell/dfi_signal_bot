@@ -15,7 +15,6 @@ return [
 
     'error' => [
         'invalid_owner_address' => '*This address seems to be invalid. Please enter the owner address:*',
-        'other_user_linked' => '*This address is already linked with another user. Please enter another owner address or /stop this command:*',
         'duplicated_address'    => 'This address is already setup 🙈',
     ],
 ];

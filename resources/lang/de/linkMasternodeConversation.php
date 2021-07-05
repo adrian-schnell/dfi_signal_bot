@@ -15,7 +15,6 @@ return [
 
     'error' => [
         'invalid_owner_address' => '*Die eingegebene Adresse scheint ungültig zu sein. Wie lautet die Owner Address deiner Masternode?*',
-        'other_user_linked'     => '*Diese Masternode ist bereits mit einem Nutzer verknüpft. Bitte trage eine andere Adresse ein oder /stop diesen Befehl.*',
         'duplicated_address'    => 'Adresse bereits eingerichtet 🙈',
     ],
 ];
