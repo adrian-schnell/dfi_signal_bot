@@ -17,8 +17,10 @@ class MasternodeStateCommand extends Command
     protected TelegramMessageService $messageService;
     protected OnetimeNotificationService $onetimeNotificationService;
 
-    public function handle(TelegramMessageService $messageService, OnetimeNotificationService $onetimeNotificationService): void
-    {
+    public function handle(
+        TelegramMessageService $messageService,
+        OnetimeNotificationService $onetimeNotificationService
+    ): void {
         $this->messageService = $messageService;
         $this->onetimeNotificationService = $onetimeNotificationService;
 
@@ -42,6 +44,7 @@ class MasternodeStateCommand extends Command
 
     protected function notifyPreResigned(UserMasternode $userMasternode): void
     {
+        set_language($userMasternode->user->language);
         $success = $this->messageService->sendMessage(
             $userMasternode->user,
             __('mn_state_notification.pre_resigned',
@@ -57,6 +60,7 @@ class MasternodeStateCommand extends Command
 
     protected function notifyResigned(UserMasternode $userMasternode): void
     {
+        set_language($userMasternode->user->language);
         $success = $this->messageService->sendMessage(
             $userMasternode->user,
             __('mn_state_notification.resigned', [
@@ -65,6 +69,9 @@ class MasternodeStateCommand extends Command
             ['parse_mode' => 'Markdown']
         );
         if ($success) {
+            $userMasternode->update([
+                'is_active' => false,
+            ]);
             $this->onetimeNotificationService->notificationSendForModel($userMasternode, MNStates::MN_RESIGNED);
         }
     }

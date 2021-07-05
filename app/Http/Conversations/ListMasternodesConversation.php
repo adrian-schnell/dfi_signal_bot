@@ -53,7 +53,11 @@ class ListMasternodesConversation extends Conversation
                 ]);
         }
         $questionString .= '
-' . __('listMasternodeConversation.alarm_on', ['icon' => $masternode->alarm_on ? '✅' : '❌']);
+' . __('listMasternodeConversation.alarm_on', ['icon' => $masternode->alarm_on && $masternode->is_active ? '✅' : '❌']);
+        if(!$masternode->is_active) {
+            $questionString .= '
+' . __('listMasternodeConversation.resigned', ['icon' => '✅']);
+        }
         $questionString .= '
 ' . __('listMasternodeConversation.synced', ['icon' => $masternode->synced_masternode_monitor ? '✅' : '❌']);
 

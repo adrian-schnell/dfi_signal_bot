@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @property Masternode   masternode
  * @property bool         alarm_on
  * @property bool         synced_masternode_monitor
+ * @property bool         is_active
  */
 class UserMasternode extends Model
 {
@@ -26,6 +27,7 @@ class UserMasternode extends Model
         'telegramUserId',
         'alarm_on',
         'synced_masternode_monitor',
+        'is_active',
     ];
     protected $hidden = [
         'id',
@@ -33,6 +35,7 @@ class UserMasternode extends Model
         'updated_at',
         'alarm_on',
         'synced_masternode_monitor',
+        'is_active',
     ];
 
     public function user(): BelongsTo
