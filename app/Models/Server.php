@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property integer      telegram_user_id
  * @property string       name
  * @property TelegramUser user
+ * @property boolean      alarm_on
  */
 class Server extends Model
 {
@@ -20,8 +21,8 @@ class Server extends Model
     protected $fillable = [
         'name',
         'telegram_user_id',
+        'alarm_on'
     ];
-
     protected $hidden = [
         'telegram_user_id',
         'alarm_on',

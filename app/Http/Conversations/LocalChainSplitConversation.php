@@ -39,7 +39,7 @@ class LocalChainSplitConversation extends Conversation
         $this->say(__('chainSplitConversation.cooldown_message', ['hours' => $cooldownInHours]),
             ['parse_mode' => 'Markdown']);
 
-//        $this->data->userServer()->user->cooldown(Cooldown::LOCAL_SPLIT_NOTIFICATION)
-//            ->until(now()->addHours($cooldownInHours));
+        $this->data->userServer()->user->cooldown(Cooldown::LOCAL_SPLIT_NOTIFICATION)
+            ->until(now()->addHours($cooldownInHours));
     }
 }

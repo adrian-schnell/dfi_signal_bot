@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Conversations\HelpConversation;
 use App\Http\Conversations\LinkMasternodeConversation;
 use App\Http\Conversations\MasternodeStatsConversation;
+use App\Http\Conversations\ServerSyncConversation;
 use App\Http\Conversations\SyncDisableConversation;
 use App\Http\Conversations\SyncKeyChangedConversation;
 use App\Http\Conversations\UnlinkMasternodeConversation;
@@ -15,7 +16,6 @@ use App\Http\Conversations\SyncMasternodeMonitorConversation;
 use App\Http\Middleware\TelegramBot\SetLanguageReceived;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Exceptions\Base\BotManException;
-use BotMan\BotMan\Messages\Incoming\Answer;
 use App\Models\Service\TelegramUserService;
 use Throwable;
 
@@ -25,6 +25,7 @@ class BotController extends Controller
 
     public function handle(TelegramUserService $telegramUserService): void
     {
+        /** @var BotMan $botMan */
         $botMan = app('botman');
 
         $botMan->hears('/start', function (Botman $botman) use ($telegramUserService) {
@@ -34,10 +35,10 @@ class BotController extends Controller
                 $telegramUserService->getTelegramUser($botman->getUser());
                 $botman->startConversation(new OnboardConversation());
             }
-        })->skipsConversation();
+        })->stopsConversation();
         $botMan->hears('/sync', function (BotMan $botman) {
             $botman->startConversation(new SyncMasternodeMonitorConversation());
-        })->skipsConversation();
+        })->stopsConversation();
         $botMan->hears('/sync_key_changed', function (BotMan $botman) {
             $botman->startConversation(new SyncKeyChangedConversation());
         });
@@ -48,28 +49,32 @@ class BotController extends Controller
 
         $botMan->hears('/link_mn(.*|^)', function (BotMan $botman, string $ownerAddress) {
             $botman->startConversation(new LinkMasternodeConversation($botman->getUser(), trim($ownerAddress)));
-        })->skipsConversation();
+        })->stopsConversation();
         $botMan->hears('/unlink_mn(.*|^)', function (BotMan $botman, string $ownerAddress) {
             $botman->startConversation(new UnlinkMasternodeConversation($botman->getUser(), trim($ownerAddress)));
-        })->skipsConversation();
+        })->stopsConversation();
 
 
         $botMan->hears('/list', function (BotMan $botman) use ($telegramUserService) {
             $telegramUser = $telegramUserService->getTelegramUser($botman->getUser());
             $masternodes = $telegramUser->masternodes;
             $botman->startConversation(new ListMasternodesConversation($masternodes));
-        })->skipsConversation();
+        })->stopsConversation();
 
         $botMan->hears('/stats', function (BotMan $botman) use ($telegramUserService) {
             $telegramUser = $telegramUserService->getTelegramUser($botman->getUser());
             $masternodes = $telegramUser->masternodes;
             $botman->startConversation(new MasternodeStatsConversation($masternodes));
-        })->skipsConversation();
+        })->stopsConversation();
+
+        $botMan->hears('/server_sync', function (BotMan $botman) {
+            $botman->startConversation(new ServerSyncConversation($botman->getUser()));
+        })->stopsConversation();
 
         $botMan->hears('/reset', function (BotMan $botman) use ($telegramUserService) {
             $telegramUser = $telegramUserService->getTelegramUser($botman->getUser());
             $botman->startConversation(new ResetMasternodesConversation($telegramUser));
-        })->skipsConversation();
+        })->stopsConversation();
 
         $botMan->hears('/stop', function (BotMan $botman) {
             $botman->reply('⏹ stopped');
