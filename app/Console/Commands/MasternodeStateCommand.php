@@ -5,7 +5,6 @@ namespace App\Console\Commands;
 use App\Enum\MNStates;
 use App\Http\Service\TelegramMessageService;
 use App\Models\Masternode;
-use App\Models\OnetimeNotification;
 use App\Models\Service\OnetimeNotificationService;
 use App\Models\UserMasternode;
 use Illuminate\Console\Command;

@@ -28,6 +28,7 @@ class Kernel extends ConsoleKernel
          $schedule->command('update:masternode-monitor-sync')->hourly()->withoutOverlapping();
          $schedule->command('update:dex-prices')->everyFiveMinutes()->withoutOverlapping();
          $schedule->command('signal:update-masternode-minted')->everyFiveMinutes()->withoutOverlapping();
+         $schedule->command('masternode:state-check')->everyFiveMinutes()->withoutOverlapping();
 
          // telescope prune old data
         $schedule->command('telescope:prune')->daily();
