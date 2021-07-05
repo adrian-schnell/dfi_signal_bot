@@ -38,6 +38,7 @@ class UserMasternodeResource extends Resource
             BelongsTo::make('Masternode', 'masternode', MasternodeResource::class),
             Boolean::make('DFI Signal', 'alarm_on'),
             Boolean::make('MN Monitor Sync', 'synced_masternode_monitor'),
+            Boolean::make('Aktiv', 'is_active'),
             HasMany::make('Minted Blocks', 'mintedBlocks', MintedBlockResource::class),
         ];
     }

@@ -13,6 +13,7 @@ return [
 [:masternode_id_truncated](https://mainnet.defichain.io/#/DFI/mainnet/tx/:masternode_id)
 ',
     'alarm_on'      => '*DFI Signal*: :icon',
+    'resigned'      => '*Resigned*: :icon',
     'synced'        => '*Synchronisiert (MN Monitor)*: :icon',
 
     'buttons' => [
