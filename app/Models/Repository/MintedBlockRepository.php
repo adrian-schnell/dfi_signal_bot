@@ -17,13 +17,12 @@ class MintedBlockRepository
         array $mintedBlocks,
         bool $initMode = false
     ): void {
-//        $initMode = $userMasternode->mintedBlocks->count() === 0;
-
         foreach ($mintedBlocks as $mintedBlock) {
             $txInfo         = $service->getTransactionDetails($mintedBlock['mintTxid']);
             $newMintedBlock = MintedBlock::updateOrCreate([
-                'mintBlockHeight' => $mintedBlock['mintHeight'],
-                'mint_txid'       => $mintedBlock['mintTxid'],
+                'user_masternode_id' => $userMasternode->id,
+                'mintBlockHeight'    => $mintedBlock['mintHeight'],
+                'mint_txid'          => $mintedBlock['mintTxid'],
             ], [
                 'user_masternode_id' => $userMasternode->id,
                 'mintBlockHeight'    => $mintedBlock['mintHeight'],
