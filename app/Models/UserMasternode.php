@@ -2,19 +2,21 @@
 
 namespace App\Models;
 
+use App\Enum\MNStates;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 /**
  * @mixin \Eloquent
  * @property TelegramUser user
- * @property int telegramUserId
- * @property string name
- * @property integer masternode_id
- * @property Masternode masternode
- * @property bool alarm_on
- * @property bool synced_masternode_monitor
+ * @property int          telegramUserId
+ * @property string       name
+ * @property integer      masternode_id
+ * @property Masternode   masternode
+ * @property bool         alarm_on
+ * @property bool         synced_masternode_monitor
  */
 class UserMasternode extends Model
 {
@@ -48,6 +50,16 @@ class UserMasternode extends Model
         return $this->hasMany(MintedBlock::class);
     }
 
+    public function notifications(): MorphMany
+    {
+        return $this->morphMany(OnetimeNotification::class, 'notifiable');
+    }
+
+    public function hasNotificationWithName(string $name): bool
+    {
+        return $this->notifications->where('name', $name)->count() > 0;
+    }
+
     public function getOwnerAddressAttribute(): string
     {
         return $this->masternode->owner_address;
@@ -61,5 +73,25 @@ class UserMasternode extends Model
     public function scopeSynced($query)
     {
         return $query->where('synced_masternode_monitor', true);
+    }
+
+    public function isEnabled(): bool
+    {
+        return $this->masternode->state === MNStates::MN_ENABLED;
+    }
+
+    public function isPreEnabled(): bool
+    {
+        return $this->masternode->state === MNStates::MN_PRE_ENABLED;
+    }
+
+    public function isResigned(): bool
+    {
+        return $this->masternode->state === MNStates::MN_RESIGNED;
+    }
+
+    public function isPreResigned(): bool
+    {
+        return $this->masternode->state === MNStates::MN_PRE_RESIGNED;
     }
 }

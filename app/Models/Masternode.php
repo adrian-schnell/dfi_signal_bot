@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @mixin Eloquent
@@ -32,4 +33,9 @@ class Masternode extends Model
         'created_at',
         'updated_at',
     ];
+
+    public function userMasternodes(): HasMany
+    {
+        return $this->hasMany(UserMasternode::class);
+    }
 }
