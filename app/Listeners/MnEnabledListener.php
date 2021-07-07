@@ -12,7 +12,6 @@ class MnEnabledListener
     public function handle(MnEnabledEvent $event): void
     {
         $event->getMasternode()->userMasternodes->each(function (UserMasternode $userMasternode) {
-            ray($userMasternode);
             dispatch(new MnEnabledNotificationJob($userMasternode))
                 ->onQueue(QueueNames::TELEGRAM_MESSAGE_OUTGOING);
         });
