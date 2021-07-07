@@ -32,7 +32,7 @@ class MintedBlockRepository
                 'value'              => $mintedBlock['value'] / 100000000,
                 'address'            => $mintedBlock['address'],
                 'block_hash'         => $txInfo['blockHash'] ?? null,
-                'block_time'         => Carbon::parse($txInfo['blockTime'])->addHours(2),
+                'block_time'         => $txInfo['blockTime']? Carbon::parse($txInfo['blockTime'])->addHours(2) : now(),
             ]);
 
             if (!$initMode && $userMasternode->alarm_on && !$newMintedBlock->is_reported) {
