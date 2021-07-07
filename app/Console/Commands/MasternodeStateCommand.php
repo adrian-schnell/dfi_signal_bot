@@ -20,7 +20,7 @@ class MasternodeStateCommand extends Command
         TelegramMessageService $messageService,
         OnetimeNotificationService $onetimeNotificationService
     ): void {
-        $this->messageService = $messageService;
+        $this->messageService             = $messageService;
         $this->onetimeNotificationService = $onetimeNotificationService;
 
         $desctructiveMasternodes = Masternode::whereIn('state', MNStates::DESTRUCTIVE_STATES)
@@ -48,7 +48,8 @@ class MasternodeStateCommand extends Command
             $userMasternode->user,
             __('mn_state_notification.pre_resigned',
                 [
-                    'name' => $userMasternode->name,
+                    'name'          => $userMasternode->name,
+                    'resignedBlock' => $userMasternode->masternode->resign_height + 2016,
                 ]),
             ['parse_mode' => 'Markdown']
         );
