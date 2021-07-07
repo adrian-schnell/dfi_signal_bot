@@ -16,27 +16,29 @@ class UpdateEnabledMasternodes extends Command
     {
         try {
             $response = $client->get(config('api_mydefichain.enabled_masternodes_uri'));
-            $rawData = collect(json_decode($response->getBody()->getContents(), true));
+            $rawData  = collect(json_decode($response->getBody()->getContents(), true));
         } catch (GuzzleException $e) {
             $this->error(sprintf('failed to load the masternodes from API, reason: %s', $e->getMessage()));
         }
 
         $rawData
             ->chunk(1000)->each(function ($rawdatas) {
-            $preparedData = [];
+                $preparedData = [];
 
-            foreach ($rawdatas as $id => $data) {
-                $preparedData[] = [
-                    'masternode_id'     => $id,
-                    'owner_address'     => $data['ownerAuthAddress'],
-                    'operator_address'  => $data['operatorAuthAddress'],
-                    'creation_height'   => $data['creationHeight'],
-                    'state'             => $data['state'],
-                    'minted_blocks'     => $data['mintedBlocks'],
-                    'target_multiplier' => $data['targetMultiplier'],
-                ];
-            }
-            Masternode::upsert($preparedData, ['id', 'owner_address', 'operator_address']);
-        });
+                foreach ($rawdatas as $id => $data) {
+                    $preparedData[] = [
+                        'masternode_id'     => $id,
+                        'owner_address'     => $data['ownerAuthAddress'],
+                        'operator_address'  => $data['operatorAuthAddress'],
+                        'creation_height'   => $data['creationHeight'],
+                        'state'             => $data['state'],
+                        'minted_blocks'     => $data['mintedBlocks'],
+                        'target_multiplier' => $data['targetMultiplier'],
+                        'resign_height'     => $data['resignHeight'],
+                        'ban_height'        => $data['banHeight'],
+                    ];
+                }
+                Masternode::upsert($preparedData, ['id', 'owner_address', 'operator_address']);
+            });
     }
 }

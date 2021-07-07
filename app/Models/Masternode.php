@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string owner_address
  * @property string operator_address
  * @property integer creation_height
+ * @property integer resign_height
+ * @property integer ban_height
  * @property string state
  * @property integer minted_blocks
  * @property integer target_multiplier
@@ -23,6 +25,8 @@ class Masternode extends Model
         'owner_address',
         'operator_address',
         'creation_height',
+        'resign_height',
+        'ban_height',
         'state',
         'minted_blocks',
         'target_multiplier',
