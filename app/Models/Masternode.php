@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Enum\MNStates;
-use App\Events\MnEnabledEvent;
 use Eloquent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -39,18 +37,6 @@ class Masternode extends Model
         'created_at',
         'updated_at',
     ];
-
-    public static function boot()
-    {
-        parent::boot();
-        static::updating(function (Masternode $masternode) {
-            // this masternode switched from pre_enabled to enabled
-            if ($masternode->isDirty('state') && $masternode->state === MNStates::MN_ENABLED &&
-                $masternode->getOriginal('state') === MNStates::MN_PRE_ENABLED) {
-                event(new MnEnabledEvent($masternode));
-            }
-        });
-    }
 
     public function userMasternodes(): HasMany
     {

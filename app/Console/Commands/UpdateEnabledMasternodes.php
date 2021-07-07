@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Enum\MNStates;
+use App\Events\MnEnabledEvent;
 use App\Models\Masternode;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -38,7 +40,31 @@ class UpdateEnabledMasternodes extends Command
                         'ban_height'        => $data['banHeight'],
                     ];
                 }
+                $this->checkStateChange($preparedData);
                 Masternode::upsert($preparedData, ['id', 'owner_address', 'operator_address']);
             });
+    }
+
+    /**
+     * triggers MnEnabledEvent for masternodes changing state from
+     * PRE_ENABLED to ENABLED
+     */
+    protected function checkStateChange(array $preparedData): void
+    {
+        $preparedStateMn = Masternode::whereState(MNStates::MN_PRE_ENABLED)->get();
+        if ($preparedStateMn->count() === 0) {
+            return;
+        }
+        $preparedData = collect($preparedData);
+        $preparedStateMn->each(function (Masternode $masternode) use ($preparedData) {
+            $newMnData = $preparedData
+                ->where('owner_address', $masternode->owner_address)
+                ->where('operator_address', $masternode->operator_address)->first();
+
+            if (isset($newMnData) && $newMnData['state'] === MNStates::MN_ENABLED) {
+                ray($newMnData);
+                event(new MnEnabledEvent($masternode));
+            }
+        });
     }
 }
