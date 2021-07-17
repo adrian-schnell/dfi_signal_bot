@@ -35,9 +35,9 @@ class UpdateEnabledMasternodes extends Command
                         'creation_height'   => $data['creationHeight'],
                         'state'             => $data['state'],
                         'minted_blocks'     => $data['mintedBlocks'],
-                        'target_multiplier' => $data['targetMultiplier'],
+                        'target_multiplier' => $data['targetMultiplier'] ?? 1,
                         'resign_height'     => $data['resignHeight'],
-                        'ban_height'        => $data['banHeight'],
+                        'ban_height'        => $data['banTx'] ?? null,
                     ];
                 }
                 $this->checkStateChange($preparedData);
