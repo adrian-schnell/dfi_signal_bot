@@ -187,8 +187,8 @@ class DefichainApiService
     {
         $masternodes = $user->masternodes;
 
-        $masternodes->each(function (UserMasternode $masternode) use ($initMode) {
-            dispatch(new StoreMintedBlocksJob($masternode, $initMode))
+        $masternodes->each(function (UserMasternode $masternode) use ($initMode, $user) {
+            dispatch(new StoreMintedBlocksJob($masternode, $user, $initMode))
                 ->onQueue(QueueNames::MINTED_BLOCK_QUEUE);
         });
     }
