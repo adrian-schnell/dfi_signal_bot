@@ -38,9 +38,18 @@ class MintedBlockRepository
             ]);
 
             if (!$initMode && $userMasternode->alarm_on && !$newMintedBlock->is_reported) {
+                // calculate diff between last 2 blocks
+                $lastTwoBlocks = $userMasternode->mintedBlocks->sortByDesc('id')->take(2);
+                $lastBlockA = $lastTwoBlocks->pop();
+                $lastBlockB = $lastTwoBlocks->pop();
+                $timeDiff = $lastBlockA->block_time->diffInHours($lastBlockB->block_time);
+                $blockDiff = abs($lastBlockA->mintBlockHeight - $lastBlockB->mintBlockHeight);
+
                 app(SignalService::class)->tellMintedBlock(
                     $userMasternode->user,
                     $newMintedBlock,
+                    $timeDiff,
+                    $blockDiff,
                     $userMasternode->user->language
                 );
             } else {

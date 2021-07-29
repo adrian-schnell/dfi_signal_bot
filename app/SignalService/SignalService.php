@@ -16,8 +16,13 @@ class SignalService
         $this->messageService = $messageService;
     }
 
-    public function tellMintedBlock(TelegramUser $user, MintedBlock $mintedBlock, string $language = 'en'): void
-    {
+    public function tellMintedBlock(
+        TelegramUser $user,
+        MintedBlock $mintedBlock,
+        int $diffHours,
+        int $diffBlockHeight,
+        string $language = 'en'
+    ): void {
         // don't report one block again
         if ($mintedBlock->is_reported) {
             return;
@@ -31,9 +36,11 @@ class SignalService
                 'name'            => $mintedBlock->userMasternode->name,
                 'mintBlockHeight' => $mintedBlock->mintBlockHeight,
                 'value'           => $mintedBlock->value,
+                'diffHours'       => $diffHours,
+                'diffBlockHeight' => $diffBlockHeight,
             ]),
             [
-                'parse_mode' => 'Markdown'
+                'parse_mode' => 'Markdown',
             ]
         );
 
