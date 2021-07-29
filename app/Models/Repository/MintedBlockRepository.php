@@ -33,17 +33,22 @@ class MintedBlockRepository
                 'address'            => $mintedBlock['address'],
                 'block_hash'         => $txInfo['blockHash'] ?? null,
                 'block_time'         => array_key_exists('blockTime', $txInfo)
-                    ?  Carbon::parse($txInfo['blockTime'])->addHours(2)
+                    ? Carbon::parse($txInfo['blockTime'])->addHours(2)
                     : now(),
             ]);
 
             if (!$initMode && $userMasternode->alarm_on && !$newMintedBlock->is_reported) {
                 // calculate diff between last 2 blocks
                 $lastTwoBlocks = $userMasternode->mintedBlocks->sortByDesc('id')->take(2);
-                $lastBlockA = $lastTwoBlocks->pop();
-                $lastBlockB = $lastTwoBlocks->pop();
-                $timeDiff = $lastBlockA->block_time->diffInHours($lastBlockB->block_time);
-                $blockDiff = abs($lastBlockA->mintBlockHeight - $lastBlockB->mintBlockHeight);
+                if ($lastTwoBlocks->count() == 2) {
+                    $lastBlockA = $lastTwoBlocks->first();
+                    $lastBlockB = $lastTwoBlocks->last();
+                    $timeDiff = $lastBlockA->block_time->diffInHours($lastBlockB->block_time);
+                    $blockDiff = abs($lastBlockA->mintBlockHeight - $lastBlockB->mintBlockHeight);
+                } else {
+                    $timeDiff = '∞';
+                    $blockDiff = '∞';
+                }
 
                 app(SignalService::class)->tellMintedBlock(
                     $userMasternode->user,
