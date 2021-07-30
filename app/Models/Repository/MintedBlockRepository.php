@@ -46,8 +46,8 @@ class MintedBlockRepository
                     $timeDiff = $lastBlockA->block_time->diffInHours($lastBlockB->block_time);
                     $blockDiff = abs($lastBlockA->mintBlockHeight - $lastBlockB->mintBlockHeight);
                 } else {
-                    $timeDiff = '∞';
-                    $blockDiff = '∞';
+                    $timeDiff = -1;
+                    $blockDiff = -1;
                 }
 
                 app(SignalService::class)->tellMintedBlock(

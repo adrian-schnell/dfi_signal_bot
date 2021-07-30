@@ -36,8 +36,8 @@ class SignalService
                 'name'            => $mintedBlock->userMasternode->name,
                 'mintBlockHeight' => $mintedBlock->mintBlockHeight,
                 'value'           => $mintedBlock->value,
-                'diffHours'       => $diffHours,
-                'diffBlockHeight' => $diffBlockHeight,
+                'diffHours'       => $diffHours == -1 ? '∞' : $diffHours,
+                'diffBlockHeight' => $diffBlockHeight == -1 ? '∞' : $diffBlockHeight,
             ]),
             [
                 'parse_mode' => 'Markdown',
