@@ -10,8 +10,10 @@ class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        URL::forceScheme('https');
-        $this->app->singleton(BotMan::class, function($app){
+        if (!app()->environment('local')) {
+            URL::forceScheme('https');
+        }
+        $this->app->singleton(BotMan::class, function ($app) {
             return $app->make('botman');
         });
     }
