@@ -2,7 +2,7 @@ version: '3'
 services:
   app: &php
     container_name: app
-    image: adrianabo/php:7.4.14-fpm
+    image: adrianabo/php:7.4.14-fpm-buster
     restart: on-failure
     user: www-data
     working_dir: /var/www

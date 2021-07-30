@@ -1,6 +1,5 @@
 <?php
 
 return [
-    'minted_block' => '*:time:*
-    🤑 *:name* minted block :mintBlockHeight with reward of *:value DFI*',
+    'minted_block' => "*:time:*\r\n🤑 *:name* minted block :mintBlockHeight with reward of *:value DFI*\r\n\r\nTime since last minted block: :diffHours hours\r\nBlocks since last minted block: :diffBlockHeight",
 ];
