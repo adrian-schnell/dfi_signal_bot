@@ -98,15 +98,12 @@ class MasternodeStatsConversation extends Conversation
                     ]);
         }
         if (count($masternode->masternode->target_multipliers) > 0) {
-            $targetMultipliers = implode(', ', $masternode->masternode->target_multipliers);
-        } else {
-            $targetMultipliers = $masternode->masternode->target_multiplier;
-        }
             $questionString .= '
 ' . (string)__('MasternodeStatConversation.target_multiplier',
                     [
-                        'multiplier' => $targetMultipliers,
+                        'multiplier' => implode(', ', $masternode->masternode->target_multipliers),
                     ]);
+        }
 
         if ($masternode->masternode->timelock) {
             $questionString .= '
