@@ -1,21 +1,19 @@
 <?php
 
 return [
-    'name'               => '*Name*: :name',
-    'block_minted_count' => '*Minted Blocks Count*: :count',
-    'last_block'         => '*Last Block minted*: [:blockHeight](https://mainnet.defichain.io/#/DFI/mainnet/block/:blockHeight)
-*Time since last block*: :hours hours',
-    'target_multiplier'  => '*Target Multiplier*: :multiplier',
-    'timelock'           => '*Locked time*: :timelock',
-    'tx_link'            => '*Last Block Tx*: [:txid_truncated](https://mainnet.defichain.io/#/DFI/mainnet/tx/:txid)',
-    'age'                => '*Age*: one day|*Age*: :age days',
-    'average_block'      => '*Average Time*: :average days per block',
-    'state'              => '*Current State*: :state',
+    'name'               => "*Name*: :name",
+    'block_minted_count' => "\r\n*Minted Blocks Count*: :count",
+    'last_block'         => "\r\n*Last Block minted*: [:blockHeight](https://mainnet.defichain.io/#/DFI/mainnet/block/:blockHeight)\r\n*Time since last block*: :hours hours",
+    'target_multiplier'  => "\r\n*Target Multiplier*: :multiplier",
+    'timelock'           => "\r\n*Locked time*: :timelock",
+    'tx_link'            => "\r\n\r\n*Last Block Tx*: [:txid_truncated](https://mainnet.defichain.io/#/DFI/mainnet/tx/:txid)",
+    'age'                => "\r\n*Age*: one day|\r\n*Age*: :age days",
+    'average_block'      => "\r\n*Average Time*: :average days per block",
+    'state'              => "\r\n*Current State*: :state",
 
     'rewards' => [
-        'dfi'         => '*Rewards*:
-:dfi DFI',
-        'other_coins' => '≈ :value :ticker',
-        'legal'       => 'DEX prices last update: :date.',
+        'dfi'         => "*Rewards*:\r\n:dfi DFI",
+        'other_coins' => "\r\n≈ :value :ticker",
+        'legal'       => "\r\n\r\nDEX prices last update: :date.",
     ],
 ];
