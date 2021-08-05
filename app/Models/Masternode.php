@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string state
  * @property integer minted_blocks
  * @property integer target_multiplier
+ * @property array target_multipliers
+ * @property string timelock
  */
 class Masternode extends Model
 {
@@ -30,6 +32,12 @@ class Masternode extends Model
         'state',
         'minted_blocks',
         'target_multiplier',
+        'target_multipliers',
+        'timelock',
+    ];
+
+    protected $casts = [
+        'target_multipliers' => 'array',
     ];
 
     protected $hidden = [

@@ -6,6 +6,7 @@ return [
     'last_block'         => '*Letzter Block*: [:blockHeight](https://mainnet.defichain.io/#/DFI/mainnet/block/:blockHeight)
 *Letzter Block vor*: :hours Stunden',
     'target_multiplier'  => '*Multiplikator*: :multiplier',
+    'timelock'           => '*freezed*: :timelock',
     'tx_link'            => '*Transaktion*: [:txid_truncated](https://mainnet.defichain.io/#/DFI/mainnet/tx/:txid)',
     'age'                => '*Alter*: einen Tag|*Alter*: :age Tage',
     'average_block'      => '*Durchschnitt*: :average Tage pro Block',

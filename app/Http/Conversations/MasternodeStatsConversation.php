@@ -97,11 +97,24 @@ class MasternodeStatsConversation extends Conversation
                             ->mint_txid, 30),
                     ]);
         }
+        if (count($masternode->masternode->target_multipliers) > 0) {
+            $targetMultipliers = implode(', ', $masternode->masternode->target_multipliers);
+        } else {
+            $targetMultipliers = $masternode->masternode->target_multiplier;
+        }
             $questionString .= '
 ' . (string)__('MasternodeStatConversation.target_multiplier',
                     [
-                        'multiplier' => $masternode->masternode->target_multiplier,
+                        'multiplier' => $targetMultipliers,
                     ]);
+
+        if ($masternode->masternode->timelock) {
+            $questionString .= '
+' . (string)__('MasternodeStatConversation.timelock',
+                    [
+                        'timelock' => $masternode->masternode->timelock,
+                    ]);
+        }
 
 
         return $questionString;
