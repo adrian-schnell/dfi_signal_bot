@@ -38,10 +38,10 @@ class ServerStatService
             ],
         ]);
         $data->each(function (array $item) {
-            ray(ServerStat::updateOrCreate([
+            ServerStat::updateOrCreate([
                 'server_id' => $item['server_id'],
                 'type'      => $item['type'],
-            ], $item));
+            ], $item);
         });
     }
 }
