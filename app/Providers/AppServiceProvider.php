@@ -18,9 +18,4 @@ class AppServiceProvider extends ServiceProvider
             return $app->make('botman');
         });
     }
-
-    public function boot(): void
-    {
-        //
-    }
 }
