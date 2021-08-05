@@ -15,6 +15,7 @@ class DexCoin
         7  => 'DOGE',
         9  => 'LTC',
         11 => 'BCH',
+        13 => 'USDC',
     ];
     const POOL_MAPPING = [
         4  => 'ETH',
@@ -23,5 +24,6 @@ class DexCoin
         8  => 'DOGE',
         10 => 'LTC',
         12 => 'BCH',
+        14 => 'USDC',
     ];
 }
