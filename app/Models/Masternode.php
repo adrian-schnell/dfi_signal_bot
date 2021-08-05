@@ -8,17 +8,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @mixin Eloquent
- * @property string masternode_id
- * @property string owner_address
- * @property string operator_address
+ * @property string  masternode_id
+ * @property string  owner_address
+ * @property string  operator_address
  * @property integer creation_height
  * @property integer resign_height
  * @property integer ban_height
- * @property string state
+ * @property string  state
  * @property integer minted_blocks
- * @property integer target_multiplier
- * @property array target_multipliers
- * @property string timelock
+ * @property array   target_multipliers
+ * @property string  timelock
  */
 class Masternode extends Model
 {
@@ -31,15 +30,12 @@ class Masternode extends Model
         'ban_height',
         'state',
         'minted_blocks',
-        'target_multiplier',
         'target_multipliers',
         'timelock',
     ];
-
     protected $casts = [
         'target_multipliers' => 'array',
     ];
-
     protected $hidden = [
         'id',
         'created_at',

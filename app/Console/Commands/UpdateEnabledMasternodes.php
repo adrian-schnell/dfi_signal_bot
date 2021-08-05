@@ -35,7 +35,6 @@ class UpdateEnabledMasternodes extends Command
                         'creation_height'    => $data['creationHeight'],
                         'state'              => $data['state'],
                         'minted_blocks'      => $data['mintedBlocks'],
-                        'target_multiplier'  => $data['targetMultiplier'] ?? 1,
                         'target_multipliers' => json_encode($data['targetMultipliers'] ?? []),
                         'timelock'           => $data['timelock'] ?? null,
                         'resign_height'      => $data['resignHeight'],
