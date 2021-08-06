@@ -41,8 +41,8 @@ class UpdateEnabledMasternodes extends Command
                         'ban_height'         => $data['banTx'] ?? null,
                     ];
                 }
-                $this->checkStateChange($preparedData);
                 Masternode::upsert($preparedData, ['id', 'owner_address', 'operator_address']);
+                $this->checkStateChange($preparedData);
             });
     }
 
