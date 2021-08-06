@@ -4,7 +4,6 @@ namespace App\Console;
 
 use App\Console\Commands\CreateBackendUserCommand;
 use App\Console\Commands\MasternodeMonitorSyncCommand;
-use App\Console\Commands\MasternodeStateCommand;
 use App\Console\Commands\MintedBlockSignal;
 use App\Console\Commands\UpdateDexPrices;
 use App\Console\Commands\UpdateEnabledMasternodes;
@@ -19,7 +18,6 @@ class Kernel extends ConsoleKernel
         UpdateDexPrices::class,
         CreateBackendUserCommand::class,
         MasternodeMonitorSyncCommand::class,
-        MasternodeStateCommand::class,
     ];
 
     protected function schedule(Schedule $schedule): void
@@ -28,7 +26,6 @@ class Kernel extends ConsoleKernel
          $schedule->command('update:masternode-monitor-sync')->hourly()->withoutOverlapping();
          $schedule->command('update:dex-prices')->everyFiveMinutes()->withoutOverlapping();
          $schedule->command('signal:update-masternode-minted')->everyFiveMinutes()->withoutOverlapping();
-         $schedule->command('masternode:state-check')->everyFiveMinutes()->withoutOverlapping();
 
          // telescope prune old data
         $schedule->command('telescope:prune')->daily();
