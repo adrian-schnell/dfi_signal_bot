@@ -19,7 +19,9 @@
                     DFI Signal is a <a href="{{ getTelegramBotLink() }}" target="_blank">Telegram bot</a>, which informs
                     you on specific events. For now, it informs you on
                     new minted blocks of your masternode and calculated statistics of your nodes (command
-                    <code>/stats</code>).
+                    <code>/stats</code>). You get notifications on state changes (like change from
+                    <code>PRE_ENABLED</code> to <code>ENABLED</code> or from <code>ENABLED</code> to
+                    <code>PRE_RESIGNED</code>), too.
                 </p>
 
                 <hr/>
@@ -31,13 +33,16 @@
                     your masternodes from
                     <a href="https://www.DeFichain-masternode-monitor.com" target="_blank">
                         Masternode Monitor
-                    </a>(onetime only with command <code>/sync</code>).
+                    </a>(start it later with the command <code>/sync</code>).
                 </p>
                 <p>
                     If you want to see, which masternodes are linked with the bot, use the command <code>/list</code>.
                 </p>
                 <p>
                     For more detailled statistics of your nodes, use the command <code>/stats</code>.
+                </p>
+                <p>All other commands are available inside telegram when typing <code>/</code> or on the
+                    <a href="{{route('home') }}">startpage</a>.
                 </p>
 
                 <hr/>
@@ -71,13 +76,14 @@
                 <ul>
                     <li>https://api.DeFiChain.io/v1/</li>
                     <li>https://mainnet-api.DeFiChain.io/api/DFI/mainnet/</li>
+                    <li>http://api.mydeficha.in</li>
                 </ul>
                 <p>
                     On top, it's optionally using the sync service provided by Masternode Monitor to read (onetime)
                     your linked masternodes:
                 </p>
                 <ul>
-                    <li>https://sync.DeFichain-masternode-monitor.com (optional for onetime sync)</li>
+                    <li>https://sync.DeFichain-masternode-monitor.com (optional for masternode sync)</li>
                 </ul>
                 <p>
                     This service is hosted by Hetzner in Germany and all communication is SSL-encrypted with a
@@ -105,8 +111,7 @@
                 </p>
                 <p>
                     If you'd like to talk with me, send me feedback or if you'd like to see a new feature, send me a <a
-                        href="{{
-                    getTelegramAdrianLink() }}">PM on
+                        href="{{ getTelegramGroupLink() }}">PM on
                         Telegram</a>.
                 </p>
             </div>

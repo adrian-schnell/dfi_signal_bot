@@ -26,7 +26,6 @@ class MasternodeStatsConversation extends Conversation
     public function run()
     {
         if ($this->masternodes->count() === 0) {
-            ray('no mn available', __('listMasternodeConversation.no_masternodes_available'));
             $this->say(__('listMasternodeConversation.no_masternodes_available'), array_merge([
                 'parse_mode' => 'Markdown',
             ]));

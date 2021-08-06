@@ -5,6 +5,6 @@ return [
 
     'names' => [
         'bot'    => 'DFI_Signal_bot',
-        'adrian' => 'adrianschnell',
+        'support_group' => 'dfi_signal',
     ],
 ];

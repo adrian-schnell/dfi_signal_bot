@@ -4,9 +4,9 @@
             <div class="col-sm">
                 <h2>contact</h2>
                 <p>
-                    <strong><a
-                            href="{{ sprintf('%s%s', config('telegram.base_uri'), config('telegram.names.adrian')) }}"
-                            target="_blank">&commat;{{ config('telegram.names.adrian') }}</a></strong> on Telegram
+                    <strong><a href="{{ getTelegramGroupLink() }}"
+                               target="_blank">&commat;{{ config('telegram.names.support_group') }}</a></strong> on
+                    Telegram
                 </p>
                 <p>
                     <strong>buy me a coffee</strong> <br>

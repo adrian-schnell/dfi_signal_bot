@@ -7,10 +7,10 @@ if (!function_exists('getTelegramBotLink')) {
     }
 }
 
-if (!function_exists('getTelegramAdrianLink')) {
-    function getTelegramAdrianLink(): string
+if (!function_exists('getTelegramGroupLink')) {
+    function getTelegramGroupLink(): string
     {
-        return sprintf('%s%s', config('telegram.base_uri'), config('telegram.names.adrian'));
+        return sprintf('%s%s', config('telegram.base_uri'), config('telegram.names.support_group'));
     }
 }
 
