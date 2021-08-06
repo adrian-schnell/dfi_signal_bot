@@ -26,6 +26,8 @@ class MNMonitorSyncMasternodesForUser implements ShouldQueue
 
     public function handle(TelegramMessageService $telegramMessageService): void
     {
+        set_language($this->user->language);
+
         $countBefore = UserMasternode::where('telegramUserId', $this->user->id)
             ->where('synced_masternode_monitor', true)->count();
 

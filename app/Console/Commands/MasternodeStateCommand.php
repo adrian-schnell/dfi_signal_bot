@@ -20,7 +20,7 @@ class MasternodeStateCommand extends Command
         TelegramMessageService $messageService,
         OnetimeNotificationService $onetimeNotificationService
     ): void {
-        $this->messageService             = $messageService;
+        $this->messageService = $messageService;
         $this->onetimeNotificationService = $onetimeNotificationService;
 
         $desctructiveMasternodes = Masternode::whereIn('state', MNStates::DESTRUCTIVE_STATES)

@@ -63,7 +63,6 @@ class UpdateEnabledMasternodes extends Command
                 ->where('operator_address', $masternode->operator_address)->first();
 
             if (isset($newMnData) && $newMnData['state'] === MNStates::MN_ENABLED) {
-                ray($newMnData);
                 event(new MnEnabledEvent($masternode));
             }
         });
