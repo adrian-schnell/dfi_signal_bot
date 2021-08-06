@@ -23,4 +23,6 @@ return [
     ],
 
     'result' => 'Your masternodes are now enabled for DFI Signals.',
+
+    'no_masternodes_available' => "👾👾👾 *oh no...* 👾👾👾\r\nYou don't have any masternodes stored until now.\r\n\r\nStart setting up a masternode with the /link_mn or /sync command",
 ];

@@ -23,4 +23,6 @@ return [
     ],
 
     'result' => 'DFI Signal ist aktiv für deine Masternode',
+
+    'no_masternodes_available' => "👾👾👾 *oh no...* 👾👾👾\r\nBisher hast du keine Masternode in DFI Signal eingerichtet.\r\n\r\nKonfiguriere den Bot und starte mit dem /link\_mn oder /sync Befehl.",
 ];

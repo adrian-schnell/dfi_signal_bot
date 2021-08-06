@@ -25,6 +25,16 @@ class ListMasternodesConversation extends Conversation
      */
     public function run()
     {
+        ray($this->masternodes);
+        if ($this->masternodes->count() === 0) {
+            ray('no mn available', __('listMasternodeConversation.no_masternodes_available'));
+            $this->say(__('listMasternodeConversation.no_masternodes_available'), array_merge([
+                'parse_mode' => 'Markdown',
+            ]));
+
+            return;
+        }
+
         $this->masternodes->each(function (UserMasternode $masternode) {
             $question = Question::create($this->generateQuestionString($masternode));
             $this->ask($question, function () {
@@ -54,7 +64,7 @@ class ListMasternodesConversation extends Conversation
         }
         $questionString .= '
 ' . __('listMasternodeConversation.alarm_on', ['icon' => $masternode->alarm_on && $masternode->is_active ? '✅' : '❌']);
-        if(!$masternode->is_active) {
+        if (!$masternode->is_active) {
             $questionString .= '
 ' . __('listMasternodeConversation.resigned', ['icon' => '✅']);
         }
