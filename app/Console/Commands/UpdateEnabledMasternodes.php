@@ -90,7 +90,7 @@ class UpdateEnabledMasternodes extends Command
                 ->where('operator_address', $masternode->operator_address)->first();
 
             if (isset($newMnData) && $newMnData['state'] === MNStates::MN_PRE_RESIGNED) {
-                event(new MnPreResignedEvent($masternode));
+                event(new MnPreResignedEvent($masternode, $newMnData['resign_height']));
             }
         });
     }
