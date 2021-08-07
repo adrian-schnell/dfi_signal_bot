@@ -89,8 +89,9 @@ class UpdateEnabledMasternodes extends Command
                 ->where('owner_address', $masternode->owner_address)
                 ->where('operator_address', $masternode->operator_address)->first();
 
+            ray($newMnData);
             if (isset($newMnData) && $newMnData['state'] === MNStates::MN_PRE_RESIGNED) {
-                event(new MnPreResignedEvent($masternode));
+                event(new MnPreResignedEvent($masternode, $newMnData['resign_height']));
             }
         });
     }

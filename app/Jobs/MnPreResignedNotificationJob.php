@@ -15,10 +15,12 @@ class MnPreResignedNotificationJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected UserMasternode $userMasternode;
+    protected int $resignHeight;
 
-    public function __construct(UserMasternode $userMasternode)
+    public function __construct(UserMasternode $userMasternode, int $resignHeight)
     {
         $this->userMasternode = $userMasternode;
+        $this->resignHeight = $resignHeight;
     }
 
     public function handle(TelegramMessageService $messageService): void
@@ -28,7 +30,7 @@ class MnPreResignedNotificationJob implements ShouldQueue
             $this->userMasternode->user,
             __('mn_state_notification.pre_resigned', [
                 'name'          => $this->userMasternode->name,
-                'resignedBlock' => $this->userMasternode->masternode->resign_height,
+                'resignedBlock' => $this->resignHeight,
             ]),
             [
                 'parse_mode' => 'Markdown',
