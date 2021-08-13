@@ -14,6 +14,8 @@ class HelpConversation extends Conversation
         $this->say(__('helpConversation.intro'), [
             'parse_mode' => 'Markdown',
         ]);
-        $this->say(__('helpConversation.masternode'));
+        $this->say(__('helpConversation.masternode'), [
+            'parse_mode' => 'Markdown',
+        ]);
     }
 }
