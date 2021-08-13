@@ -8,6 +8,7 @@ use App\Models\TelegramUser;
 use App\Models\UserMasternode;
 use App\SignalService\SignalService;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 
 class MintedBlockRepository
 {
@@ -78,11 +79,15 @@ class MintedBlockRepository
 
     public function calculateRewardsForMasternode(UserMasternode $userMasternode): float
     {
-        $rewardsSum = 0;
-        $userMasternode->mintedBlocks->each(function (MintedBlock $mintedBlock) use (&$rewardsSum) {
-            $rewardsSum += $mintedBlock->value;
+        return $userMasternode->mintedBlocks->sum(function (MintedBlock $mintedBlock) {
+            return $mintedBlock->value;
         });
+    }
 
-        return $rewardsSum;
+    public function sumMintedBlocks(Collection $masternodes): int
+    {
+        return $masternodes->sum(function (UserMasternode $masternode) {
+            return $masternode->mintedBlocks->count();
+        });
     }
 }

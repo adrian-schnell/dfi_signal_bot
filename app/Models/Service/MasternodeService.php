@@ -59,7 +59,7 @@ class MasternodeService
 
     public function otherUserHasAddress(TelegramUser $user, string $address): bool
     {
-        return UserMasternode::where('telegramUserId', '!=',$user->id)
+        return UserMasternode::where('telegramUserId', '!=', $user->id)
                 ->with('masternode')
                 ->whereHas('masternode', function ($query) use ($address) {
                     $query->where('owner_address', $address)
@@ -92,7 +92,7 @@ class MasternodeService
     public function getCreationDateOfMasternode(UserMasternode $userMasternode): Carbon
     {
         try {
-            $creationHeight       = $userMasternode->masternode->creation_height;
+            $creationHeight = $userMasternode->masternode->creation_height;
             $creationBlockDetails = app(DefichainApiService::class)->getBlockDetails($creationHeight);
 
             return Carbon::parse($creationBlockDetails['time']);

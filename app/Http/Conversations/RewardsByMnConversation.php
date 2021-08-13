@@ -2,16 +2,14 @@
 
 namespace App\Http\Conversations;
 
-use App\Exceptions\DefichainApiException;
 use App\Models\DEXPrice;
 use App\Models\Repository\MintedBlockRepository;
 use App\Models\Service\MasternodeService;
 use App\Models\UserMasternode;
 use BotMan\BotMan\Messages\Conversations\Conversation;
-use BotMan\BotMan\Messages\Outgoing\Question;
 use Illuminate\Support\Collection;
 
-class RewardConversation extends Conversation
+class RewardsByMnConversation extends Conversation
 {
     private ?Collection $masternodes;
 
@@ -25,6 +23,7 @@ class RewardConversation extends Conversation
      */
     public function run()
     {
+        $this->bot->typesAndWaits(1);
         if ($this->masternodes->count() === 0) {
             $this->say(__('listMasternodeConversation.no_masternodes_available'), array_merge([
                 'parse_mode' => 'Markdown',
@@ -49,23 +48,44 @@ class RewardConversation extends Conversation
     protected function generateRewardMessage(UserMasternode $masternode): string
     {
         $dfiRewardSum = app(MintedBlockRepository::class)->calculateRewardsForMasternode($masternode);
-        $questionString = (string)__('MasternodeStatConversation.rewards.dfi',
-            ['dfi' => $dfiRewardSum]);
-        $prices = DEXPrice::orderBy('order')->get();
+        $mintedBlockCount = $masternode->mintedBlocks->count();
+        $mnCreatedAt = app(MasternodeService::class)->getCreationDateOfMasternode($masternode);
+        $ageInDays = now()->diffInDays($mnCreatedAt);
+
+        $message = __('rewardsConversation.by_node.sum_minted_blocks', [
+            'amount' => $mintedBlockCount,
+        ]);
+        $message .= __('rewardsConversation.by_node.mn_age', [
+            'date' => $mnCreatedAt->format('d.m.Y H:i'),
+            'days' => $ageInDays,
+        ]);
+        $message .= __('rewardsConversation.by_node.day_per_block', [
+            'value' => $mintedBlockCount > 0 ? round($ageInDays / $mintedBlockCount, 2) : '∞',
+        ]);
+        $message .= __('rewardsConversation.by_node.block_per_day', [
+            'value' => $ageInDays > 0 ? round($mintedBlockCount / $ageInDays, 2) : '∞',
+        ]);
+
+        $message .= "\r\n\r\n" . __('rewardsConversation.rewards.dfi',
+                ['dfi' => $dfiRewardSum]);
+        $prices = DEXPrice::whereName('BTC')
+            ->orWhere('name', 'USDC')
+            ->orderBy('order')
+            ->get();
 
         foreach ($prices as $price) {
-            $questionString .= (string)__('MasternodeStatConversation.rewards.other_coins',
+            $message .= __('rewardsConversation.rewards.other_coins',
                 [
                     'value'  => $dfiRewardSum * $price->price,
                     'ticker' => $price->symbol,
                 ]);
         }
 
-        $questionString .= (string)__('MasternodeStatConversation.rewards.legal',
+        $message .= __('rewardsConversation.rewards.legal',
             [
                 'date' => $prices->first()->updated_at->format('H:i:s - d.m.Y'),
             ]);
 
-        return $questionString;
+        return $message;
     }
 }
