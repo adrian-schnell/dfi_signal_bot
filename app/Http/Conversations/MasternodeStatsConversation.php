@@ -39,7 +39,6 @@ class MasternodeStatsConversation extends Conversation
             ]);
 
             $this->say($this->generateMessage($masternode), ['parse_mode' => 'Markdown']);
-            $this->say($this->generateRewardMessage($masternode), ['parse_mode' => 'Markdown']);
 
             $this->say(sprintf('⏫⏫⏫⏫ `%s` ⏫⏫⏫⏫', $masternode->name), [
                 'parse_mode' => 'Markdown',
@@ -96,29 +95,6 @@ class MasternodeStatsConversation extends Conversation
                     'timelock' => $masternode->masternode->timelock,
                 ]);
         }
-
-        return $questionString;
-    }
-
-    protected function generateRewardMessage(UserMasternode $masternode): string
-    {
-        $dfiRewardSum = app(MintedBlockRepository::class)->calculateRewardsForMasternode($masternode);
-        $questionString = (string)__('MasternodeStatConversation.rewards.dfi',
-            ['dfi' => $dfiRewardSum]);
-        $prices = DEXPrice::orderBy('order')->get();
-
-        foreach ($prices as $price) {
-            $questionString .= (string)__('MasternodeStatConversation.rewards.other_coins',
-                [
-                    'value'  => $dfiRewardSum * $price->price,
-                    'ticker' => $price->symbol,
-                ]);
-        }
-
-        $questionString .= (string)__('MasternodeStatConversation.rewards.legal',
-            [
-                'date' => $prices->first()->updated_at->format('H:i:s - d.m.Y'),
-            ]);
 
         return $questionString;
     }
