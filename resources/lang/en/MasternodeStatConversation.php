@@ -10,10 +10,4 @@ return [
     'age'                => "\r\n*Age*: one day|\r\n*Age*: :age days",
     'average_block'      => "\r\n*Average Time*: :average days per block",
     'state'              => "\r\n*Current State*: :state",
-
-    'rewards' => [
-        'dfi'         => "*Rewards*:\r\n:dfi DFI",
-        'other_coins' => "\r\n≈ :value :ticker",
-        'legal'       => "\r\n\r\nDEX prices last update: :date.",
-    ],
 ];

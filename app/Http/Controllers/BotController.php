@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Conversations\HelpConversation;
 use App\Http\Conversations\LinkMasternodeConversation;
 use App\Http\Conversations\MasternodeStatsConversation;
+use App\Http\Conversations\RewardsAllConversation;
+use App\Http\Conversations\RewardsByMnConversation;
+use App\Http\Conversations\RewardsConversation;
 use App\Http\Conversations\SyncDisableConversation;
 use App\Http\Conversations\SyncKeyChangedConversation;
 use App\Http\Conversations\UnlinkMasternodeConversation;
@@ -25,6 +28,7 @@ class BotController extends Controller
 
     public function handle(TelegramUserService $telegramUserService): void
     {
+        /** @var BotMan $botMan */
         $botMan = app('botman');
 
         $botMan->hears('/start', function (Botman $botman) use ($telegramUserService) {
@@ -64,6 +68,21 @@ class BotController extends Controller
             $telegramUser = $telegramUserService->getTelegramUser($botman->getUser());
             $masternodes = $telegramUser->masternodes;
             $botman->startConversation(new MasternodeStatsConversation($masternodes));
+        })->skipsConversation();
+        $botMan->hears('/rewards', function (BotMan $botman) use ($telegramUserService) {
+            $telegramUser = $telegramUserService->getTelegramUser($botman->getUser());
+            $masternodes = $telegramUser->masternodes;
+            $botman->startConversation(new RewardsConversation($masternodes, true));
+        })->skipsConversation();
+        $botMan->hears('/rewardsall', function (BotMan $botman) use ($telegramUserService) {
+            $telegramUser = $telegramUserService->getTelegramUser($botman->getUser());
+            $masternodes = $telegramUser->masternodes;
+            $botman->startConversation(new RewardsConversation($masternodes, false));
+        })->skipsConversation();
+        $botMan->hears('/rewardsbynode', function (BotMan $botman) use ($telegramUserService) {
+            $telegramUser = $telegramUserService->getTelegramUser($botman->getUser());
+            $masternodes = $telegramUser->masternodes;
+            $botman->startConversation(new RewardsByMnConversation($masternodes));
         })->skipsConversation();
 
         $botMan->hears('/reset', function (BotMan $botman) use ($telegramUserService) {
