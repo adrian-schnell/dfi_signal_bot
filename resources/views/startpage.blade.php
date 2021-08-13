@@ -62,8 +62,25 @@
                 <span class="overline overline--blue">stats of your mn rewards</span>
                 <p class="code">&#47;stats</p>
                 <p>
-                    Shows a couple of more detailed statistics of your
-                    masternodes.
+                    Shows a couple of more detailed statistics of your masternodes.
+                </p>
+
+                <span class="overline overline--blue">rewards for active masternodes</span>
+                <p class="code">&#47;rewards</p>
+                <p>
+                    Show a reward overview for all of your ENABLED masternodes
+                </p>
+
+                <span class="overline overline--blue">rewards for all your masternodes</span>
+                <p class="code">&#47;rewardsall</p>
+                <p>
+                    Show a reward overview for all of your masternodes, even the resigned ones.
+                </p>
+
+                <span class="overline overline--blue">reward details for each masternode</span>
+                <p class="code">&#47;rewardsbynode</p>
+                <p>
+                    Show reward details for all of your masternodes, separated by each node.
                 </p>
 
                 <span class="overline overline--blue">link a masternode</span>
