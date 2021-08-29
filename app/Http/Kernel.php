@@ -2,7 +2,6 @@
 
 namespace App\Http;
 
-use App\Api\v1_0\Middleware\ServerApiAccess;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\PreventRequestsDuringMaintenance;
@@ -51,7 +50,6 @@ class Kernel extends HttpKernel
         'api' => [
             'throttle:api',
             SubstituteBindings::class,
-            ServerApiAccess::class,
         ],
     ];
     protected $routeMiddleware = [

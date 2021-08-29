@@ -1,0 +1,9 @@
+production:
+  id: 1351877
+  name: dfi-signal.com
+  server: 407883
+  quick-deploy: false
+  deployment:
+    - ''
+  webhooks: []
+  daemons: []
