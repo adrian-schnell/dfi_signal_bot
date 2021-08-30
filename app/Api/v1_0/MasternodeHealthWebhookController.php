@@ -9,8 +9,7 @@ class MasternodeHealthWebhookController
 {
     public function receiveWebhook(Request $request): JsonResponse
     {
-        ray($request->all());
-
+        // @todo implement the notifications on a received webhook
         return response()->json([], JsonResponse::HTTP_OK);
     }
 }

@@ -116,7 +116,16 @@
                 </p>
 
                 <span class="overline overline--blue">stop the masternode monitor sync</span>
-                <p class="code">&#47;sync_disable</p>
+                <p class="code">&#47;masternode_health</p>
+                <p>
+                    Get the lastest reported server details to the
+                    <a href="https://defichain-masternode-health.com/" target="_blank">
+                        DefiChain Masternode Health service
+                    </a>.
+                </p>
+
+                <span class="overline overline--blue">DeFiChain Masternode Health</span>
+                <p class="code">&#47;server_health</p>
                 <p>
                     Stop the masternode sync with the Masternode Monitor
                 </p>
