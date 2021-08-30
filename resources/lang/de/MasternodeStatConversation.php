@@ -3,7 +3,7 @@
 return [
     'name'               => "*Name*: :name",
     'block_minted_count' => "\r\n*Minted Blocks Anzahl*: :count",
-    'last_block'         => "\r\n\r\n*Letzter Block*: [:blockHeight](https://mainnet.defichain.io/#/DFI/mainnet/block/:blockHeight)\r\n*Letzter Block vor*: :hours Stunden",
+    'last_block'         => "\r\n\r\n*Letzter Block*: [:blockHeight](https://mainnet.defichain.io/#/DFI/mainnet/block/:blockHeight)\r\n*Letzter Block vor*: :hours",
     'target_multiplier'  => "\r\n*Multiplikator*: :multiplier",
     'timelock'           => "\r\n*freezed*: :timelock",
     'tx_link'            => "\r\n*Transaktion*: [:txid_truncated](https://mainnet.defichain.io/#/DFI/mainnet/tx/:txid)",
