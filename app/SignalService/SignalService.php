@@ -19,7 +19,7 @@ class SignalService
     public function tellMintedBlock(
         TelegramUser $user,
         MintedBlock $mintedBlock,
-        int $diffHours,
+        string $timeDifference,
         int $diffBlockHeight,
         string $language = 'en'
     ): void {
@@ -36,7 +36,7 @@ class SignalService
                 'name'            => $mintedBlock->userMasternode->name,
                 'mintBlockHeight' => $mintedBlock->mintBlockHeight,
                 'value'           => $mintedBlock->value,
-                'diffHours'       => $diffHours == -1 ? '∞' : $diffHours,
+                'diffHours'       => $timeDifference,
                 'diffBlockHeight' => $diffBlockHeight == -1 ? '∞' : $diffBlockHeight,
             ]),
             [
