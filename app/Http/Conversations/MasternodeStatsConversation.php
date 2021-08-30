@@ -50,32 +50,36 @@ class MasternodeStatsConversation extends Conversation
     {
         $questionString = (string)__('MasternodeStatConversation.name', ['name' => $masternode->name]);
 
-        $questionString .= str_replace('_', ' ',__('MasternodeStatConversation.state', ['state' => $masternode->masternode->state]));
+        $questionString .= str_replace('_', ' ',
+            __('MasternodeStatConversation.state', ['state' => $masternode->masternode->state]));
 
         $mintedBlockCount = $masternode->mintedBlocks->count();
         try {
             $ageInDays = app(MasternodeService::class)->calculateMasternodeAge($masternode, 'days');
         } catch (DefichainApiException $e) {
             $ageInDays = -1;
-            $questionString .= (string)__('errors.api_not_available');
+            $questionString .= __('errors.api_not_available');
         }
 
         $averageBlock = $mintedBlockCount > 0 ? round($ageInDays / $mintedBlockCount, 2) : 0;
 
-        $questionString .= (string)__('MasternodeStatConversation.block_minted_count', ['count' => $mintedBlockCount]);
-        $questionString .= (string) trans_choice('MasternodeStatConversation.age',
+        $questionString .= __('MasternodeStatConversation.block_minted_count', ['count' => $mintedBlockCount]);
+        $questionString .= trans_choice('MasternodeStatConversation.age',
             $ageInDays,
             ['age' => $ageInDays]);
-        $questionString .= (string)__('MasternodeStatConversation.average_block', ['average' => $averageBlock]);
+        $questionString .= __('MasternodeStatConversation.average_block', ['average' => $averageBlock]);
 
         $latestMintedBlock = $masternode->mintedBlocks()->orderBy('block_time', 'DESC')->first();
         if (isset($latestMintedBlock)) {
-            $questionString .= (string)__('MasternodeStatConversation.last_block',
+            $questionString .= __('MasternodeStatConversation.last_block',
                 [
                     'blockHeight' => $latestMintedBlock->mintBlockHeight,
-                    'hours'       => now()->diffInHours($latestMintedBlock->block_time),
+                    'hours'       => time_diff_humanreadable(
+                        now(),
+                        $latestMintedBlock->block_time, $masternode->user
+                    ),
                 ]);
-            $questionString .= (string)__('MasternodeStatConversation.tx_link',
+            $questionString .= __('MasternodeStatConversation.tx_link',
                 [
                     'txid'           => $masternode->mintedBlocks->sortByDesc('id')->first()->mint_txid,
                     'txid_truncated' => str_truncate_middle($masternode->mintedBlocks()->latest()->first()
@@ -83,14 +87,14 @@ class MasternodeStatsConversation extends Conversation
                 ]);
         }
         if (count($masternode->masternode->target_multipliers) > 0) {
-            $questionString .= (string)__('MasternodeStatConversation.target_multiplier',
+            $questionString .= __('MasternodeStatConversation.target_multiplier',
                 [
                     'multiplier' => implode(', ', $masternode->masternode->target_multipliers),
                 ]);
         }
 
         if ($masternode->masternode->timelock) {
-            $questionString .= (string)__('MasternodeStatConversation.timelock',
+            $questionString .= __('MasternodeStatConversation.timelock',
                 [
                     'timelock' => $masternode->masternode->timelock,
                 ]);

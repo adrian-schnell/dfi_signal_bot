@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\TelegramUser;
+use Carbon\Carbon;
+use Carbon\CarbonInterface;
+
 if (!function_exists('getTelegramBotLink')) {
     function getTelegramBotLink(): string
     {
@@ -29,6 +33,31 @@ if (!function_exists('str_truncate_middle')) {
 if (!function_exists('set_language')) {
     function set_language(string $language = 'en'): void
     {
-        app()->setLocale(in_array($language, ['en', 'de']) ? $language : 'en');
+        app()->setLocale(get_language($language));
+    }
+}
+
+if (!function_exists('get_language')) {
+    function get_language(string $language = 'en'): string
+    {
+        return in_array($language, ['en', 'de']) ? $language : 'en';
+    }
+}
+
+if (!function_exists('time_diff_humanreadable')) {
+    function time_diff_humanreadable(Carbon $a, Carbon $b, TelegramUser $user): string
+    {
+        return $a
+            ->locale(get_language($user->language))
+            ->diffForHumans(
+                $b,
+                [
+                    'options' => Carbon::TWO_DAY_WORDS | Carbon::ONE_DAY_WORDS,
+                    'syntax'  => CarbonInterface::DIFF_ABSOLUTE,
+                    'parts'   => 3,
+                    'join'    => true,
+                    'aUnit'   => true,
+                ]
+            );
     }
 }
