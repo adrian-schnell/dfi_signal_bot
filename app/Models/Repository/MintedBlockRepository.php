@@ -19,7 +19,7 @@ class MintedBlockRepository
         bool $initMode = false
     ): void {
         foreach ($mintedBlocks as $mintedBlock) {
-            $txInfo         = $service->getTransactionDetails($mintedBlock['mintTxid']);
+            $txInfo = $service->getTransactionDetails($mintedBlock['mintTxid']);
             $newMintedBlock = MintedBlock::updateOrCreate([
                 'user_masternode_id' => $userMasternode->id,
                 'mintBlockHeight'    => $mintedBlock['mintHeight'],
@@ -40,16 +40,7 @@ class MintedBlockRepository
 
             if (!$initMode && $userMasternode->alarm_on && !$newMintedBlock->is_reported) {
                 // calculate diff between last 2 blocks
-                $lastTwoBlocks = $userMasternode->mintedBlocks->sortByDesc('id')->take(2);
-                if ($lastTwoBlocks->count() == 2) {
-                    $lastBlockA = $lastTwoBlocks->first();
-                    $lastBlockB = $lastTwoBlocks->last();
-                    $timeDiff = $lastBlockA->block_time->diffInHours($lastBlockB->block_time);
-                    $blockDiff = abs($lastBlockA->mintBlockHeight - $lastBlockB->mintBlockHeight);
-                } else {
-                    $timeDiff = -1;
-                    $blockDiff = -1;
-                }
+                [$timeDiff, $blockDiff] = $this->calculateTimeBlockDiff($userMasternode);
 
                 app(SignalService::class)->tellMintedBlock(
                     $userMasternode->user,
@@ -64,6 +55,25 @@ class MintedBlockRepository
                 ]);
             }
         }
+    }
+
+    protected function calculateTimeBlockDiff(UserMasternode $userMasternode): array
+    {
+        // calculate diff between last 2 blocks
+        $lastTwoBlocks = $userMasternode->mintedBlocks->sortByDesc('id')->take(2);
+        if ($lastTwoBlocks->count() == 2) {
+            /** @var MintedBlock $lastBlockA */
+            $lastBlockA = $lastTwoBlocks->first();
+            /** @var MintedBlock $lastBlockB */
+            $lastBlockB = $lastTwoBlocks->last();
+
+            return [
+                time_diff_humanreadable($lastBlockA->block_time, $lastBlockB->block_time, $userMasternode->user),
+                abs($lastBlockA->mintBlockHeight - $lastBlockB->mintBlockHeight),
+            ];
+        }
+
+        return ['∞', -1];
     }
 
     public function calculateRewardsForUser(TelegramUser $user): float
