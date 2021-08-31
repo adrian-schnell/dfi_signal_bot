@@ -45,19 +45,32 @@ if (!function_exists('get_language')) {
 }
 
 if (!function_exists('time_diff_humanreadable')) {
-    function time_diff_humanreadable(Carbon $a, Carbon $b, TelegramUser $user): string
+    function time_diff_humanreadable(Carbon $a, Carbon $b, string $userLanguage, int $parts = 3): string
     {
         return $a
-            ->locale(get_language($user->language))
+            ->locale(get_language($userLanguage))
             ->diffForHumans(
                 $b,
                 [
                     'options' => Carbon::TWO_DAY_WORDS | Carbon::ONE_DAY_WORDS,
                     'syntax'  => CarbonInterface::DIFF_ABSOLUTE,
-                    'parts'   => 3,
+                    'parts'   => $parts,
                     'join'    => true,
                     'aUnit'   => true,
                 ]
             );
+    }
+}
+
+if (!function_exists('progress_bar')) {
+    function progress_bar(float $progress): string
+    {
+        $progress = round($progress, 2);
+        return sprintf(
+            '[%s%s] %s',
+            str_repeat('=', $progress/4),
+            str_repeat(' ', (100-$progress)/4),
+            $progress . '%'
+        );
     }
 }

@@ -28,10 +28,10 @@ class ResetMasternodesConversation extends Conversation
      */
     public function run()
     {
-        $question = Question::create(__('resetMasternodeConversation.question'))
+        $question = Question::create(__('resetConversation.question'))
             ->addButtons([
-                Button::create(__('resetMasternodeConversation.buttons.yes'))->value(self::VALUE_YES),
-                Button::create(__('resetMasternodeConversation.buttons.no'))->value(self::VALUE_NO),
+                Button::create(__('resetConversation.buttons.yes'))->value(self::VALUE_YES),
+                Button::create(__('resetConversation.buttons.no'))->value(self::VALUE_NO),
             ]);
         $user = $this->telegramUser;
         $this->ask($question, function (Answer $answer) use ($user) {
@@ -42,7 +42,7 @@ class ResetMasternodesConversation extends Conversation
             if ($answer->getValue() === self::VALUE_YES) {
                 app(MasternodeMonitorService::class)->resetMasternodes($user);
                 $user->delete();
-                $this->say(__('resetMasternodeConversation.success'));
+                $this->say(__('resetConversation.success'));
             }
         }, array_merge([
             'parse_mode' => 'Markdown',

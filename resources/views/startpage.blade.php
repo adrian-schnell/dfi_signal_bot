@@ -115,7 +115,7 @@
                     If you updated your sync key, you can use this command.
                 </p>
 
-                <span class="overline overline--blue">stop the masternode monitor sync</span>
+                <span class="overline overline--blue">DeFiChain Masternode Health</span>
                 <p class="code">&#47;masternode_health</p>
                 <p>
                     Get the lastest reported server details to the
@@ -125,7 +125,13 @@
                 </p>
 
                 <span class="overline overline--blue">DeFiChain Masternode Health</span>
-                <p class="code">&#47;server_health</p>
+                <p class="code">&#47;masternode_health_reset</p>
+                <p>
+                    erase all data stored in the DefiChain Masternode Health service
+                </p>
+
+                <span class="overline overline--blue">stop the masternode monitor sync</span>
+                <p class="code">&#47;sync_disable</p>
                 <p>
                     Stop the masternode sync with the Masternode Monitor
                 </p>
@@ -139,7 +145,7 @@
                 <span class="overline overline--blue">reset all your data</span>
                 <p class="code">&#47;reset</p>
                 <p>
-                    Removes all stored data from your account. This
+                    erase all stored data from your account. This
                     action cannot be undone.
                 </p>
             </div>

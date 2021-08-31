@@ -87,7 +87,7 @@
                 </ul>
                 <p>DFI Signal supports the DefiChain Masternode Health Service, provided under:</p>
                 <ul>
-                    <li>http://defichain-masternode-health.com</li>
+                    <li>https://defichain-masternode-health.com</li>
                 </ul>
                 <p>The usage of this service is optionally. It gives a deep inpact to your server and provides a new
                     command (<code>/masternode_health</code>) to see the current CPU avg load, RAM & memory usage,

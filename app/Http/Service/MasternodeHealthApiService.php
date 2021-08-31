@@ -87,7 +87,7 @@ class MasternodeHealthApiService
     public function deleteWebhook(): self
     {
         try {
-            $this->client->get(config('masternode_health.endpoints.webhook_delete'), [
+            $this->client->delete(config('masternode_health.endpoints.webhook_delete'), [
                 'timeout'            => 5,
                 'connection_timeout' => 5,
                 'headers'            => [
@@ -97,6 +97,8 @@ class MasternodeHealthApiService
 
             return $this;
         } catch (Throwable $e) {
+            ray($e);
+
             Log::error('failed deleting webhook', [
                 'file'    => $e->getFile(),
                 'message' => $e->getMessage(),
@@ -123,7 +125,7 @@ class MasternodeHealthApiService
                 true
             );
         } catch (Throwable $e) {
-            Log::error('failed deleting webhook', [
+            Log::error('failed loading node info', [
                 'file'    => $e->getFile(),
                 'message' => $e->getMessage(),
                 'line'    => $e->getLine(),
@@ -149,7 +151,7 @@ class MasternodeHealthApiService
                 true
             );
         } catch (Throwable $e) {
-            Log::error('failed deleting webhook', [
+            Log::error('failed loading server stats', [
                 'file'    => $e->getFile(),
                 'message' => $e->getMessage(),
                 'line'    => $e->getLine(),

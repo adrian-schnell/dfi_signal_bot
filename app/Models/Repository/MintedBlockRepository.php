@@ -68,7 +68,7 @@ class MintedBlockRepository
             $lastBlockB = $lastTwoBlocks->last();
 
             return [
-                time_diff_humanreadable($lastBlockA->block_time, $lastBlockB->block_time, $userMasternode->user),
+                time_diff_humanreadable($lastBlockA->block_time, $lastBlockB->block_time, $userMasternode->user->language),
                 abs($lastBlockA->mintBlockHeight - $lastBlockB->mintBlockHeight),
             ];
         }

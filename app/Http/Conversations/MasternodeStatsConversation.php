@@ -76,7 +76,7 @@ class MasternodeStatsConversation extends Conversation
                     'blockHeight' => $latestMintedBlock->mintBlockHeight,
                     'hours'       => time_diff_humanreadable(
                         now(),
-                        $latestMintedBlock->block_time, $masternode->user
+                        $latestMintedBlock->block_time, $masternode->user->language
                     ),
                 ]);
             $questionString .= __('MasternodeStatConversation.tx_link',

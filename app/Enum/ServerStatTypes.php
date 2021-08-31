@@ -4,26 +4,19 @@ namespace App\Enum;
 
 class ServerStatTypes
 {
-    const CPU = 'cpu';
+    const LOAD_AVG = 'load_avg';
+    const NUM_CORES = 'num_cores';
     const RAM_USED = 'ram_used';
     const RAM_TOTAL = 'ram_total';
     const HDD_USED = 'hdd_used';
     const HDD_TOTAL = 'hdd_total';
-    const CONNECTIONCOUNT = 'connectioncount';
+
+    const NODE_UPTIME = 'node_uptime';
+    const NODE_VERSION = 'node_version';
     const BLOCK_HEIGHT = 'block_height_local';
-    const BLOCK_DIFF = 'block_diff';
     const LOCAL_HASH = 'local_hash';
+    const OPERATOR_STATUS = 'operator_status';
+    const CONNECTION_COUNT = 'connection_count';
     const LOGSIZE = 'logsize';
-    const GENERIC_TYPES = [
-        self::CPU,
-        self::RAM_USED,
-        self::RAM_TOTAL,
-        self::HDD_USED,
-        self::HDD_TOTAL,
-        self::CONNECTIONCOUNT,
-        self::BLOCK_HEIGHT,
-        self::BLOCK_DIFF,
-        self::LOCAL_HASH,
-        self::LOGSIZE,
-    ];
+    const CONFIG_CHECKSUM = 'config_checksum';
 }
