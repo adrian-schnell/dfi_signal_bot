@@ -77,7 +77,6 @@ class NodeInfoTransformer
                 'online'     => $operator['online'],
             ];
         }
-        ray($result);
 
         return $result;
     }

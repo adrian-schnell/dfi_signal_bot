@@ -20,7 +20,6 @@ class CountSentMessages implements Sending
     public function sending($payload, $next, BotMan $bot)
     {
         cache()->increment('message_count');
-        ray(sprintf('sending message #%s', cache('message_count')));
         return $next($payload);
     }
 }

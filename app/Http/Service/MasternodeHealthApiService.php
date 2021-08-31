@@ -97,8 +97,6 @@ class MasternodeHealthApiService
 
             return $this;
         } catch (Throwable $e) {
-            ray($e);
-
             Log::error('failed deleting webhook', [
                 'file'    => $e->getFile(),
                 'message' => $e->getMessage(),
