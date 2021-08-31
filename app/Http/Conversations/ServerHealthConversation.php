@@ -50,11 +50,11 @@ class ServerHealthConversation extends Conversation
             return;
         }
 
-        if (!empty($serverStats['data'])) {
-            $this->sayServerStats(new ServerStatTransformer($serverStats['data']));
-        }
         if (!empty($nodeInfo['data'])) {
             $this->sayNodeInfo(new NodeInfoTransformer($nodeInfo['data'], $this->telegramUser->language));
+        }
+        if (!empty($serverStats['data'])) {
+            $this->sayServerStats(new ServerStatTransformer($serverStats['data']));
         }
     }
 
