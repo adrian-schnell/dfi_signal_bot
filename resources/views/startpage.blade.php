@@ -124,7 +124,7 @@
                     </a>.
                 </p>
 
-                <span class="overline overline--blue">DeFiChain Masternode Health</span>
+                <span class="overline overline--blue">reset DeFiChain Masternode Health</span>
                 <p class="code">&#47;masternode_health_reset</p>
                 <p>
                     erase all data stored in the DefiChain Masternode Health service
