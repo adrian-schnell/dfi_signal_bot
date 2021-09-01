@@ -8,6 +8,9 @@ use App\Http\Conversations\MasternodeStatsConversation;
 use App\Http\Conversations\RewardsAllConversation;
 use App\Http\Conversations\RewardsByMnConversation;
 use App\Http\Conversations\RewardsConversation;
+use App\Http\Conversations\ServerHealthConversation;
+use App\Http\Conversations\ServerHealthResetConversation;
+use App\Http\Conversations\SetupServerHealthConversation;
 use App\Http\Conversations\SyncDisableConversation;
 use App\Http\Conversations\SyncKeyChangedConversation;
 use App\Http\Conversations\UnlinkMasternodeConversation;
@@ -15,6 +18,7 @@ use App\Http\Conversations\ListMasternodesConversation;
 use App\Http\Conversations\OnboardConversation;
 use App\Http\Conversations\ResetMasternodesConversation;
 use App\Http\Conversations\SyncMasternodeMonitorConversation;
+use App\Http\Middleware\TelegramBot\CountSentMessages;
 use App\Http\Middleware\TelegramBot\SetLanguageReceived;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Exceptions\Base\BotManException;
@@ -49,14 +53,12 @@ class BotController extends Controller
             $botman->startConversation(new SyncDisableConversation());
         });
 
-
         $botMan->hears('/link_mn(.*|^)', function (BotMan $botman, string $ownerAddress) {
             $botman->startConversation(new LinkMasternodeConversation($botman->getUser(), trim($ownerAddress)));
         })->skipsConversation();
         $botMan->hears('/unlink_mn(.*|^)', function (BotMan $botman, string $ownerAddress) {
             $botman->startConversation(new UnlinkMasternodeConversation($botman->getUser(), trim($ownerAddress)));
         })->skipsConversation();
-
 
         $botMan->hears('/list', function (BotMan $botman) use ($telegramUserService) {
             $telegramUser = $telegramUserService->getTelegramUser($botman->getUser());
@@ -85,13 +87,27 @@ class BotController extends Controller
             $botman->startConversation(new RewardsByMnConversation($masternodes));
         })->skipsConversation();
 
+        $botMan->hears('/masternode_health', function (BotMan $botman) use ($telegramUserService) {
+            $telegramUser = $telegramUserService->getTelegramUser($botman->getUser());
+            if (is_null($telegramUser->server_health_api_key)) {
+                $botman->startConversation(new SetupServerHealthConversation($telegramUser));
+                return;
+            }
+            $botman->startConversation(new ServerHealthConversation($telegramUser));
+        })->skipsConversation();
+
+        $botMan->hears('/masternode_health_reset', function (BotMan $botman) use ($telegramUserService) {
+            $telegramUser = $telegramUserService->getTelegramUser($botman->getUser());
+            $botman->startConversation(new ServerHealthResetConversation($telegramUser));
+        })->skipsConversation();
+
         $botMan->hears('/reset', function (BotMan $botman) use ($telegramUserService) {
             $telegramUser = $telegramUserService->getTelegramUser($botman->getUser());
             $botman->startConversation(new ResetMasternodesConversation($telegramUser));
         })->skipsConversation();
 
         $botMan->hears('/stop', function (BotMan $botman) {
-            $botman->reply('⏹ stopped');
+            $botman->reply('⏹ DFI Signal command canceled');
         })->stopsConversation();
 
         $botMan->fallback(function (BotMan $botman) {
@@ -101,7 +117,7 @@ class BotController extends Controller
             $bot->reply('An error occured. Try again later...');
         });
         $botMan->middleware->received(new SetLanguageReceived());
-
+//        $botMan->middleware->sending(new CountSentMessages());
         $botMan->listen();
     }
 }

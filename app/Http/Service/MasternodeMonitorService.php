@@ -29,7 +29,6 @@ class MasternodeMonitorService
             return [];
         }
         $masternodeArray = [];
-//        UserMasternode::where('telegramUserId', $user->id)->synced()->delete();
         $this->removeSyncedMasternodes($user, $masternodes);
         foreach ($masternodes as $masternode) {
             $mn = Masternode::where('owner_address', $masternode['ownerAddress'])->first();

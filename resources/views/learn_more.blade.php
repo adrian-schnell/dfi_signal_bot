@@ -57,7 +57,7 @@
                     The website and the application does no tracking - your usage is completly in your own hands!
                 </p>
                 <p>
-                    As far as I support decentralized services, this service  needs to store a couple of
+                    As far as I support decentralized services, this service needs to store a couple of
                     data in a database to get to work.
                 </p>
                 <p>
@@ -79,14 +79,27 @@
                     <li>http://api.mydeficha.in</li>
                 </ul>
                 <p>
-                    On top, it's optionally using the sync service provided by Masternode Monitor to read (onetime)
-                    your linked masternodes:
+                    On top, it's optionally using the sync service provided by Masternode Monitor to read your linked
+                    masternodes:
                 </p>
                 <ul>
                     <li>https://sync.DeFichain-masternode-monitor.com (optional for masternode sync)</li>
                 </ul>
+                <p>DFI Signal supports the DefiChain Masternode Health Service, provided under:</p>
+                <ul>
+                    <li>https://defichain-masternode-health.com</li>
+                </ul>
+                <p>The usage of this service is optionally. It gives a deep inpact to your server and provides a new
+                    command (<code>/masternode_health</code>) to see the current CPU avg load, RAM & memory usage,
+                    connected
+                    peer count, current block & hash, ... To see the full list of currently supported information take a
+                    look at the <a href="https://docs.defichain-masternode-health.com/#pull-information"
+                                   target="_blank">
+                        DeFiChain Masternode Health documentation
+                    </a>.
+                </p>
                 <p>
-                    This service is hosted by Hetzner in Germany and all communication is SSL-encrypted with a
+                    This service is hosted in Germany and all communication is SSL-encrypted with a
                     certificate by <a href="https://letsencrypt.org/" target="_blank">Let's Encrypt</a>.<br>
                 </p>
 
