@@ -3,18 +3,19 @@
 namespace App\Models\Transformer;
 
 use App\Enum\ServerStatTypes;
-use App\Models\TelegramUser;
 use App\Models\UserMasternode;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 
-class NodeInfoTransformer
+class NodeInfoTransformer extends BaseTransformer
 {
     protected array $rawData;
     protected string $userLanguage;
 
     public function __construct(array $rawData, string $userLanguage)
     {
-        $this->rawData = $rawData;
+        $this->rawData = $rawData['data'];
+        $this->lastUpdate = Carbon::parse($rawData['latest_update']);
         $this->userLanguage = $userLanguage;
     }
 
@@ -79,16 +80,5 @@ class NodeInfoTransformer
         }
 
         return $result;
-    }
-
-    protected function getValuePairForKey(string $key): array
-    {
-        foreach ($this->rawData as $data) {
-            if ($data['type'] === $key) {
-                return $data;
-            }
-        }
-
-        return [];
     }
 }

@@ -2,6 +2,7 @@
 
 return [
     'no_data' => "❌ Until now, no data was reported. Are you sure you followed all steps of the setup guide?\r\n\r\nMaybe check the functionally with running manually on your server:\r\n`masternode-health --verbose --report --api-key=your-api-key`",
+    'latest_update' => "\r\n\r\nlast update: :time",
 
     'server_stats' => [
         'disk_usage'  => "Disk Usage:\t:used/:total GB\r\n `:progress`",

@@ -3,14 +3,16 @@
 namespace App\Models\Transformer;
 
 use App\Enum\ServerStatTypes;
+use Carbon\Carbon;
 
-class ServerStatTransformer
+class ServerStatTransformer extends BaseTransformer
 {
     protected array $rawData;
 
     public function __construct(array $rawData)
     {
-        $this->rawData = $rawData;
+        $this->rawData = $rawData['data'];
+        $this->lastUpdate = Carbon::parse($rawData['latest_update']);
     }
 
     public function numCores(): int
@@ -53,16 +55,5 @@ class ServerStatTransformer
         $data = $this->getValuePairForKey(ServerStatTypes::RAM_TOTAL);
 
         return isset($data['value']) ? round($data['value'], 2) : 0;
-    }
-
-    protected function getValuePairForKey(string $key): array
-    {
-        foreach ($this->rawData as $data) {
-            if ($data['type'] === $key) {
-                return $data;
-            }
-        }
-
-        return [];
     }
 }

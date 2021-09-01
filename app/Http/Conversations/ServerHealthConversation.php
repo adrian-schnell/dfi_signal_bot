@@ -51,10 +51,10 @@ class ServerHealthConversation extends Conversation
         }
 
         if (!empty($nodeInfo['data'])) {
-            $this->sayNodeInfo(new NodeInfoTransformer($nodeInfo['data'], $this->telegramUser->language));
+            $this->sayNodeInfo(new NodeInfoTransformer($nodeInfo, $this->telegramUser->language));
         }
         if (!empty($serverStats['data'])) {
-            $this->sayServerStats(new ServerStatTransformer($serverStats['data']));
+            $this->sayServerStats(new ServerStatTransformer($serverStats));
         }
     }
 
@@ -78,6 +78,9 @@ class ServerHealthConversation extends Conversation
                 str_truncate_middle($operator['masternode']->masternode->masternode_id, 10),
             );
         }
+        $message .= __('serverHealthConversation.latest_update', [
+            'time' => $nodeInfo->lastUpdateHumanReadable($this->telegramUser->language),
+        ]);
 
         $this->say($message, [
             'parse_mode' => 'Markdown',
@@ -105,6 +108,9 @@ class ServerHealthConversation extends Conversation
         ]);
         $message .= __('serverHealthConversation.server_stats.system_load', [
             'progress' => progress_bar($loadAvg / $maxLoad * 100),
+        ]);
+        $message .= __('serverHealthConversation.latest_update', [
+            'time' => $serverStats->lastUpdateHumanReadable($this->telegramUser->language),
         ]);
 
         $this->say($message, [
