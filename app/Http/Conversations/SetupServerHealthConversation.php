@@ -52,6 +52,7 @@ class SetupServerHealthConversation extends Conversation
                     ]), [
                         'parse_mode' => 'Markdown',
                     ]);
+                    $this->setupFinished();
                 } catch (MasternodeHealthApiException $e) {
                     $this->say(__('serverHealthSetupConversation.api_error'));
                 }
@@ -70,11 +71,16 @@ class SetupServerHealthConversation extends Conversation
                     $user->refresh();
                     (new MasternodeHealthApiService($user))->setupWebhook();
                     $this->say(__('serverHealthSetupConversation.success'));
+                    $this->setupFinished();
                 });
             }
-            $this->say(__('serverHealthSetupConversation.setup_instructions'), [
-                'parse_mode' => 'Markdown',
-            ]);
         });
+    }
+
+    protected function setupFinished(): void
+    {
+        $this->say(__('serverHealthSetupConversation.setup_instructions'), [
+            'parse_mode' => 'Markdown',
+        ]);
     }
 }
