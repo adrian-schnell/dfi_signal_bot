@@ -7,7 +7,6 @@ use App\Models\Repository\MintedBlockRepository;
 use App\Models\TelegramUser;
 use App\Models\UserMasternode;
 use Illuminate\Bus\Queueable;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -15,24 +14,30 @@ use Log;
 
 class StoreMintedBlocksJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable;
 
     protected UserMasternode $masternode;
     protected array $mintedBlocks = [];
     protected bool $isInit = true;
     protected TelegramUser $user;
 
-    public function __construct(UserMasternode $masternode, TelegramUser $user, bool $isInit)
+    public function __construct(int $masternodeID, int $userId, bool $isInit)
     {
-        $this->masternode = $masternode;
+        $this->masternode = UserMasternode::find($masternodeID);
+        $this->user = TelegramUser::find($userId);
         $this->isInit = $isInit;
-        $this->user = $user;
     }
 
     public function handle(DefichainApiService $apiService): void
     {
-        if (!isset($this->masternode->masternode)) {
-            Log::info(sprintf('user masternode %s (user %s) does not exist anymore', $this->masternode->id,
+        if (is_null($this->user)) {
+            Log::info(sprintf('StoreMintedBlocksJob: user %s does not exist anymore', $this->user->id));
+
+            return;
+        }
+        if (is_null($this->masternode) || !isset($this->masternode->masternode)) {
+            Log::info(sprintf('StoreMintedBlocksJob: user masternode %s (user %s) does not exist anymore',
+                $this->masternode->id,
                 $this->user->id));
 
             return;
