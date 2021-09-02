@@ -2,10 +2,10 @@
 
 namespace App\Http\Service;
 
+use App\Models\Service\StatisticService;
 use App\Models\TelegramUser;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Exceptions\Base\BotManException;
-use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\Drivers\Telegram\TelegramDriver;
 use Log;
 use Str;
@@ -28,6 +28,7 @@ class TelegramMessageService
                 TelegramDriver::class,
                 $param
             );
+            app(StatisticService::class)->messageSent();
 
             return true;
         } catch (BotManException $e) {
@@ -40,11 +41,6 @@ class TelegramMessageService
 
             return false;
         }
-    }
-
-    public function startConversation(TelegramUser $user, Conversation $conversation): void
-    {
-        $this->botman->startConversation($conversation, $user->telegramId, TelegramDriver::class);
     }
 
     protected function escapeMessage(string $message): string

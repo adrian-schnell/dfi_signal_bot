@@ -2,10 +2,11 @@
 
 namespace App\Http\Middleware\TelegramBot;
 
+use App\Models\Service\StatisticService;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Interfaces\Middleware\Sending;
 
-class CountSentMessages implements Sending
+class SentMessages implements Sending
 {
     /**
      * Handle an outgoing message payload before/after it
@@ -19,7 +20,7 @@ class CountSentMessages implements Sending
      */
     public function sending($payload, $next, BotMan $bot)
     {
-        cache()->increment('message_count');
+        app(StatisticService::class)->messageSent();
         return $next($payload);
     }
 }
