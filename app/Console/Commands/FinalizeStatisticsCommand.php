@@ -21,7 +21,9 @@ class FinalizeStatisticsCommand extends Command
 
         for ($i = $forLastDays; $i > 0; $i--) {
             $date = today()->subDays($i);
-            $statisticService->updateMintedBlockForDate($date)->updateUserForDate($date);
+            $statisticService->updateMintedBlockForDate($date)
+                ->updateUserMasternodesForDate($date)
+                ->updateUserForDate($date);
         }
 
         return 0;
