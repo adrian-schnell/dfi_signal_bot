@@ -5,6 +5,7 @@ namespace App\Models\Service;
 use App\Models\MintedBlock;
 use App\Models\Statistic;
 use App\Models\TelegramUser;
+use App\Models\UserMasternode;
 use Carbon\Carbon;
 use DB;
 
@@ -47,6 +48,18 @@ class StatisticService
             'date' => $date,
         ], [
             'user_count' => TelegramUser::all()->count(),
+        ]);
+
+        return $this;
+    }
+
+    public function updateUserMasternodesForDate(Carbon $date = null): self
+    {
+        $date = $date ?? today();
+        Statistic::updateOrCreate([
+            'date' => $date,
+        ], [
+            'masternode_count' => UserMasternode::all()->count(),
         ]);
 
         return $this;

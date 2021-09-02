@@ -30,7 +30,7 @@ class Kernel extends ConsoleKernel
          $schedule->command('signal:update-masternode-minted')->everyFiveMinutes()->withoutOverlapping();
 
          // create statistics for yesterday
-        $schedule->command('statistic:finalize')->dailyAt('0:01');
+        $schedule->command('statistic:finalize')->dailyAt('0:00');
 
          // telescope prune old data
         $schedule->command('telescope:prune')->daily();
