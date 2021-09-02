@@ -16,10 +16,10 @@ class StoreMintedBlocksJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable;
 
-    protected UserMasternode $masternode;
+    protected ?UserMasternode $masternode;
     protected array $mintedBlocks = [];
     protected bool $isInit = true;
-    protected TelegramUser $user;
+    protected ?TelegramUser $user;
 
     public function __construct(int $masternodeID, int $userId, bool $isInit)
     {
@@ -31,12 +31,12 @@ class StoreMintedBlocksJob implements ShouldQueue
     public function handle(DefichainApiService $apiService): void
     {
         if (is_null($this->user)) {
-            Log::info(sprintf('StoreMintedBlocksJob: user %s does not exist anymore', $this->user->id));
+            Log::error(sprintf('StoreMintedBlocksJob: user %s does not exist anymore', $this->user->id));
 
             return;
         }
         if (is_null($this->masternode) || !isset($this->masternode->masternode)) {
-            Log::info(sprintf('StoreMintedBlocksJob: user masternode %s (user %s) does not exist anymore',
+            Log::error(sprintf('StoreMintedBlocksJob: user masternode %s (user %s) does not exist anymore',
                 $this->masternode->id,
                 $this->user->id));
 

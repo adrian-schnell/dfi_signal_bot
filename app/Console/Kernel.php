@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\CreateBackendUserCommand;
+use App\Console\Commands\FinalizeStatisticsCommand;
 use App\Console\Commands\MasternodeMonitorSyncCommand;
 use App\Console\Commands\MintedBlockSignal;
 use App\Console\Commands\UpdateDexPrices;
@@ -13,11 +14,12 @@ use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 class Kernel extends ConsoleKernel
 {
     protected $commands = [
-        UpdateEnabledMasternodes::class,
-        MintedBlockSignal::class,
-        UpdateDexPrices::class,
-        CreateBackendUserCommand::class,
-        MasternodeMonitorSyncCommand::class,
+	    UpdateEnabledMasternodes::class,
+	    MintedBlockSignal::class,
+	    UpdateDexPrices::class,
+	    CreateBackendUserCommand::class,
+	    MasternodeMonitorSyncCommand::class,
+	    FinalizeStatisticsCommand::class,
     ];
 
     protected function schedule(Schedule $schedule): void
