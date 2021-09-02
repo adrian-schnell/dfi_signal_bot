@@ -20,6 +20,9 @@ class MintedBlockRepository
     ): void {
         foreach ($mintedBlocks as $mintedBlock) {
             $txInfo = $service->getTransactionDetails($mintedBlock['mintTxid']);
+            if (!UserMasternode::whereId($userMasternode->id)->exists()) {
+                return;
+            }
             $newMintedBlock = MintedBlock::updateOrCreate([
                 'user_masternode_id' => $userMasternode->id,
                 'mintBlockHeight'    => $mintedBlock['mintHeight'],
@@ -68,7 +71,8 @@ class MintedBlockRepository
             $lastBlockB = $lastTwoBlocks->last();
 
             return [
-                time_diff_humanreadable($lastBlockA->block_time, $lastBlockB->block_time, $userMasternode->user->language),
+                time_diff_humanreadable($lastBlockA->block_time, $lastBlockB->block_time,
+                    $userMasternode->user->language),
                 abs($lastBlockA->mintBlockHeight - $lastBlockB->mintBlockHeight),
             ];
         }
