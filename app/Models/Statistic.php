@@ -16,9 +16,10 @@ use Carbon\Carbon;
 class Statistic extends Model
 {
     public $timestamps = false;
-    protected $dates = [
-        'date',
-    ];
+    protected $dateFormat = 'Y-m-d';
+//    protected $dates = [
+//        'date',
+//    ];
     protected $fillable = [
         'date',
         'user_count',
