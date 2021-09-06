@@ -19,6 +19,11 @@ class TelegramUserService
         }
     }
 
+    public function getTelegramUserById(string $telegramId): ?TelegramUser
+    {
+        return TelegramUser::where('telegramId', $telegramId)->first();
+    }
+
     public function isNewUser(User $user): bool
     {
         return !$this->isExistingUser($user);
