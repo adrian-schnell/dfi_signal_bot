@@ -177,6 +177,7 @@ return [
                 QueueNames::MINTED_BLOCK_QUEUE,
                 QueueNames::MASTERNODE_MONITOR_QUEUE,
                 QueueNames::TELEGRAM_MESSAGE_OUTGOING,
+                QueueNames::WEBHOOK_RECEIVED,
             ],
             'balance'      => 'auto',
             'minProcesses'    => env('HORIZON_MIN_PROCESSES', 1),

@@ -2,9 +2,7 @@
 
 namespace App\Http\Conversations;
 
-use App\Http\Service\MasternodeMonitorService;
 use App\Models\UserMasternode;
-use App\Models\TelegramUser;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;

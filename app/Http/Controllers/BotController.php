@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Conversations\HelpConversation;
 use App\Http\Conversations\LinkMasternodeConversation;
 use App\Http\Conversations\MasternodeStatsConversation;
-use App\Http\Conversations\RewardsAllConversation;
 use App\Http\Conversations\RewardsByMnConversation;
 use App\Http\Conversations\RewardsConversation;
 use App\Http\Conversations\ServerHealthConversation;
@@ -23,7 +22,6 @@ use App\Http\Middleware\TelegramBot\SentMessages;
 use App\Http\Middleware\TelegramBot\SetLanguageReceived;
 use BotMan\BotMan\BotMan;
 use BotMan\BotMan\Exceptions\Base\BotManException;
-use BotMan\BotMan\Messages\Incoming\Answer;
 use App\Models\Service\TelegramUserService;
 use Throwable;
 
