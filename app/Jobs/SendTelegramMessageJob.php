@@ -29,9 +29,9 @@ class SendTelegramMessageJob implements ShouldQueue
 
     public function __construct(TelegramUser $user, string $message, string $type)
     {
-        $this->user    = $user;
+        $this->user = $user;
         $this->message = $message;
-        $this->type    = $type;
+        $this->type = $type;
     }
 
     public function handle(TelegramMessageService $service): void

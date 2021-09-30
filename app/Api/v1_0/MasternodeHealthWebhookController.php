@@ -2,14 +2,22 @@
 
 namespace App\Api\v1_0;
 
+use App\Enum\QueueNames;
+use App\Http\Requests\MnHealthWebhookRequest;
+use App\Jobs\WebhookAnalyzerJob;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class MasternodeHealthWebhookController
 {
-    public function receiveWebhook(Request $request): JsonResponse
+    public function receiveWebhook(MnHealthWebhookRequest $webhookRequest): JsonResponse
     {
-        // @todo implement the notifications on a received webhook
-        return response()->json([], JsonResponse::HTTP_OK);
+        $analyzerJob = new WebhookAnalyzerJob($webhookRequest->data(),
+            $webhookRequest->analysis(),
+            $webhookRequest->latest_update(),
+            $webhookRequest->telegramUser());
+        dispatch_sync($analyzerJob);
+//        dispatch($analyzerJob)->onQueue(QueueNames::WEBHOOK_RECEIVED);
+
+        return response()->json(['message' => 'ok'], JsonResponse::HTTP_OK);
     }
 }

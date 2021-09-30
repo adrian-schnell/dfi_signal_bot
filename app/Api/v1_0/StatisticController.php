@@ -7,7 +7,6 @@ use App\Models\Repository\StatisticRepository;
 
 class StatisticController
 {
-
     public function getAll(StatisticRepository $statisticRepository): StatisticCollection
     {
         return new StatisticCollection($statisticRepository::getAll());
