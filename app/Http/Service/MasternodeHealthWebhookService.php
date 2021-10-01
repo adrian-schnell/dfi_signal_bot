@@ -175,6 +175,14 @@ class MasternodeHealthWebhookService
                 $message,
                 ['parse_mode' => 'Markdown']
             );
+            $messageService->sendMessage(
+                $this->telegramUser,
+                __('mn_health_webhook.latest_server_update', [
+                    'date'           => $this->latestUpdate->format('d.m.Y H:i:s'),
+                    'human_readable' => time_diff_humanreadable(now(), $this->latestUpdate, $this->telegramUser->language),
+                ]),
+                ['parse_mode' => 'Markdown']
+            );
         }
     }
 
