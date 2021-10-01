@@ -1,10 +1,11 @@
 <?php
 
 return [
-    'headline' => [
+    'headline'             => [
         'warnings'        => '🚧🚧🚧 *MN Health Warnings* 🚧🚧🚧',
         'critical_errors' => '🆘🆘🆘 *MN Health Critical Issues* 🆘🆘🆘',
     ],
+    'latest_server_update' => 'Data based on latest server update :human_readable (:date)',
 
     'warnings' => [
         'block_height'     => "⚠️ *Block Height*\r\nYour local node has block height :local_height and the main net is at block :remote_height. The node is :difference blocks behind.",
