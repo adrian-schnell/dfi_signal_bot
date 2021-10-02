@@ -10,7 +10,7 @@ use Str;
 class MasternodeHealthWebhookService
 {
     const TYPE_WARNINGS = 'warnings';
-    const TYPE_CRITICAL_ERROR = 'critical';
+    const TYPE_CRITICAL = 'critical';
     protected TelegramUser $telegramUser;
     protected array $data;
     protected array $analysis;
@@ -32,12 +32,10 @@ class MasternodeHealthWebhookService
     public function run(TelegramMessageService $messageService): void
     {
         if ($this->hasWarnings()) {
-
             $this->sendWarnings($messageService);
         }
 
         if ($this->hasCriticalError()) {
-
             $this->sendCriticalErrors($messageService);
         }
     }
@@ -69,11 +67,15 @@ class MasternodeHealthWebhookService
 
     protected function sendCriticalErrors(TelegramMessageService $messageService): void
     {
-        $messageService->sendMessage(
-            $this->telegramUser,
-            __('mn_health_webhook.headline.critical_errors'),
-            ['parse_mode' => 'Markdown']
-        );
+        $message = $this->generateMessage(self::TYPE_CRITICAL, 'block_height', 1);
+        $message .= $this->generateMessage(self::TYPE_CRITICAL, 'block_hash', 1);
+        $message .= $this->generateMessage(self::TYPE_CRITICAL, 'defid_running', 1);
+        $message .= $this->generateMessage(self::TYPE_CRITICAL, 'operator_status', 1);
+        $message .= $this->generateMessage(self::TYPE_CRITICAL, 'load_avg', 1);
+        $message .= $this->generateMessage(self::TYPE_CRITICAL, 'hdd', 6);
+        $message .= $this->generateMessage(self::TYPE_CRITICAL, 'ram', 6);
+
+        $this->sendMessageWithCategory($messageService, self::TYPE_CRITICAL, $message);
     }
 
     protected function searchInArray(array $array, string $needle): array
@@ -85,7 +87,7 @@ class MasternodeHealthWebhookService
 
     protected function generateCooldownKey(string $category, string $type): string
     {
-        return sprintf('%s_%s_%s', $category, $type, md5($this->telegramUser->id));
+        return sprintf('%s_%s', $category, $type);
     }
 
     protected function generateMessage(string $category, string $type, int $cooldownHours): string
@@ -99,10 +101,12 @@ class MasternodeHealthWebhookService
             $this->telegramUser->cooldown($cooldownKey)->until(now()->addHours($cooldownHours));
 
             return "\r\n\r\n" . __(sprintf('mn_health_webhook.%s.%s', $category, $type), [
-                    'value'      => $array['value'],
-                    'expected'   => $array['expected'],
+                    'value'      => $array['value'] ?? 'n/a',
+                    'expected'   => $array['expected'] ?? 'n/a',
                     'difference' => abs((int)($array['value'] ?? 0) - (int)($array['expected'] ?? 0)),
-                ]) . "\r\n\r\n" . __('chainSplitConversation.cooldown_message', ['value' => $cooldownHours]);
+                ]) . "\r\n\r\n" . trans_choice('mn_health_webhook.cooldown_message', $cooldownHours, [
+                    'value' => $cooldownHours,
+                ]);
         }
 
         return '';

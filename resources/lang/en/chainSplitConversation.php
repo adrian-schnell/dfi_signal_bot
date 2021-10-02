@@ -10,5 +10,4 @@ return [
     'mainnet_block_height' => "*current Mainnet Block Height*: :height\r\n\r\n",
     'local_block_hash'     => "*current Local Block Hash*: :hash\r\n\r\n",
     'mainnet_block_hash'   => "*current Mainnet Block Hash*: :hash\r\n",
-    'cooldown_message'     => "`NOTICE: This message will be snoozed for the following :hours hours`",
 ];

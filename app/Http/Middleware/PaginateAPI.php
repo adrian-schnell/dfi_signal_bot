@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use BadMethodCallException;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -17,7 +18,11 @@ class PaginateAPI
     {
         $response = $next($request);
 
-        $data = $response->getData(true);
+        try {
+            $data = $response->getData(true);
+        } catch (BadMethodCallException $e) {
+            return $response;
+        }
 
         if (isset($data['meta']['links'])) {
             unset($data['meta']['links']);
