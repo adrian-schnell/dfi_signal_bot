@@ -6,6 +6,7 @@ return [
         'critical_errors' => '🆘🆘🆘 *MN Health Critical Issues* 🆘🆘🆘',
     ],
     'latest_server_update' => 'Data based on latest server update :human_readable (:date)',
+    'cooldown_for_hours'   => 'This notification is muted for the next :value hours before you\'ll receive it again.',
 
     'warnings' => [
         'block_height'     => "⚠️ *Block Height*\r\nYour local node has block height :value and the main net is at block :expected. The node is :difference blocks behind.",
@@ -21,6 +22,6 @@ return [
     ],
 
     'critical' => [
-        'block_height' => "🆘 *Block Height - possible chainsplit*\r\nYour local node is :difference blocks in front of the main net. Maybe the main net API just stopped working. Otherwise it's a clear sign that your node hat a chainsplit. Please check your `debug.log`.",
+        'block_height' => "🆘 *Block Height - possible chainsplit*\r\nYour local node is :difference blocks in front of the main net. Maybe the main net API just stopped working. Otherwise it's a clear sign that your node had a chainsplit. Please check your `debug.log`.",
     ],
 ];
