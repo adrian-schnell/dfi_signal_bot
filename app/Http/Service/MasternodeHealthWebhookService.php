@@ -102,7 +102,7 @@ class MasternodeHealthWebhookService
                     'value'      => $array['value'],
                     'expected'   => $array['expected'],
                     'difference' => abs((int)($array['value'] ?? 0) - (int)($array['expected'] ?? 0)),
-                ]);
+                ]) . "\r\n\r\n" . __('chainSplitConversation.cooldown_message', ['value' => $cooldownHours]);
         }
 
         return '';
