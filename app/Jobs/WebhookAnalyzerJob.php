@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Http\Service\MasternodeHealthWebhookService;
+use App\Http\Service\TelegramMessageService;
 use App\Models\TelegramUser;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
@@ -13,7 +14,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 
 class WebhookAnalyzerJob implements ShouldQueue
 {
-	use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     protected array $data;
     protected array $analysis;
@@ -28,10 +29,9 @@ class WebhookAnalyzerJob implements ShouldQueue
         $this->latestUpdate = $latestUpdate;
     }
 
-	public function handle(MasternodeHealthWebhookService $service)
-	{
-        $service->initWithData($this->telegramUser, $this->data,$this->analysis, $this->latestUpdate);
-
-		ray($this->data, $this->analysis, $this->telegramUser);
-	}
+    public function handle(MasternodeHealthWebhookService $service)
+    {
+        $service->initWithData($this->telegramUser, $this->data, $this->analysis, $this->latestUpdate);
+        $service->run(app(TelegramMessageService::class));
+    }
 }
