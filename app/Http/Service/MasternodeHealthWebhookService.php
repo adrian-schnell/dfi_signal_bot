@@ -67,7 +67,7 @@ class MasternodeHealthWebhookService
     {
         $message = $this->generateMessage(self::TYPE_WARNINGS, 'block_height', 2);
         $message .= $this->generateMessage(self::TYPE_WARNINGS, 'connection_count', 1);
-        $message .= $this->generateMessage(self::TYPE_WARNINGS, 'logsize', 6);
+        $message .= $this->generateMessage(self::TYPE_WARNINGS, 'logsize', 48);
         $message .= $this->generateMessage(self::TYPE_WARNINGS, 'config_checksum', 12);
         $message .= $this->generateMessage(self::TYPE_WARNINGS, 'node_version', 12);
         $message .= $this->generateMessage(self::TYPE_WARNINGS, 'load_avg', 1);
