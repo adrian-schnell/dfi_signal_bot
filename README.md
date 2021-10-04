@@ -2,7 +2,7 @@
 
 # DFI Signal
 
-Get all information on [DFI-Signal.de](https://dfi-signal.de).
+Get all information on [DFI-Signal.com](https://dfi-signal.com).
 
 #Commands
 - */sync* - sync masternodes stored in your Masternode Monitor backup
