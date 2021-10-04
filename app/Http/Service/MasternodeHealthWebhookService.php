@@ -15,6 +15,7 @@ class MasternodeHealthWebhookService
     protected array $data;
     protected array $analysis;
     protected Carbon $latestUpdate;
+    protected bool $messageSent = false;
 
     public function initWithData(
         TelegramUser $telegramUser,
@@ -37,6 +38,18 @@ class MasternodeHealthWebhookService
 
         if ($this->hasCriticalError()) {
             $this->sendCriticalErrors($messageService);
+        }
+
+        if ($this->messageSent) {
+            $messageService->sendMessage(
+                $this->telegramUser,
+                __('mn_health_webhook.latest_server_update', [
+                    'date'           => $this->latestUpdate->format('d.m.Y H:i:s'),
+                    'human_readable' => time_diff_humanreadable(now(), $this->latestUpdate,
+                        $this->telegramUser->language),
+                ]),
+                ['parse_mode' => 'Markdown']
+            );
         }
     }
 
@@ -129,15 +142,7 @@ class MasternodeHealthWebhookService
                 $message,
                 ['parse_mode' => 'Markdown']
             );
-            $messageService->sendMessage(
-                $this->telegramUser,
-                __('mn_health_webhook.latest_server_update', [
-                    'date'           => $this->latestUpdate->format('d.m.Y H:i:s'),
-                    'human_readable' => time_diff_humanreadable(now(), $this->latestUpdate,
-                        $this->telegramUser->language),
-                ]),
-                ['parse_mode' => 'Markdown']
-            );
+            $this->messageSent = true;
         }
     }
 }
