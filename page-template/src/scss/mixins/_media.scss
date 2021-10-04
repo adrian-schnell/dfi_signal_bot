@@ -1,0 +1,32 @@
+/*
+    breakpoints usage:
+    @include media(sm)          -> breakpoint min-width sm
+    @include media(xl, down)    -> breakpoint max-width xl
+    @include media(sm, xl)      -> breakpoint min-width sm, max-width xl
+*/
+
+@mixin media($breakpoint, $options: 'up', $breakpoint-to: 'xl') {
+    @if map-has-key($breakpoints, $breakpoint) {
+		@if $options == 'up' {
+			@media screen and (min-width: #{map-get($breakpoints, $breakpoint)}) {
+				@content;
+			}
+		}
+		@if $options == 'down' {
+			@media screen and (max-width: #{map-get($breakpoints, $breakpoint) - 1}) {
+				@content;
+			}
+		}
+		@if $options == 'to' {
+			@media screen and (min-width: #{map-get($breakpoints, $breakpoint)}) and (max-width: #{map-get($breakpoints, $breakpoint-to) - 1}) {
+				@content;
+			}
+		} @else {
+			@if map-has-key($breakpoints, $options) {
+				@media screen and (min-width: #{map-get($breakpoints, $breakpoint)}) and (max-width: #{map-get($breakpoints, $options) - 1}) {
+					@content;
+				}
+			}
+		}
+	}
+}

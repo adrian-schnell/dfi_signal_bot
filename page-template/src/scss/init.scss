@@ -1,0 +1,21 @@
+// bootstrap
+@import 'bootstrap/bootstrap';
+
+//misc settings
+@import 'base/variables';
+@import 'base/functions';
+
+//resets
+//@import 'reset/normalize';
+//@import 'reset/reset';
+
+// project wide variables functions and mixins
+@import 'mixins/media';
+@import 'mixins/fluid-type';
+
+// base styling not component dependant
+@import 'base/font-face';
+
+// custom styles
+@import 'base/base';
+

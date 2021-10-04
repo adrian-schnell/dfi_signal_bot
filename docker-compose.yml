@@ -1,0 +1,71 @@
+version: '3'
+services:
+  app: &php
+    container_name: app
+    image: adrianabo/php:7.4.14-fpm-buster
+    restart: on-failure
+    user: www-data
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www:delegated
+      - ./docker/php.ini:/usr/local/etc/php/conf.d/docker-php.ini:ro
+      - composertmp:/tmp
+    environment:
+      - "DB_HOST=db"
+      - "REDIS_HOST=redis"
+      - "REDIS_PORT=6379"
+      - "DB_PORT=3306"
+      - "DB_DATABASE=mn_alarm"
+      - "DB_USERNAME=mn_alarm"
+      - "DB_PASSWORD=secret"
+      - "COMPOSER_HOME=/tmp"
+    depends_on:
+      - db
+      - redis
+
+#  worker-default:
+#    <<: *php
+#    container_name: mn_alarm_worker_default
+#    command: php artisan horizon
+
+  web:
+    container_name: mn_alarm_web
+    image: nginx:1.13-alpine
+    working_dir: /var/www/html
+    restart: always
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./:/var/www/html:delegated
+      - ./storage/app/public:/var/www/html/public/storage:delegated
+    depends_on:
+      - app
+
+  db:
+    container_name: mn_alarm_db
+    image: mariadb:10.4
+    restart: always
+    ports:
+      - "33066:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    environment:
+      - "MYSQL_DATABASE=mn_alarm"
+      - "MYSQL_USER=mn_alarm"
+      - "MYSQL_PASSWORD=secret"
+      - "MYSQL_ROOT_PASSWORD=secret"
+
+  redis:
+    container_name: mn_alarm_redis
+    image: redis:3.2-alpine
+    restart: always
+    ports:
+      - 36379:6379
+    volumes:
+      - redisdata:/data
+
+volumes:
+  dbdata:
+  redisdata:
+  composertmp:

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!-- meta -->
+    <!-- Primary Meta Tags -->
+    <title>DFI Signal - Masternode Signals on Telegram</title>
+    <meta
+        name="title"
+        content="DFI Signal - Masternode Signals on Telegram"
+    />
+    <meta
+        name="description"
+        content="Setup your DFI Signal and get informed on new minted blocks or if your masternodes follows the wrong fork."
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://dfi-signal.de/"/>
+    <meta
+        property="og:title"
+        content="DFI Signal - Masternode Signals on Telegram"
+    />
+    <meta
+        property="og:description"
+        content="Setup your DFI Signal and get informed on new minted blocks or if your masternodes follows the wrong fork."
+    />
+    <meta
+        property="og:image"
+        content="https://dfi-signal.de/public/images/og-image.jpg"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image"/>
+    <meta property="twitter:url" content="https://dfi-signal.de/"/>
+    <meta
+        property="twitter:title"
+        content="DFI Signal - Masternode Signals on Telegram"
+    />
+    <meta
+        property="twitter:description"
+        content="Setup your DFI Signal and get informed on new minted blocks or if your masternodes follows the wrong fork."
+    />
+    <meta
+        property="twitter:image"
+        content="https://dfi-signal.de/public/images/og-image.jpg"
+    />
+    <!-- end meta -->
+
+    <!-- Bootstrap CSS -->
+    <link href="./public/main.css" rel="stylesheet"/>
+</head>
+
+<body>
+<main>
+    <section class="section">
+        <div class="header">
+            <nav
+                class="
+                            header__navbar
+                            navbar navbar-expand-lg navbar-dark
+                            bg-dark
+                        "
+            >
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="./">
+                        <img
+                            src="./public/images/logo.svg"
+                            alt="DFI Signal logo"
+                            class="header__logo"
+                            width="512"
+                            height="173"
+                        />
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="intro">
+            <div class="intro__bg">
+                <img
+                    src="./public/images/icon.svg"
+                    width="173"
+                    height="173"
+                    alt="DFI Signal Icon"
+                    class="intro__icon"
+                    loading="lazy"
+                />
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md intro__content-col">
+                        <h1>DFI Signal</h1>
+                        <p class="lead">
+                            get informed by signals on Telegram
+                        </p>
+                        <a
+                            href="https://t.me/DFI_Signal_bot"
+                            class="btn btn-primary btn-lg btn-custom"
+                            target="_blank"
+                        >setup dfi signal</a
+                        >
+                    </div>
+                    <div class="col-md">
+                        <div class="phone">
+                            <div class="phone__wrapper">
+                                <img
+                                    src="./public/images/phone.png"
+                                    alt=""
+                                    class="phone__phone"
+                                    width="540"
+                                    height="641"
+                                    loading="lazy"
+                                />
+                                <img
+                                    src="./public/images/screen.jpg"
+                                    alt=""
+                                    class="phone__screen"
+                                    loading="lazy"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="about">
+            <div class="container">
+                <h2>Masternodes</h2>
+                <p>
+                    Setup your DFI Signal and get informed on new minted
+                    blocks or if your masternodes follows the wrong
+                    fork.
+                </p>
+
+                <hr/>
+
+                <h2>Wallet (coming soon)</h2>
+                <p>
+                    You can setup your wallet addresses and get your
+                    daily, weekly or monthly wallet update
+                </p>
+
+                <hr/>
+
+                <h2>Commands</h2>
+                <p>These commands are available at the moment:</p>
+
+                <span class="overline overline--blue">sync</span>
+                <p class="code">&#47;sync</p>
+                <p>
+                    Use the sync with
+                    <a
+                        href="https://www.defichain-masternode-monitor.com/"
+                        target="_blank"
+                    >Masternode Monito</a
+                    >
+                    . All your masternodes from the Masternode Monitor
+                    are synced. While the setup you can decide if you
+                    wish to get automatic signals for these masternodes.
+                </p>
+
+                <span class="overline overline--blue">link</span>
+                <p class="code">
+                    &#47;link_mn &lt;OWNER_ADR &#47; OPERATOR_ADR &#47;
+                    MN_ID&gt;
+                </p>
+                <p>
+                    Link a masternode to your account. While the setup
+                    you can decide if you wish to get automatic signals
+                    for this masternode.
+                </p>
+
+                <span class="overline overline--blue">unlink</span>
+                <p class="code">
+                    &#47;unlink_mn &lt;OWNER_ADR &#47; OPERATOR_ADR
+                    &#47; MN_ID&gt;
+                </p>
+                <p>Removes the masternode from your account.</p>
+
+                <span class="overline overline--blue">reset</span>
+                <p class="code">&#47;reset</p>
+                <p>
+                    Removes all stored data from your account. This
+                    action cannot be undone.
+                </p>
+
+                <span class="overline overline--blue">list</span>
+                <p class="code">&#47;list</p>
+                <p>
+                    Lists your masternodes with a couple of statistics.
+                </p>
+
+                <span class="overline overline--blue">stats</span>
+                <p class="code">&#47;stats</p>
+                <p>
+                    Shows a couple of more detailed statistics of your
+                    masternodes.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm">
+                    <h2>contact</h2>
+                    <p>
+                        <a href="mailt: adrian@c-m-d.info"
+                        >adrian@c-m-d.info</a
+                        ><br/>
+                        <strong>@adrianschnell</strong> on Telegram
+                    </p>
+                </div>
+                <div class="col-sm">
+                    <h2>legal</h2>
+                    <p>
+                        This application/website is is operated by:<br/>
+                        Adrian Schnell Breslauerstr. 2 91207 Lauf
+                        a.d.<br/>
+                        Pegnitz Germany
+                    </p>
+                    <p>
+                        <small>
+                            Responsible for the contents in the sense of
+                            § 5 TMG § 18 Abs. 2 MStV: Adrian
+                            Schnell</small
+                        >
+                    </p>
+                </div>
+            </div>
+            <div class="footer__icon">
+                <img
+                    src="./public/images/logo.svg"
+                    alt="DFI Signal logo"
+                    width="512"
+                    height="173"
+                />
+            </div>
+        </div>
+    </footer>
+</main>
+</body>
+</html>
