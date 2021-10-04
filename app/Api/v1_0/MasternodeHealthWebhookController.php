@@ -15,8 +15,7 @@ class MasternodeHealthWebhookController
             $webhookRequest->analysis(),
             $webhookRequest->latest_update(),
             $webhookRequest->telegramUser());
-        dispatch_sync($analyzerJob);
-//        dispatch($analyzerJob)->onQueue(QueueNames::WEBHOOK_RECEIVED);
+        dispatch($analyzerJob)->onQueue(QueueNames::WEBHOOK_RECEIVED);
 
         return response()->json(['message' => 'ok'], JsonResponse::HTTP_OK);
     }
