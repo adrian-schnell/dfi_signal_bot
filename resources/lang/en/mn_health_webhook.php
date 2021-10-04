@@ -11,7 +11,7 @@ return [
     'warnings' => [
         'block_height'     => "👉 *Block Height*\r\nYour local node has block height :value and the main net is at block :expected. The node is :difference blocks behind.",
         'connection_count' => "👉 *Connection Count*\r\nAt the moment there are only :value active connections. Maybe the node recently restartet, otherwise it's recommended to add more connections with the command `addnode \"seed.mydeficha.in:8555\" add`.",
-        'logsize'          => "👉 *Logsize quite big*\r\nYour `debug.log` appears to be quite bit with :size MB. Maybe your node has a problem...",
+        'logsize'          => "👉 *Logsize quite big*\r\nYour `debug.log` appears to be quite big with :value MB. Maybe your node has a problem...",
         'config_checksum'  => "👉 *Config Checksum changed*\r\nThe checksum of your `defi.conf` file changed. If you did not change anything, take a look at this file. Maybe your server got hacked..?",
         'node_version'     => "👉 *Please update your node*\r\nYour node is running on version :value - the current available version is :expected. Please update your node soon.",
 
