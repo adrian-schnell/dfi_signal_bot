@@ -19,12 +19,9 @@
         "kurozora/laravel-cooldown": "^1.0",
         "laravel/framework": "^8.40",
         "laravel/horizon": "^5.7",
-        "laravel/nova": "^3.26",
         "laravel/telescope": "^4.4",
         "laravel/tinker": "^2.5",
-        "php-junior/nova-logs": "^1.0",
-        "spatie/laravel-ray": "^1.17",
-        "vmitchell85/nova-links": "^1.0"
+        "spatie/laravel-ray": "^1.17"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest",
@@ -63,7 +60,6 @@
             "@php artisan key:generate --ansi"
         ],
         "post-update-cmd": [
-            "@php artisan nova:publish",
             "@php artisan telescope:publish --ansi",
             "@php artisan ide-helper:generate",
             "@php artisan ide-helper:meta"
@@ -79,12 +75,6 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://nova.laravel.com"
-        }
-    ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }
