@@ -96,7 +96,6 @@ return [
     ],
 
     'ignore_paths' => [
-        'nova-api*',
         'admin_backend/*',
     ],
 
@@ -131,9 +130,7 @@ return [
         Watchers\EventWatcher::class => [
             'enabled' => env('TELESCOPE_EVENT_WATCHER', false),
             'ignore' => [
-                Laravel\Nova\Events\NovaServiceProviderRegistered::class,
                 Laravel\Horizon\Events\JobPushed::class,
-                Laravel\Nova\Events\ServingNova::class,
             ],
         ],
 
