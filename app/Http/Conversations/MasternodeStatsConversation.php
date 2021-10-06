@@ -79,12 +79,6 @@ class MasternodeStatsConversation extends Conversation
                         $latestMintedBlock->block_time, $masternode->user->language
                     ),
                 ]);
-            $questionString .= __('MasternodeStatConversation.tx_link',
-                [
-                    'txid'           => $masternode->mintedBlocks->sortByDesc('id')->first()->mint_txid,
-                    'txid_truncated' => str_truncate_middle($masternode->mintedBlocks()->latest()->first()
-                        ->mint_txid, 30),
-                ]);
         }
         if (count($masternode->masternode->target_multipliers) > 0) {
             $questionString .= __('MasternodeStatConversation.target_multiplier',

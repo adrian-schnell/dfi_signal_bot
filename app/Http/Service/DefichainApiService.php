@@ -17,6 +17,7 @@ class DefichainApiService
 {
     protected ClientInterface $generalClient;
     protected ClientInterface $transactionClient;
+    protected ClientInterface $oceanClient;
 
     public function __construct()
     {
@@ -27,6 +28,11 @@ class DefichainApiService
         ]);
         $this->transactionClient = new Client([
             'base_uri'        => config('api_defichain.transaction.base_uri'),
+            'timeout'         => 5,
+            'connect_timeout' => 5,
+        ]);
+        $this->oceanClient = new Client([
+            'base_uri'        => config('api_defichain.ocean.base_uri'),
             'timeout'         => 5,
             'connect_timeout' => 5,
         ]);
@@ -86,6 +92,23 @@ class DefichainApiService
             throw DefichainApiException::generic(sprintf('API request to fetch latest block hash failed with message: %s',
                 $e->getMessage()), $e);
         }
+    }
+
+    public function getCurrentReward(): float
+    {
+        return cache()->remember('minter_reward', now()->addMinutes(5), function (){
+            try {
+                return $this->getStats()['rewards']['minter'] ?? -1;
+            } catch (DefichainApiException $e) {
+                Log::error('failed loading latest reward', [
+                    'file'    => $e->getFile(),
+                    'message' => $e->getMessage(),
+                    'line'    => $e->getLine(),
+                ]);
+                throw DefichainApiException::generic(sprintf('API request to fetch latest reward failed with message: %s',
+                    $e->getMessage()), $e);
+            }
+        });
     }
 
     public function getBlockDetails(string $blockNumber): array

@@ -26,13 +26,10 @@ class MintedBlockRepository
             $newMintedBlock = MintedBlock::updateOrCreate([
                 'user_masternode_id' => $userMasternode->id,
                 'mintBlockHeight'    => $mintedBlock['mintHeight'],
-                'mint_txid'          => $mintedBlock['mintTxid'],
             ], [
                 'user_masternode_id' => $userMasternode->id,
                 'mintBlockHeight'    => $mintedBlock['mintHeight'],
                 'spentBlockHeight'   => $mintedBlock['spentHeight'],
-                'spent_txid'         => $mintedBlock['spentTxid'],
-                'mint_txid'          => $mintedBlock['mintTxid'],
                 'value'              => $mintedBlock['value'] / 100000000,
                 'address'            => $mintedBlock['address'],
                 'block_hash'         => $txInfo['blockHash'] ?? null,
