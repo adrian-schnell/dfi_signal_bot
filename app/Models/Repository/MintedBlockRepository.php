@@ -24,7 +24,7 @@ class MintedBlockRepository
             'mintBlockHeight'    => $data['height'],
             'value'              => $service->getMinterRewardFromStats(),
             'address'            => $data['minter'],
-            'block_hash'         => $txInfo['hash'] ?? null,
+            'block_hash'         => $data['hash'] ?? null,
             'block_time'         => array_key_exists('time', $data)
                 ? Carbon::parse($data['time'])->addHours(2)
                 : now(),
