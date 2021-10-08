@@ -29,7 +29,6 @@ class MintedBlockRepository
             ], [
                 'user_masternode_id' => $userMasternode->id,
                 'mintBlockHeight'    => $mintedBlock['mintHeight'],
-                'spentBlockHeight'   => $mintedBlock['spentHeight'],
                 'value'              => $mintedBlock['value'] / 100000000,
                 'address'            => $mintedBlock['address'],
                 'block_hash'         => $txInfo['blockHash'] ?? null,

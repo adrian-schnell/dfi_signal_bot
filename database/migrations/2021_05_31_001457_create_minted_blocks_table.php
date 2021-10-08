@@ -12,8 +12,10 @@ class CreateMintedBlocksTable extends Migration
 		Schema::create('minted_blocks', function (Blueprint $table) {
 			$table->bigIncrements('id');
 			$table->foreignIdFor(UserMasternode::class)->constrained()->cascadeOnDelete();
+			$table->string('spent_txid')->nullable();
 			$table->integer('mintBlockHeight')->nullable();
 			$table->integer('spentBlockHeight')->nullable();
+			$table->string('mint_txid')->nullable();
 			$table->float('value', 20, 12)->default(0);
 			$table->string('address')->nullable();
 			$table->string('block_hash')->nullable();

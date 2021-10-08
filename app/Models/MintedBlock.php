@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property integer        user_masternode_id
  * @property UserMasternode userMasternode
  * @property integer        mintBlockHeight
- * @property integer        spentBlockHeight
  * @property string         block_hash
  * @property float          value
  * @property string         address
@@ -26,7 +25,6 @@ class MintedBlock extends Model
     protected $fillable = [
         'user_masternode_id',
         'mintBlockHeight',
-        'spentBlockHeight',
         'value',
         'address',
         'block_time',

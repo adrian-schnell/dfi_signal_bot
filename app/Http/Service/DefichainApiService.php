@@ -61,6 +61,26 @@ class DefichainApiService
         }
     }
 
+    public function getBlockData(int $blockHeight): array
+    {
+        try {
+            return json_decode(
+                $this->oceanClient->get(sprintf(config('api_defichain.ocean.blocks'), $blockHeight), [
+                    'timeout'            => 5,
+                    'connection_timeout' => 5,
+                ])->getBody()->getContents(),
+                true
+            )['data'] ?? [];
+        } catch (Throwable $e) {
+            Log::error('failed loading block data from ocean', [
+                'file'    => $e->getFile(),
+                'message' => $e->getMessage(),
+                'line'    => $e->getLine(),
+            ]);
+            throw DefichainApiException::generic($e->getMessage(), $e);
+        }
+    }
+
     /**
      * @throws \App\Exceptions\DefichainApiException
      */
