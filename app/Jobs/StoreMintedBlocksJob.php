@@ -49,8 +49,7 @@ class StoreMintedBlocksJob implements ShouldQueue
             ->storeMintedBlocks(
                 $apiService,
                 $this->masternode,
-                $this->mintedBlocks,
-                $this->isInit
+                $this->mintedBlocks
             );
     }
 

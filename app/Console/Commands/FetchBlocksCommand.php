@@ -5,11 +5,12 @@ namespace App\Console\Commands;
 use App\Http\Service\DefichainApiService;
 use App\Models\Masternode;
 use App\Models\Repository\IndexMemoryRepository;
+use App\Models\Repository\MintedBlockRepository;
 use App\Models\UserMasternode;
-use Illuminate\Console\Command;
+use App\SignalService\SignalService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class FetchBlocksCommand extends Command
+class FetchBlocksCommand extends VerboseCommand
 {
     protected $signature = 'update:blocks';
     protected $description = 'Fetch all new blocks and check, if a signal should be sent to a user';
@@ -27,7 +28,7 @@ class FetchBlocksCommand extends Command
         ) {
             $latestBlockHeight++;
         }
-        $this->info('finished run');
+        $this->sendMessageIfVerbose('finished run');
     }
 
     protected function runNewBlocks(
@@ -40,7 +41,7 @@ class FetchBlocksCommand extends Command
         try {
             $masternode = Masternode::where('masternode_id', $blockData['masternode'] ?? 'n/a')->firstOrFail();
         } catch (ModelNotFoundException $e) {
-            $this->info('synced data is up to date');
+            $this->sendMessageIfVerbose('synced data is up to date');
 
             return false;
         }
@@ -48,19 +49,41 @@ class FetchBlocksCommand extends Command
         // check if user has this masternode
         $userMn = $masternode->userMasternodes;
         if (count($userMn) === 0) {
-            $this->info(sprintf('This MN has no active users atm for block height %s', $blockHeight));
+            $this->sendMessageIfVerbose(sprintf('no masternode by users hit block height %s', $blockHeight));
             $this->finish($memoryRepository);
 
             return true;
         }
 
-
+        $blockRepository = app(MintedBlockRepository::class);
+        $signalService = app(SignalService::class);
         // user masternodes found - create minted block data
-        $userMn->each(function (UserMasternode $userMasternode) {
+        $userMn->each(function (UserMasternode $userMasternode) use (
+            $blockData,
+            $defichainApi,
+            $blockRepository,
+            $signalService
+        ) {
+            $mintedBlock = $blockRepository->storeMintedBlockOceanData(
+                $defichainApi,
+                $userMasternode,
+                $blockData
+            );
+            if ($mintedBlock->is_reported) {
+                $this->warn(sprintf('user mn %s hit block %s - message skipped (was sent before)', $userMasternode->id,
+                    $blockData['height']));
+                return;
+            }
 
+            [$timeDiff, $blockDiff] = $blockRepository->calculateTimeBlockDiff($userMasternode);
+            $signalService->tellMintedBlock(
+                $userMasternode->user,
+                $mintedBlock,
+                $timeDiff,
+                $blockDiff
+            );
+            $this->warn(sprintf('user mn %s hit block %s - message sent', $userMasternode->id, $blockData['height']));
         });
-
-        ray($masternode, $userMn);
 
         return true;
     }
