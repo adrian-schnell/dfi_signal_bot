@@ -6,61 +6,59 @@ use app\Http\Service\DefichainApiService;
 use App\Models\MintedBlock;
 use App\Models\TelegramUser;
 use App\Models\UserMasternode;
-use App\SignalService\SignalService;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 
 class MintedBlockRepository
 {
+    public function storeMintedBlockOceanData(
+        DefichainApiService $service,
+        UserMasternode $userMasternode,
+        array $data
+    ): MintedBlock {
+        return MintedBlock::updateOrCreate([
+            'user_masternode_id' => $userMasternode->id,
+            'mintBlockHeight'    => $data['height'],
+        ], [
+            'user_masternode_id' => $userMasternode->id,
+            'mintBlockHeight'    => $data['height'],
+            'value'              => $service->getMinterRewardFromStats(),
+            'address'            => $data['minter'],
+            'block_hash'         => $txInfo['hash'] ?? null,
+            'block_time'         => array_key_exists('time', $data)
+                ? Carbon::parse($data['time'])->addHours(2)
+                : now(),
+        ]);
+    }
+
     public function storeMintedBlocks(
         DefichainApiService $service,
         UserMasternode $userMasternode,
-        array $mintedBlocks,
-        bool $initMode = false
+        array $mintedBlocks
     ): void {
         foreach ($mintedBlocks as $mintedBlock) {
             $txInfo = $service->getTransactionDetails($mintedBlock['mintTxid']);
             if (!UserMasternode::whereId($userMasternode->id)->exists()) {
                 return;
             }
-            $newMintedBlock = MintedBlock::updateOrCreate([
+            MintedBlock::updateOrCreate([
                 'user_masternode_id' => $userMasternode->id,
                 'mintBlockHeight'    => $mintedBlock['mintHeight'],
-                'mint_txid'          => $mintedBlock['mintTxid'],
             ], [
                 'user_masternode_id' => $userMasternode->id,
                 'mintBlockHeight'    => $mintedBlock['mintHeight'],
-                'spentBlockHeight'   => $mintedBlock['spentHeight'],
-                'spent_txid'         => $mintedBlock['spentTxid'],
-                'mint_txid'          => $mintedBlock['mintTxid'],
                 'value'              => $mintedBlock['value'] / 100000000,
                 'address'            => $mintedBlock['address'],
                 'block_hash'         => $txInfo['blockHash'] ?? null,
                 'block_time'         => array_key_exists('blockTime', $txInfo)
                     ? Carbon::parse($txInfo['blockTime'])->addHours(2)
                     : now(),
+                'is_reported'        => true,
             ]);
-
-            if (!$initMode && $userMasternode->alarm_on && !$newMintedBlock->is_reported) {
-                // calculate diff between last 2 blocks
-                [$timeDiff, $blockDiff] = $this->calculateTimeBlockDiff($userMasternode);
-
-                app(SignalService::class)->tellMintedBlock(
-                    $userMasternode->user,
-                    $newMintedBlock,
-                    $timeDiff,
-                    $blockDiff,
-                    $userMasternode->user->language
-                );
-            } else {
-                $newMintedBlock->update([
-                    'is_reported' => true,
-                ]);
-            }
         }
     }
 
-    protected function calculateTimeBlockDiff(UserMasternode $userMasternode): array
+    public function calculateTimeBlockDiff(UserMasternode $userMasternode): array
     {
         // calculate diff between last 2 blocks
         $lastTwoBlocks = $userMasternode->mintedBlocks->sortByDesc('id')->take(2);

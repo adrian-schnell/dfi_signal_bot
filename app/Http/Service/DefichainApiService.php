@@ -17,16 +17,22 @@ class DefichainApiService
 {
     protected ClientInterface $generalClient;
     protected ClientInterface $transactionClient;
+    protected ClientInterface $oceanClient;
 
     public function __construct()
     {
-        $this->generalClient     = new Client([
+        $this->generalClient = new Client([
             'base_uri'        => config('api_defichain.general.base_uri'),
             'timeout'         => 5,
             'connect_timeout' => 5,
         ]);
         $this->transactionClient = new Client([
             'base_uri'        => config('api_defichain.transaction.base_uri'),
+            'timeout'         => 5,
+            'connect_timeout' => 5,
+        ]);
+        $this->oceanClient = new Client([
+            'base_uri'        => config('api_defichain.ocean.base_uri'),
             'timeout'         => 5,
             'connect_timeout' => 5,
         ]);
@@ -47,6 +53,41 @@ class DefichainApiService
             );
         } catch (Throwable $e) {
             Log::error('failed loading stats', [
+                'file'    => $e->getFile(),
+                'message' => $e->getMessage(),
+                'line'    => $e->getLine(),
+            ]);
+            throw DefichainApiException::generic($e->getMessage(), $e);
+        }
+    }
+
+    public function getMinterRewardFromStats(): float
+    {
+        try {
+            return $this->getStats()['rewards']['minter'];
+        } catch (DefichainApiException $e) {
+            Log::error('failed loading minter reward from stats', [
+                'file'    => $e->getFile(),
+                'message' => $e->getMessage(),
+                'line'    => $e->getLine(),
+            ]);
+
+            return -1;
+        }
+    }
+
+    public function getBlockData(int $blockHeight): array
+    {
+        try {
+            return json_decode(
+                       $this->oceanClient->get(sprintf(config('api_defichain.ocean.blocks'), $blockHeight), [
+                           'timeout'            => 5,
+                           'connection_timeout' => 5,
+                       ])->getBody()->getContents(),
+                       true
+                   )['data'] ?? [];
+        } catch (Throwable $e) {
+            Log::error('failed loading block data from ocean', [
                 'file'    => $e->getFile(),
                 'message' => $e->getMessage(),
                 'line'    => $e->getLine(),
@@ -86,6 +127,23 @@ class DefichainApiService
             throw DefichainApiException::generic(sprintf('API request to fetch latest block hash failed with message: %s',
                 $e->getMessage()), $e);
         }
+    }
+
+    public function getCurrentReward(): float
+    {
+        return cache()->remember('minter_reward', now()->addMinutes(5), function () {
+            try {
+                return $this->getStats()['rewards']['minter'] ?? -1;
+            } catch (DefichainApiException $e) {
+                Log::error('failed loading latest reward', [
+                    'file'    => $e->getFile(),
+                    'message' => $e->getMessage(),
+                    'line'    => $e->getLine(),
+                ]);
+                throw DefichainApiException::generic(sprintf('API request to fetch latest reward failed with message: %s',
+                    $e->getMessage()), $e);
+            }
+        });
     }
 
     public function getBlockDetails(string $blockNumber): array
@@ -171,7 +229,7 @@ class DefichainApiService
             return [];
         }
 
-        $txs            = json_decode($rawResponse, true);
+        $txs = json_decode($rawResponse, true);
         $mintedBlockTxs = [];
         foreach ($txs as $tx) {
             if (!$tx['coinbase']) {

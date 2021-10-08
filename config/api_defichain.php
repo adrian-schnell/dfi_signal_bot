@@ -13,4 +13,8 @@ return [
         'address'  => 'address/%s/txs',
         'block'    => 'block/%s',
     ],
+    'ocean'       => [
+        'base_uri' => 'https://ocean.defichain.com/v0/mainnet/',
+        'blocks'   => 'blocks/%s',
+    ],
 ];
