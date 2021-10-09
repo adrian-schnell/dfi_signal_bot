@@ -18,14 +18,12 @@ class StoreMintedBlocksJob implements ShouldQueue
 
     protected ?UserMasternode $masternode;
     protected array $mintedBlocks = [];
-    protected bool $isInit = true;
     protected ?TelegramUser $user;
 
-    public function __construct(int $masternodeID, int $userId, bool $isInit)
+    public function __construct(int $masternodeID, int $userId)
     {
         $this->masternode = UserMasternode::find($masternodeID);
         $this->user = TelegramUser::find($userId);
-        $this->isInit = $isInit;
     }
 
     public function handle(DefichainApiService $apiService): void

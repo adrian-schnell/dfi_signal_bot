@@ -38,7 +38,7 @@ class MNMonitorSyncMasternodesForUser implements ShouldQueue
 
         set_language($this->user->language);
         if ($countAfter !== $countBefore) {
-            app(DefichainApiService::class)->storeMintedBlockForTelegramUser($this->user, true);
+            app(DefichainApiService::class)->storeMintedBlockForTelegramUser($this->user);
         }
         if ($countAfter === 0) { // no masternodes stored - disable sync
             $this->user->update([
