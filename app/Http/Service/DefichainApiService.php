@@ -241,12 +241,12 @@ class DefichainApiService
         return $mintedBlockTxs;
     }
 
-    public function storeMintedBlockForTelegramUser(TelegramUser $user, bool $initMode = true): void
+    public function storeMintedBlockForTelegramUser(TelegramUser $user): void
     {
         $masternodes = $user->masternodes;
 
-        $masternodes->each(function (UserMasternode $masternode) use ($initMode, $user) {
-            dispatch(new StoreMintedBlocksJob($masternode->id, $user->id, $initMode))
+        $masternodes->each(function (UserMasternode $masternode) use ($user) {
+            dispatch(new StoreMintedBlocksJob($masternode->id, $user->id))
                 ->onQueue(QueueNames::MINTED_BLOCK_QUEUE);
         });
     }

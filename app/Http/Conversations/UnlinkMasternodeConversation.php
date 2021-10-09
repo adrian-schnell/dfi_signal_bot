@@ -10,8 +10,6 @@ use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
 use BotMan\BotMan\Messages\Outgoing\Question;
-use BotMan\Drivers\Telegram\Extensions\User;
-use Str;
 
 class UnlinkMasternodeConversation extends Conversation
 {
@@ -20,7 +18,7 @@ class UnlinkMasternodeConversation extends Conversation
     protected ?TelegramUser $user = null;
     protected string $ownerAddress = '';
 
-    public function __construct(User $user, string $ownerAddress = '')
+    public function __construct(UserInterface $user, string $ownerAddress = '')
     {
         $this->user = app(TelegramUserService::class)->getTelegramUser($user);
         $this->ownerAddress = $ownerAddress;
