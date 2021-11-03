@@ -26,7 +26,7 @@ class MintedBlockRepository
             'address'            => $data['minter'],
             'block_hash'         => $data['hash'] ?? null,
             'block_time'         => array_key_exists('time', $data)
-                ? Carbon::parse($data['time'])->addHours(2)
+                ? Carbon::parse($data['time'])->tz('Europe/Berlin')
                 : now(),
         ]);
     }
