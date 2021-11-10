@@ -32,7 +32,7 @@ class ServerHealthConversation extends Conversation
     public function run()
     {
         $masternodeHealthService = new MasternodeHealthApiService($this->telegramUser);
-
+	    $this->say(__('serverHealthConversation.loading_data'));
         try {
             $serverStats = $masternodeHealthService->getServerStats();
             $nodeInfo = $masternodeHealthService->getNodeInfo();
