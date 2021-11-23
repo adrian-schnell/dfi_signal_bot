@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\HorizonBasicAuthMiddleware;
 use App\Http\Middleware\EncryptCookies;
 use App\Http\Middleware\PaginateAPI;
 use App\Http\Middleware\PreventRequestsDuringMaintenance;
@@ -28,41 +29,42 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 
 class Kernel extends HttpKernel
 {
-    protected $middleware = [
-        // \App\Http\Middleware\TrustHosts::class,
-        TrustProxies::class,
-        HandleCors::class,
-        PreventRequestsDuringMaintenance::class,
-        ValidatePostSize::class,
-        TrimStrings::class,
-        ConvertEmptyStringsToNull::class,
-    ];
-    protected $middlewareGroups = [
-        'web' => [
-            EncryptCookies::class,
-            AddQueuedCookiesToResponse::class,
-            StartSession::class,
-            // \Illuminate\Session\Middleware\AuthenticateSession::class,
-            ShareErrorsFromSession::class,
-            VerifyCsrfToken::class,
-            SubstituteBindings::class,
-        ],
+	protected $middleware = [
+		// \App\Http\Middleware\TrustHosts::class,
+		TrustProxies::class,
+		HandleCors::class,
+		PreventRequestsDuringMaintenance::class,
+		ValidatePostSize::class,
+		TrimStrings::class,
+		ConvertEmptyStringsToNull::class,
+	];
+	protected $middlewareGroups = [
+		'web' => [
+			EncryptCookies::class,
+			AddQueuedCookiesToResponse::class,
+			StartSession::class,
+			// \Illuminate\Session\Middleware\AuthenticateSession::class,
+			ShareErrorsFromSession::class,
+			VerifyCsrfToken::class,
+			SubstituteBindings::class,
+		],
 
-        'api' => [
-            'throttle:api',
-            PaginateAPI::class,
-            SubstituteBindings::class,
-        ],
-    ];
-    protected $routeMiddleware = [
-        'auth'             => Authenticate::class,
-        'auth.basic'       => AuthenticateWithBasicAuth::class,
-        'cache.headers'    => SetCacheHeaders::class,
-        'can'              => Authorize::class,
-        'guest'            => RedirectIfAuthenticated::class,
-        'password.confirm' => RequirePassword::class,
-        'signed'           => ValidateSignature::class,
-        'throttle'         => ThrottleRequests::class,
-        'verified'         => EnsureEmailIsVerified::class,
-    ];
+		'api' => [
+			'throttle:api',
+			PaginateAPI::class,
+			SubstituteBindings::class,
+		],
+	];
+	protected $routeMiddleware = [
+		'auth'               => Authenticate::class,
+		'auth.basic'         => AuthenticateWithBasicAuth::class,
+		'cache.headers'      => SetCacheHeaders::class,
+		'can'                => Authorize::class,
+		'guest'              => RedirectIfAuthenticated::class,
+		'password.confirm'   => RequirePassword::class,
+		'signed'             => ValidateSignature::class,
+		'throttle'           => ThrottleRequests::class,
+		'verified'           => EnsureEmailIsVerified::class,
+		'horizon_basic_auth' => HorizonBasicAuthMiddleware::class,
+	];
 }
