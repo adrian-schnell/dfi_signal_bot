@@ -40,7 +40,14 @@ if (!function_exists('set_language')) {
 if (!function_exists('get_language')) {
     function get_language(string $language = 'en'): string
     {
-        return in_array($language, ['en', 'de']) ? $language : 'en';
+        return in_array($language, available_languages()) ? $language : 'en';
+    }
+}
+
+if (!function_exists('available_languages')) {
+    function available_languages(): array
+    {
+        return ['en', 'de'];
     }
 }
 
