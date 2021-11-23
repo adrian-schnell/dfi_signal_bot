@@ -71,7 +71,7 @@ return [
     |
     */
 
-    'middleware' => ['web'],
+    'middleware' => ['web', 'horizon_basic_auth'],
 
     /*
     |--------------------------------------------------------------------------
@@ -89,8 +89,8 @@ return [
     ],
 
     'basic_auth' => [
-        'username' => env('HORIZON_BASIC_AUTH_USERNAME'),
-        'password' => env('HORIZON_BASIC_AUTH_PASSWORD'),
+        'username' => env('HORIZON_BASIC_AUTH_USERNAME', 'admin'),
+        'password' => env('HORIZON_BASIC_AUTH_PASSWORD', 'admin'),
     ],
 
     /*
