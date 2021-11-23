@@ -40,15 +40,5 @@ class OnDemandMessageCommand extends Command
 			}
 			$messageService->sendMessage($user, $message, $parseMarkdown);
 		});
-
-//		$users = TelegramUser::all();
-//		$users->each(function (TelegramUser $user) use ($messageService, $message, $parseMarkdownOption
-//		){
-//			$parseMarkdown = [];
-//			if ($parseMarkdownOption) {
-//				$parseMarkdown = ['parse_mode' => 'Markdown'];
-//			}
-//			$messageService->sendMessage($user, nl2br($message), $parseMarkdown);
-//		});
 	}
 }
