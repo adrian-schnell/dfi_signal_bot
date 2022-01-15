@@ -22,7 +22,7 @@ class MintedBlockRepository
         ], [
             'user_masternode_id' => $userMasternode->id,
             'mintBlockHeight'    => $data['height'],
-            'value'              => $data['reward'] ?? $service->getMinterRewardFromStats(),
+            'value'              => (float)$data['reward'] ?? $service->getMinterRewardFromStats(),
             'address'            => $data['minter'],
             'block_hash'         => $data['hash'] ?? null,
             'block_time'         => array_key_exists('time', $data)
