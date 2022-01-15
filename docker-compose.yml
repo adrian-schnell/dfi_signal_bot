@@ -1,7 +1,7 @@
 version: '3'
 services:
   app: &php
-    container_name: app
+    container_name: dfi_signal_app
     image: adrianabo/php:7.4.14-fpm-buster
     restart: on-failure
     user: www-data
@@ -25,11 +25,11 @@ services:
 
 #  worker-default:
 #    <<: *php
-#    container_name: mn_alarm_worker_default
+#    container_name: dfi_signal_worker_default
 #    command: php artisan horizon
 
   web:
-    container_name: mn_alarm_web
+    container_name: dfi_signal_web
     image: nginx:1.13-alpine
     working_dir: /var/www/html
     restart: always
@@ -43,7 +43,7 @@ services:
       - app
 
   db:
-    container_name: mn_alarm_db
+    container_name: dfi_signal_db
     image: mariadb:10.4
     restart: always
     ports:
@@ -57,7 +57,7 @@ services:
       - "MYSQL_ROOT_PASSWORD=secret"
 
   redis:
-    container_name: mn_alarm_redis
+    container_name: dfi_signal_redis
     image: redis:3.2-alpine
     restart: always
     ports:
