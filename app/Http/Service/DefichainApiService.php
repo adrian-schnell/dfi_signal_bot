@@ -149,8 +149,7 @@ class DefichainApiService
     public function getBlockDetails(string $blockNumber): array
     {
         try {
-            $rawResponse = $this->transactionClient->get(sprintf(config('api_defichain.transaction.block'),
-                $blockNumber), [
+            $rawResponse = $this->oceanClient->get(sprintf(config('api_defichain.ocean.blocks'), $blockNumber), [
                 'timeout'            => 5,
                 'connection_timeout' => 5,
             ])->getBody()->getContents();
@@ -165,7 +164,7 @@ class DefichainApiService
             return [];
         }
 
-        return json_decode($rawResponse, true);
+        return json_decode($rawResponse, true)['data'];
     }
 
     public function getPoolPairs(): array
