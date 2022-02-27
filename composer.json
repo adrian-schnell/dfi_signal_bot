@@ -16,7 +16,7 @@
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "kurozora/laravel-cooldown": "^1.0",
+        "kurozora/laravel-cooldown": "dev-master",
         "laravel/framework": "^8.40",
         "laravel/horizon": "^5.7",
         "laravel/tinker": "^2.5",
@@ -64,6 +64,12 @@
             "@php artisan horizon:publish --ansi"
         ]
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/defichain-api/laravel-cooldown"
+        }
+    ],
     "extra": {
         "laravel": {
             "dont-discover": []
