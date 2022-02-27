@@ -35,7 +35,7 @@
     "cssnano": "^5.0.2",
     "file-loader": "^6.2.0",
     "mini-css-extract-plugin": "^1.6.0",
-    "node-sass": "^6.0.0",
+    "node-sass": "^7.0.0",
     "postcss": "^8.2.15",
     "postcss-cli": "^8.3.1",
     "postcss-loader": "^5.2.0",
