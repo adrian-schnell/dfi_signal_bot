@@ -36,9 +36,6 @@ class Kernel extends ConsoleKernel
 
          // create statistics for yesterday
         $schedule->command('statistic:finalize')->dailyAt('0:00');
-
-         // telescope prune old data
-        $schedule->command('telescope:prune')->daily();
     }
 
     protected function commands(): void
