@@ -46,10 +46,6 @@
                     <code>/stats</code> about your rewards.
                 </p>
                 <hr/>
-                <h2>Wallet (coming soon)</h2>
-                <p> You can setup your wallet addresses and get your daily, weekly or monthly wallet update or a
-                    push on new incoming transactions.</p>
-                <hr/>
                 <h2>Commands</h2>
                 <p>These commands are available at the moment:</p>
 
