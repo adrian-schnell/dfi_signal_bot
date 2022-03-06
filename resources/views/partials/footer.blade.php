@@ -12,7 +12,7 @@
                     <strong>buy me a coffee</strong> <br>
                     <small>
                         - DFI: dRq3HUxyZv46ZNCEpBiTKpKKdJr3iy3m2U <br>
-                        - Get $10 extra on <a href="https://app.cakedefi.com?ref=472815" target="_blank">Cake DeFi
+                        - Get $30 extra on <a href="https://app.cakedefi.com?ref=472815" target="_blank">Cake DeFi
                             signup</a>
                     </small>
                 </p>
@@ -21,8 +21,7 @@
                 <h2>legal</h2>
                 <p>
                     This application/website is is operated by:<br/>
-                    Adrian Schnell Breslauerstr. 2 91207 Lauf
-                    a.d. Pegnitz Germany
+                    Adrian Schnell
                 </p>
                 <a href="{{ route('learn_more') }}">learn more about this application</a>
                 <p>
