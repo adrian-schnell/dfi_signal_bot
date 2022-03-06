@@ -37,7 +37,6 @@ class MintedBlockRepository
         array $mintedBlocks
     ): void {
         foreach ($mintedBlocks as $mintedBlock) {
-            $txInfo = $service->getTransactionDetails($mintedBlock['mintTxid']);
             if (!UserMasternode::whereId($userMasternode->id)->exists()) {
                 return;
             }
@@ -49,9 +48,9 @@ class MintedBlockRepository
                 'mintBlockHeight'    => $mintedBlock['mintHeight'],
                 'value'              => $mintedBlock['value'] / 100000000,
                 'address'            => $mintedBlock['address'],
-                'block_hash'         => $txInfo['blockHash'] ?? null,
-                'block_time'         => array_key_exists('blockTime', $txInfo)
-                    ? Carbon::parse($txInfo['blockTime'])->addHours(2)
+                'block_hash'         => $mintedBlock['blockHash'] ?? null,
+                'block_time'         => array_key_exists('blockTime', $mintedBlock)
+                    ? Carbon::parse($mintedBlock['blockTime'])->addHours(2)
                     : now(),
                 'is_reported'        => true,
             ]);

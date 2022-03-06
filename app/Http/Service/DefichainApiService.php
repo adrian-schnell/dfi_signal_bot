@@ -27,7 +27,7 @@ class DefichainApiService
             'connect_timeout' => 5,
         ]);
         $this->transactionClient = new Client([
-            'base_uri'        => config('api_defichain.transaction.base_uri'),
+            'base_uri'        => config('api_defichain.saiive.base_uri'),
             'timeout'         => 5,
             'connect_timeout' => 5,
         ]);
@@ -187,6 +187,9 @@ class DefichainApiService
         return json_decode($rawResponse, true);
     }
 
+	/**
+	 * @deprecated not in use anymore
+	 */
     public function getTransactionDetails(string $txid): array
     {
         try {
@@ -212,7 +215,7 @@ class DefichainApiService
     public function mintedBlocksForOwnerAddress(string $ownerAddress): array
     {
         try {
-            $rawResponse = $this->transactionClient->get(sprintf(config('api_defichain.transaction.address'),
+            $rawResponse = $this->transactionClient->get(sprintf(config('api_defichain.saiive.transactions'),
                 $ownerAddress), [
                 'timeout'            => 10,
                 'connection_timeout' => 10,
