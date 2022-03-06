@@ -31,7 +31,6 @@ class Kernel extends ConsoleKernel
          $schedule->command('masternode:update-list')->everyFiveMinutes()->withoutOverlapping();
          $schedule->command('update:masternode-monitor-sync')->hourly()->withoutOverlapping();
          $schedule->command('update:dex-prices')->everyFiveMinutes()->withoutOverlapping();
-//         $schedule->command('signal:update-masternode-minted')->everyFiveMinutes()->withoutOverlapping();
          $schedule->command('update:blocks')->everyMinute()->withoutOverlapping();
 
          // create statistics for yesterday
