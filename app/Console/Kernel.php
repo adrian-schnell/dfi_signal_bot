@@ -2,12 +2,12 @@
 
 namespace App\Console;
 
+use App\Console\Commands\BroadcastMessageCommand;
 use App\Console\Commands\CreateBackendUserCommand;
 use App\Console\Commands\FetchBlocksCommand;
 use App\Console\Commands\FinalizeStatisticsCommand;
 use App\Console\Commands\MasternodeMonitorSyncCommand;
 use App\Console\Commands\MintedBlockSignal;
-use App\Console\Commands\OnDemandMessageCommand;
 use App\Console\Commands\UpdateDexPrices;
 use App\Console\Commands\UpdateEnabledMasternodes;
 use Illuminate\Console\Scheduling\Schedule;
@@ -23,7 +23,7 @@ class Kernel extends ConsoleKernel
 	    MasternodeMonitorSyncCommand::class,
 	    FinalizeStatisticsCommand::class,
 	    FetchBlocksCommand::class,
-	    OnDemandMessageCommand::class,
+	    BroadcastMessageCommand::class,
     ];
 
     protected function schedule(Schedule $schedule): void

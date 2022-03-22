@@ -5,28 +5,38 @@ namespace App\Console\Commands;
 use App\Http\Service\TelegramMessageService;
 use App\Models\TelegramUser;
 use Illuminate\Console\Command;
+use Str;
 
-class OnDemandMessageCommand extends Command
+class BroadcastMessageCommand extends Command
 {
-	protected $signature = 'signal:on-demand {--message=} {--markdown} {--language=} {--debug}';
+	protected $signature = 'broadcast:message {--markdown} {--language=} {--debug}';
 	protected $description = 'Send a custom on demand message to all users';
 
-	public function handle(TelegramMessageService $messageService)
+	public function handle(TelegramMessageService $messageService): void
 	{
-		$message = $this->option('message');
-		$parseMarkdownOption = $this->option('markdown');
+		$message = $this->ask('Enter your wished message now:');
 		$language = $this->option('language');
 		$debug = $this->option('debug');
-		if (\Str::length($message) < 5) {
+		$parseMarkdown = $this->option('markdown') ? ['parse_mode' => 'Markdown'] : [];
+		if (Str::length($message) < 5) {
 			$this->error('please enter a message');
 
 			return;
 		}
+
 		if ($language && in_array($language, available_languages())) {
 			$users = TelegramUser::where('language', $language)->get();
 		} else {
 			$users = TelegramUser::all();
 		}
+
+		if (!$this->confirm('Sure you want to send out this message to all users?', false)) {
+			$this->info('cancelling broadcasting message');
+
+			return;
+		}
+
+		$message = implode("\n", explode('\n', $message));
 
 		$this->line('');
 		$this->line('');
@@ -34,11 +44,7 @@ class OnDemandMessageCommand extends Command
 		$this->line('start sending out messages...');
 		$this->line('########################################');
 		$this->withProgressBar($users, function (TelegramUser $user)
-		use ($messageService, $message, $parseMarkdownOption, $debug) {
-			$parseMarkdown = [];
-			if ($parseMarkdownOption) {
-				$parseMarkdown = ['parse_mode' => 'Markdown'];
-			}
+		use ($messageService, $message, $parseMarkdown, $debug) {
 			if (!$debug) {
 				$messageService->sendMessage($user, $message, $parseMarkdown);
 			}
