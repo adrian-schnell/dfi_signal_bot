@@ -17,7 +17,9 @@ class BroadcastMessageCommand extends Command
 		$message = $this->ask('Enter your wished message now:');
 		$language = $this->option('language');
 		$debug = $this->option('debug');
-		$parseMarkdown = $this->option('markdown') ? ['parse_mode' => 'Markdown'] : [];
+		$parseMarkdown = $this->option('markdown')
+			? ['parse_mode' => 'Markdown','disable_web_page_preview' => true]
+			: ['disable_web_page_preview' => true];
 		if (Str::length($message) < 5) {
 			$this->error('please enter a message');
 
