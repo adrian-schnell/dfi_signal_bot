@@ -39,7 +39,6 @@ class UpdateEnabledMasternodes extends Command
                     'target_multipliers' => json_encode($data['targetMultipliers'] ?? []),
                     'timelock'           => $data['timelock'] ?? null,
                     'resign_height'      => $data['resignHeight'],
-                    'ban_height'         => $data['banTx'] ?? null,
                 ];
             }
             $this->checkEnabledStateChange($preparedData);
